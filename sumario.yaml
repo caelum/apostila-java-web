@@ -1,0 +1,635 @@
+titulo: "Java para Desenvolvimento Web"
+descricao: "Web é o maior mercado Java. Aprenda JSP, Servlets, MVC, Spring, Ajax, Hibernate e mais com a apostila gratuita do curso da Caelum."
+capitulos: 
+  -
+    titulo: "Enfrentando o Java na Web"
+    arquivo: 01-enfrentando-o-java-na-web.md
+    codigo: enfrentando-o-java-na-web
+    secoes:
+      -
+        titulo: "O grande mercado do Java na Web"
+        codigo: "o-grande-mercado-do-java-na-web"
+      -
+        titulo: "Livros e sites interessantes"
+        codigo: "livros-e-sites-interessantes"
+  -
+    titulo: "Bancos de dados e JDBC"
+    arquivo: 02-bancos-de-dados-e-jdbc.md
+    codigo: bancos-de-dados-e-jdbc
+    secoes:
+      -
+        titulo: "Por que usar um banco de dados?"
+        codigo: "por-que-usar-um-banco-de-dados"
+      -
+        titulo: "Persistindo através de Sockets?"
+        codigo: "persistindo-atraves-de-sockets"
+      -
+        titulo: "A conexão em Java"
+        codigo: "a-conexao-em-java"
+      -
+        titulo: "Fábrica de Conexões"
+        codigo: "fabrica-de-conexoes"
+      -
+        titulo: "Design Patterns"
+        codigo: "design-patterns"
+      -
+        titulo: "Exercícios: ConnectionFactory"
+        codigo: "exercicios-connectionfactory"
+      -
+        titulo: "A tabela Contato"
+        codigo: "a-tabela-contato"
+      -
+        titulo: "Javabeans"
+        codigo: "javabeans"
+      -
+        titulo: "Inserindo dados no banco"
+        codigo: "inserindo-dados-no-banco"
+      -
+        titulo: "DAO - Data Access Object"
+        codigo: "dao-data-access-object"
+      -
+        titulo: "Exercícios: Javabeans e ContatoDao"
+        codigo: "exercicios-javabeans-e-contatodao"
+      -
+        titulo: "Fazendo pesquisas no banco de dados"
+        codigo: "fazendo-pesquisas-no-banco-de-dados"
+      -
+        titulo: "Exercícios: Listagem"
+        codigo: "exercicios-listagem"
+      -
+        titulo: "Um pouco mais..."
+        codigo: "um-pouco-mais"
+      -
+        titulo: "Exercícios opcionais"
+        codigo: "exercicios-opcionais"
+      -
+        titulo: "Outros métodos para o seu DAO"
+        codigo: "outros-metodos-para-o-seu-dao"
+      -
+        titulo: "Exercícios opcionais - Alterar e remover"
+        codigo: "exercicios-opcionais-alterar-e-remover"
+  -
+    titulo: "O que é Java EE?"
+    arquivo: 03-o-que-e-java-ee.md
+    codigo: o-que-e-java-ee
+    secoes:
+      -
+        titulo: "Como o Java EE pode te ajudar a enfrentar problemas"
+        codigo: "como-o-java-ee-pode-te-ajudar-a-enfrentar-problemas"
+      -
+        titulo: "Algumas especificações do Java EE"
+        codigo: "algumas-especificacoes-do-java-ee"
+      -
+        titulo: "Servidor de Aplicação"
+        codigo: "servidor-de-aplicacao"
+      -
+        titulo: "Servlet Container"
+        codigo: "servlet-container"
+      -
+        titulo: "Exercícios: Preparando o Tomcat"
+        codigo: "exercicios-preparando-o-tomcat"
+      -
+        titulo: "Preparando o Tomcat em casa"
+        codigo: "preparando-o-tomcat-em-casa"
+      -
+        titulo: "Outra opção: Jetty"
+        codigo: "outra-opcao-jetty"
+      -
+        titulo: "Integrando o Tomcat no Eclipse"
+        codigo: "integrando-o-tomcat-no-eclipse"
+      -
+        titulo: "O plugin WTP"
+        codigo: "o-plugin-wtp"
+      -
+        titulo: "Exercícios: Configurando o Tomcat no Eclipse"
+        codigo: "exercicios-configurando-o-tomcat-no-eclipse"
+  -
+    titulo: "Novo projeto Web usando Eclipse"
+    arquivo: 04-novo-projeto-web-usando-eclipse.md
+    codigo: novo-projeto-web-usando-eclipse
+    secoes:
+      -
+        titulo: "Novo projeto"
+        codigo: "novo-projeto"
+      -
+        titulo: "Exercícios: Novo projeto web"
+        codigo: "exercicios-novo-projeto-web"
+      -
+        titulo: "Análise do resultado final"
+        codigo: "analise-do-resultado-final"
+      -
+        titulo: "Criando nossas páginas e HTML Básico"
+        codigo: "criando-nossas-paginas-e-html-basico"
+      -
+        titulo: "Exercícios: primeira página"
+        codigo: "exercicios-primeira-pagina"
+      -
+        titulo: "Para saber mais: configurando o Tomcat sem o plugin"
+        codigo: "para-saber-mais-configurando-o-tomcat-sem-o-plugin"
+      -
+        titulo: "Algumas tags HTML"
+        codigo: "algumas-tags-html"
+  -
+    titulo: "Servlets"
+    arquivo: 05-servlets.md
+    codigo: servlets
+    secoes:
+      -
+        titulo: "Páginas dinâmicas"
+        codigo: "paginas-dinamicas"
+      -
+        titulo: "Servlets"
+        codigo: "servlets"
+      -
+        titulo: "Mapeando uma servlet no web.xml"
+        codigo: "mapeando-uma-servlet-no-webxml"
+      -
+        titulo: "A estrutura de diretórios"
+        codigo: "a-estrutura-de-diretorios"
+      -
+        titulo: "Exercícios: Primeira Servlet"
+        codigo: "exercicios-primeira-servlet"
+      -
+        titulo: "Erros comuns"
+        codigo: "erros-comuns"
+      -
+        titulo: "Facilidades das Servlets 3.0"
+        codigo: "facilidades-das-servlets-30"
+      -
+        titulo: "Para saber mais: Web Servlet e InitParam Annotation"
+        codigo: "para-saber-mais-web-servlet-e-initparam-annotation"
+      -
+        titulo: "Enviando parâmetros na requisição"
+        codigo: "enviando-parametros-na-requisicao"
+      -
+        titulo: "Pegando os parâmetros da requisição"
+        codigo: "pegando-os-parametros-da-requisicao"
+      -
+        titulo: "Exercícios: Criando funcionalidade para gravar contatos"
+        codigo: "exercicios-criando-funcionalidade-para-gravar-contatos"
+      -
+        titulo: "GET, POST e métodos HTTP"
+        codigo: "get-post-e-metodos-http"
+      -
+        titulo: "Tratando exceções dentro da Servlet"
+        codigo: "tratando-excecoes-dentro-da-servlet"
+      -
+        titulo: "Exercício: Tratando exceções e códigos HTTP"
+        codigo: "exercicio-tratando-excecoes-e-codigos-http"
+      -
+        titulo: "Init e Destroy"
+        codigo: "init-e-destroy"
+      -
+        titulo: "Uma única instância de cada Servlet"
+        codigo: "uma-unica-instancia-de-cada-servlet"
+      -
+        titulo: "Exercícios opcionais"
+        codigo: "exercicios-opcionais"
+      -
+        titulo: "Discussão: Criando páginas dentro de uma servlet"
+        codigo: "discussao-criando-paginas-dentro-de-uma-servlet"
+  -
+    titulo: "JavaServer Pages"
+    arquivo: 06-javaserver-pages.md
+    codigo: javaserver-pages
+    secoes:
+      -
+        titulo: "Colocando o HTML no seu devido lugar"
+        codigo: "colocando-o-html-no-seu-devido-lugar"
+      -
+        titulo: "Exercícios: Primeiro JSP"
+        codigo: "exercicios-primeiro-jsp"
+      -
+        titulo: "Listando os contatos com Scriptlet"
+        codigo: "listando-os-contatos-com-scriptlet"
+      -
+        titulo: "Exercícios opcionais: Lista de contatos com scriptlet"
+        codigo: "exercicios-opcionais-lista-de-contatos-com-scriptlet"
+      -
+        titulo: "Misturando código Java com HTML"
+        codigo: "misturando-codigo-java-com-html"
+      -
+        titulo: "EL: Expression language"
+        codigo: "el-expression-language"
+      -
+        titulo: "Exercícios: parâmetros com a Expression Language"
+        codigo: "exercicios-parametros-com-a-expression-language"
+      -
+        titulo: "Para saber mais: Compilando os arquivos JSP"
+        codigo: "para-saber-mais-compilando-os-arquivos-jsp"
+  -
+    titulo: "Usando Taglibs"
+    arquivo: 07-usando-taglibs.md
+    codigo: usando-taglibs
+    secoes:
+      -
+        titulo: "Taglibs"
+        codigo: "taglibs"
+      -
+        titulo: "Instanciando POJOs"
+        codigo: "instanciando-pojos"
+      -
+        titulo: "JSTL"
+        codigo: "jstl"
+      -
+        titulo: "Instalação"
+        codigo: "instalacao"
+      -
+        titulo: "Cabeçalho para a JSTL core"
+        codigo: "cabecalho-para-a-jstl-core"
+      -
+        titulo: "ForEach"
+        codigo: "foreach"
+      -
+        titulo: "Exercícios: forEach"
+        codigo: "exercicios-foreach"
+      -
+        titulo: "Exercícios opcionais"
+        codigo: "exercicios-opcionais"
+      -
+        titulo: "Evoluindo nossa listagem"
+        codigo: "evoluindo-nossa-listagem"
+      -
+        titulo: "Fazendo ifs com a JSTL"
+        codigo: "fazendo-ifs-com-a-jstl"
+      -
+        titulo: "Exercícios: lista de contatos com condicionais"
+        codigo: "exercicios-lista-de-contatos-com-condicionais"
+      -
+        titulo: "Importando páginas"
+        codigo: "importando-paginas"
+      -
+        titulo: "Exercícios: cabeçalhos e rodapés"
+        codigo: "exercicios-cabecalhos-e-rodapes"
+      -
+        titulo: "Formatação de datas"
+        codigo: "formatacao-de-datas"
+      -
+        titulo: "Exercícios: Formatando a data de nascimento dos contatos"
+        codigo: "exercicios-formatando-a-data-de-nascimento-dos-contatos"
+      -
+        titulo: "Para saber mais: links com `<c:url>`"
+        codigo: "para-saber-mais-links-com-curl"
+      -
+        titulo: "Exercícios opcionais: Caminho absoluto"
+        codigo: "exercicios-opcionais-caminho-absoluto"
+      -
+        titulo: "Para saber mais: Outras tags"
+        codigo: "para-saber-mais-outras-tags"
+  -
+    titulo: "Tags customizadas com Tagfiles"
+    arquivo: 08-tags-customizadas-com-tagfiles.md
+    codigo: tags-customizadas-com-tagfiles
+    secoes:
+      -
+        titulo: "Porque eu precisaria de outras tags além da JSTL?"
+        codigo: "porque-eu-precisaria-de-outras-tags-alem-da-jstl"
+      -
+        titulo: "Calendários com jQuery"
+        codigo: "calendarios-com-jquery"
+      -
+        titulo: "Criando minhas próprias tags com Tagfiles"
+        codigo: "criando-minhas-proprias-tags-com-tagfiles"
+      -
+        titulo: "Exercícios: criando nossa própria tag para calendário"
+        codigo: "exercicios-criando-nossa-propria-tag-para-calendario"
+      -
+        titulo: "Para saber mais: Outras taglibs no mercado"
+        codigo: "para-saber-mais-outras-taglibs-no-mercado"
+      -
+        titulo: "Desafio: Colocando displaytag no projeto"
+        codigo: "desafio-colocando-displaytag-no-projeto"
+  -
+    titulo: "MVC - Model View Controller"
+    arquivo: 09-mvc-model-view-controller.md
+    codigo: mvc-model-view-controller
+    secoes:
+      -
+        titulo: "Servlet ou JSP?"
+        codigo: "servlet-ou-jsp"
+      -
+        titulo: "Request Dispatcher"
+        codigo: "request-dispatcher"
+      -
+        titulo: "Exercícios: RequestDispatcher"
+        codigo: "exercicios-requestdispatcher"
+      -
+        titulo: "Melhorando o processo"
+        codigo: "melhorando-o-processo"
+      -
+        titulo: "Retomando o _design pattern_ Factory"
+        codigo: "retomando-o-design-pattern-factory"
+      -
+        titulo: "Exercícios: Criando nossas lógicas e a servlet de controle"
+        codigo: "exercicios-criando-nossas-logicas-e-a-servlet-de-controle"
+      -
+        titulo: "Exercícios: Criando uma lógica para remover contatos"
+        codigo: "exercicios-criando-uma-logica-para-remover-contatos"
+      -
+        titulo: "Fazendo a lógica para listar os contatos"
+        codigo: "fazendo-a-logica-para-listar-os-contatos"
+      -
+        titulo: "Exercícios: Lógica para listar contatos"
+        codigo: "exercicios-logica-para-listar-contatos"
+      -
+        titulo: "Escondendo nossas páginas"
+        codigo: "escondendo-nossas-paginas"
+      -
+        titulo: "Exercícios opcionais"
+        codigo: "exercicios-opcionais"
+      -
+        titulo: "Model View Controller"
+        codigo: "model-view-controller"
+      -
+        titulo: "Lista de tecnologias: camada de controle"
+        codigo: "lista-de-tecnologias-camada-de-controle"
+      -
+        titulo: "Lista de tecnologias: camada de visualização"
+        codigo: "lista-de-tecnologias-camada-de-visualizacao"
+      -
+        titulo: "Discussão em aula: os padrões Command e Front Controller"
+        codigo: "discussao-em-aula-os-padroes-command-e-front-controller"
+  -
+    titulo: "Recursos importantes: Filtros"
+    arquivo: 10-recursos-importantes-filtros.md
+    codigo: recursos-importantes-filtros
+    secoes:
+      -
+        titulo: "Reduzindo o acoplamento com Filtros"
+        codigo: "reduzindo-o-acoplamento-com-filtros"
+      -
+        titulo: "Exercícios opcionais: Filtro para medir o tempo de execução"
+        codigo: "exercicios-opcionais-filtro-para-medir-o-tempo-de-execucao"
+      -
+        titulo: "Problemas na criação das conexões"
+        codigo: "problemas-na-criacao-das-conexoes"
+      -
+        titulo: "Tentando outras estratégias"
+        codigo: "tentando-outras-estrategias"
+      -
+        titulo: "Reduzindo o acoplamento com Filtros"
+        codigo: "reduzindo-o-acoplamento-com-filtros"
+      -
+        titulo: "Exercícios: Filtros"
+        codigo: "exercicios-filtros"
+  -
+    titulo: "Spring MVC"
+    arquivo: 11-spring-mvc.md
+    codigo: spring-mvc
+    secoes:
+      -
+        titulo: "Porque precisamos de frameworks MVC?"
+        codigo: "porque-precisamos-de-frameworks-mvc"
+      -
+        titulo: "Um pouco de história"
+        codigo: "um-pouco-de-historia"
+      -
+        titulo: "Configurando o Spring MVC"
+        codigo: "configurando-o-spring-mvc"
+      -
+        titulo: "Criando as lógicas"
+        codigo: "criando-as-logicas"
+      -
+        titulo: "A lógica Olá Mundo!"
+        codigo: "a-logica-ola-mundo"
+      -
+        titulo: "Para saber mais: Configurando o Spring MVC em casa"
+        codigo: "para-saber-mais-configurando-o-spring-mvc-em-casa"
+      -
+        titulo: "Exercícios: Configurando o Spring MVC e testando a configuração"
+        codigo: "exercicios-configurando-o-spring-mvc-e-testando-a-configuracao"
+      -
+        titulo: "Adicionando tarefas e passando parâmetros"
+        codigo: "adicionando-tarefas-e-passando-parametros"
+      -
+        titulo: "Exercícios: Criando tarefas"
+        codigo: "exercicios-criando-tarefas"
+      -
+        titulo: "Incluindo validação no cadastro de tarefas"
+        codigo: "incluindo-validacao-no-cadastro-de-tarefas"
+      -
+        titulo: "Validação com Bean Validation"
+        codigo: "validacao-com-bean-validation"
+      -
+        titulo: "Exercícios: Validando tarefas"
+        codigo: "exercicios-validando-tarefas"
+      -
+        titulo: "Listando as tarefas e disponibilizando objetos para a view"
+        codigo: "listando-as-tarefas-e-disponibilizando-objetos-para-a-view"
+      -
+        titulo: "Exercícios: Listando tarefas"
+        codigo: "exercicios-listando-tarefas"
+      -
+        titulo: "Redirecionando a requisição para outra ação"
+        codigo: "redirecionando-a-requisicao-para-outra-acao"
+      -
+        titulo: "Exercícios: Removendo e alterando tarefas"
+        codigo: "exercicios-removendo-e-alterando-tarefas"
+      -
+        titulo: "Desafio - Calendário"
+        codigo: "desafio-calendario"
+      -
+        titulo: "Melhorando a usabilidade da nossa aplicação"
+        codigo: "melhorando-a-usabilidade-da-nossa-aplicacao"
+      -
+        titulo: "Utilizando AJAX para marcar tarefas como finalizadas"
+        codigo: "utilizando-ajax-para-marcar-tarefas-como-finalizadas"
+      -
+        titulo: "Configurar o Spring MVC para acessar arquivos comuns"
+        codigo: "configurar-o-spring-mvc-para-acessar-arquivos-comuns"
+      -
+        titulo: "Exercícios: Ajax"
+        codigo: "exercicios-ajax"
+      -
+        titulo: "Para saber mais: Alterando valor da data com AJAX"
+        codigo: "para-saber-mais-alterando-valor-da-data-com-ajax"
+      -
+        titulo: "Exercícios Opcionais: Melhorando nosso AJAX"
+        codigo: "exercicios-opcionais-melhorando-nosso-ajax"
+  -
+    titulo: "Spring MVC: Autenticação e autorização"
+    arquivo: 12-spring-mvc-autenticacao-e-autorizacao.md
+    codigo: spring-mvc-autenticacao-e-autorizacao
+    secoes:
+      -
+        titulo: "Autenticando usuários: como funciona?"
+        codigo: "autenticando-usuarios-como-funciona"
+      -
+        titulo: "Cookies"
+        codigo: "cookies"
+      -
+        titulo: "Sessão"
+        codigo: "sessao"
+      -
+        titulo: "Configurando o tempo limite"
+        codigo: "configurando-o-tempo-limite"
+      -
+        titulo: "Registrando o usuário logado na sessão"
+        codigo: "registrando-o-usuario-logado-na-sessao"
+      -
+        titulo: "Exercício: Fazendo o login na aplicação"
+        codigo: "exercicio-fazendo-o-login-na-aplicacao"
+      -
+        titulo: "Bloqueando acessos de usuários não logados com Interceptadores"
+        codigo: "bloqueando-acessos-de-usuarios-nao-logados-com-interceptadores"
+      -
+        titulo: "Exercícios: Interceptando as requisições"
+        codigo: "exercicios-interceptando-as-requisicoes"
+      -
+        titulo: "Exercícios opcionais: Logout"
+        codigo: "exercicios-opcionais-logout"
+  -
+    titulo: "Spring IoC e deploy da aplicação"
+    arquivo: 13-spring-ioc-e-deploy-da-aplicacao.md
+    codigo: spring-ioc-e-deploy-da-aplicacao
+    secoes:
+      -
+        titulo: "Menos acoplamento com inversão de controle e injeção de dependências"
+        codigo: "menos-acoplamento-com-inversao-de-controle-e-injecao-de-dependencias"
+      -
+        titulo: "Container de Injeção de dependências"
+        codigo: "container-de-injecao-de-dependencias"
+      -
+        titulo: "Container Spring IoC"
+        codigo: "container-spring-ioc"
+      -
+        titulo: "Outras formas de injeção"
+        codigo: "outras-formas-de-injecao"
+      -
+        titulo: "Exercícios: Inversão de controle com o Spring Container"
+        codigo: "exercicios-inversao-de-controle-com-o-spring-container"
+      -
+        titulo: "Aprimorando o visual através de CSS"
+        codigo: "aprimorando-o-visual-atraves-de-css"
+      -
+        titulo: "Exercícios opcionais: Aplicando CSS nas páginas"
+        codigo: "exercicios-opcionais-aplicando-css-nas-paginas"
+      -
+        titulo: "Deploy do projeto em outros ambientes"
+        codigo: "deploy-do-projeto-em-outros-ambientes"
+      -
+        titulo: "Exercícios: Deploy com war"
+        codigo: "exercicios-deploy-com-war"
+      -
+        titulo: "Discussão em aula: lidando com diferentes nomes de contexto"
+        codigo: "discussao-em-aula-lidando-com-diferentes-nomes-de-contexto"
+  -
+    titulo: "Uma introdução prática ao JPA com Hibernate"
+    arquivo: 14-uma-introducao-pratica-ao-jpa-com-hibernate.md
+    codigo: uma-introducao-pratica-ao-jpa-com-hibernate
+    secoes:
+      -
+        titulo: "Mapeamento Objeto Relacional"
+        codigo: "mapeamento-objeto-relacional"
+      -
+        titulo: "Java Persistence API e Frameworks ORM"
+        codigo: "java-persistence-api-e-frameworks-orm"
+      -
+        titulo: "Bibliotecas do Hibernate e JPA"
+        codigo: "bibliotecas-do-hibernate-e-jpa"
+      -
+        titulo: "Mapeando uma classe Tarefa para nosso Banco de Dados"
+        codigo: "mapeando-uma-classe-tarefa-para-nosso-banco-de-dados"
+      -
+        titulo: "Configurando o JPA com as propriedades do banco"
+        codigo: "configurando-o-jpa-com-as-propriedades-do-banco"
+      -
+        titulo: "Usando o JPA"
+        codigo: "usando-o-jpa"
+      -
+        titulo: "Para saber mais: Configurando o JPA com Hibernate em casa"
+        codigo: "para-saber-mais-configurando-o-jpa-com-hibernate-em-casa"
+      -
+        titulo: "Exercícios: Configurando o JPA e gerando o schema do banco"
+        codigo: "exercicios-configurando-o-jpa-e-gerando-o-schema-do-banco"
+      -
+        titulo: "Trabalhando com os objetos: o EntityManager"
+        codigo: "trabalhando-com-os-objetos-o-entitymanager"
+      -
+        titulo: "Exercícios: Gravando e Carregando objetos"
+        codigo: "exercicios-gravando-e-carregando-objetos"
+      -
+        titulo: "Removendo e atualizando objeto"
+        codigo: "removendo-e-atualizando-objeto"
+      -
+        titulo: "Buscando com uma cláusula where"
+        codigo: "buscando-com-uma-clausula-where"
+      -
+        titulo: "Exercícios: Buscando com JPQL"
+        codigo: "exercicios-buscando-com-jpql"
+  -
+    titulo: "E agora?"
+    arquivo: 15-e-agora.md
+    codigo: e-agora
+    secoes:
+      -
+        titulo: "Os apêndices dessa apostila"
+        codigo: "os-apendices-dessa-apostila"
+      -
+        titulo: "Frameworks Web"
+        codigo: "frameworks-web"
+      -
+        titulo: "Frameworks de persistência"
+        codigo: "frameworks-de-persistencia"
+      -
+        titulo: "Onde seguir seus estudos"
+        codigo: "onde-seguir-seus-estudos"
+  -
+    titulo: "Apêndice - Integração do Spring com JPA"
+    arquivo: 16-apendice-integracao-do-spring-com-jpa.md
+    codigo: apendice-integracao-do-spring-com-jpa
+    secoes:
+      -
+        titulo: "Gerenciando o EntityManager"
+        codigo: "gerenciando-o-entitymanager"
+      -
+        titulo: "Configurando o JPA no Spring"
+        codigo: "configurando-o-jpa-no-spring"
+      -
+        titulo: "Injetando o EntityManager"
+        codigo: "injetando-o-entitymanager"
+      -
+        titulo: "Baixo acoplamento pelo uso de interface"
+        codigo: "baixo-acoplamento-pelo-uso-de-interface"
+      -
+        titulo: "Gerenciando a transação"
+        codigo: "gerenciando-a-transacao"
+      -
+        titulo: "Exercícios: Integrando JPA com Spring"
+        codigo: "exercicios-integrando-jpa-com-spring"
+  -
+    titulo: "Apêndice - Tópicos da Servlet API"
+    arquivo: 17-apendice-topicos-da-servlet-api.md
+    codigo: apendice-topicos-da-servlet-api
+    secoes:
+      -
+        titulo: "Init-params e context-params"
+        codigo: "init-params-e-context-params"
+      -
+        titulo: "welcome-file-list"
+        codigo: "welcome-file-list"
+      -
+        titulo: "Propriedades de páginas JSP"
+        codigo: "propriedades-de-paginas-jsp"
+      -
+        titulo: "Inclusão estática de arquivos"
+        codigo: "inclusao-estatica-de-arquivos"
+      -
+        titulo: "Tratamento de erro em JSP"
+        codigo: "tratamento-de-erro-em-jsp"
+      -
+        titulo: "Descobrindo todos os parâmetros do request"
+        codigo: "descobrindo-todos-os-parametros-do-request"
+      -
+        titulo: "Trabalhando com links com a c:url"
+        codigo: "trabalhando-com-links-com-a-curl"
+      -
+        titulo: "Context listener"
+        codigo: "context-listener"
+      -
+        titulo: "O ServletContext e o escopo de aplicação"
+        codigo: "o-servletcontext-e-o-escopo-de-aplicacao"
+      -
+        titulo: "Outros listeners"
+        codigo: "outros-listeners"
+
