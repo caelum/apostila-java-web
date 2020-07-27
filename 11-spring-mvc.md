@@ -99,7 +99,7 @@ container Spring. Nesse capítulo veremos as funcionalidades desse framework pod
 ## Configurando o Spring MVC
 Para que possamos aprender o Spring MVC, vamos criar um sistema de _lista de tarefas_. E o primeiro
 passo que precisamos dar é ter o Spring MVC para adicionarmos em nossa aplicação. Spring MVC vem junto
-com as bibliotecas do framework Spring que podemos encontrar no site http://springsource.org. Lá,
+com as bibliotecas do framework Spring que podemos encontrar no site https://spring.io/. Lá,
 é possível encontrar diversas documentações e tutoriais, além dos JARs do projeto.
 
 Uma vez que adicionamos os JARs do Spring MVC em nosso projeto dentro do diretório `WEB-INF/lib`,
@@ -125,7 +125,7 @@ basta adicionarmos no `web.xml` da nossa aplicação:
     <servlet-mapping>
         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
         <url-pattern>/</url-pattern>
-	</servlet-mapping>
+  </servlet-mapping>
 ```
 
 Repare que é uma configuração normal de Servlet, com `servlet-class` e `url-pattern`,
@@ -144,8 +144,8 @@ A primeira coisa que faremos nesse arquivo é habilitar o uso de anotações do 
 aplicação web para o Spring achar as nossas classes:
 
 ``` xml
-	<mvc:annotation-driven />
-	<context:component-scan base-package="br.com.caelum.tarefas" />
+  <mvc:annotation-driven />
+  <context:component-scan base-package="br.com.caelum.tarefas" />
 ```
 
 Além disso, é preciso informar ao Spring o local onde colocaremos os arquivos JSP. Para isso Spring MVC oferece
@@ -153,37 +153,37 @@ uma classe especial que recebe o nome da pasta dos JSPs e a extensão dos arquiv
 pasta `/WEB-INF/views/`:
 
 ``` xml
-<bean 
-    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/views/"/>
-    <property name="suffix" value=".jsp"/>
-</bean>
+  <bean 
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/views/"/>
+      <property name="suffix" value=".jsp"/>
+  </bean>
 ```
 
 Isso já é suficiente para começar com o Spring MVC. O arquivo completo, com todos os cabeçalhos, fica então como:
 
 ``` xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-		http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+  <?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="br.com.caelum.tarefas" />
-	<mvc:annotation-driven />
+    <context:component-scan base-package="br.com.caelum.tarefas" />
+    <mvc:annotation-driven />
 
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".jsp"/>
-	</bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/views/"/>
+      <property name="suffix" value=".jsp"/>
+    </bean>
 
-</beans>
+  </beans>
 ```
 
 ## Criando as lógicas
@@ -222,15 +222,15 @@ configurado no XML do Spring. Também lembrando que o Spring MVC procura as pág
 
 Dessa forma, teríamos a seguinte classe:
 ``` java
-@Controller
-public class OlaMundoController {
+  @Controller
+  public class OlaMundoController {
 
-	@RequestMapping("/olaMundoSpring")
-	public String execute() {
-	    System.out.println("Executando a lógica com Spring MVC");
-	    return "ok";
-	}
-}
+    @RequestMapping("/olaMundoSpring")
+    public String execute() {
+        System.out.println("Executando a lógica com Spring MVC");
+        return "ok";
+    }
+  }
 ```
 
 Um ponto importante a se notar é que podemos criar outros métodos que respondam por outras URL's, ou seja,
@@ -241,12 +241,12 @@ Por fim, só precisamos criar o JSP que mostrará a mensagem "Olá mundo!". Bast
 `ok.jsp` dentro da pasta `WEB-INF/views/`, que mapeamos anteriormente no XML do Spring.
 
 O JSP terá o seguinte conteúdo:
-``` xml
-<html>
-	<body>
-		<h2>Olá mundo com Spring MVC!</h2>
-	</body>
-</html>
+``` html
+  <html>
+    <body>
+      <h2>Olá mundo com Spring MVC!</h2>
+    </body>
+  </html>
 ```
 
 Podemos acessar nosso método pela URL http://localhost:8080/fj21-tarefas/olaMundoSpring.
@@ -256,104 +256,102 @@ retornado pelo seu método e procura despachar a requisição para a página ind
 
 
 ## Para saber mais: Configurando o Spring MVC em casa
-Caso você esteja em casa, faça o download do Spring Framework e use
-apenas os seguintes JARs na sua aplicação:
+Caso você esteja em casa acesse a pasta **21/projeto-tarefas** e copie todos os arquivos das pastas `mysql`, `logging`, `spring framework` e `servlet` e cole dentro da pasta do `WEB-INF/lib` de um novo **Dynamic Web Project**. Todos os jars necessários estão listados a seguir:
 
+ * commons-logging-1.x.jar
+ * jakarta.servlet-api-4.0.x.jar
+ * log4j-1.2-api-2.13.x.jar
+ * mysql-connector-java-8.0.x.jar
+ * slf4j-api-2.0.x-alpha0.jar
+ * slf4j-log4j12-2.0.x-alpha0.jar
+ * spring-aop-5.x.x.RELEASE.jar
+ * spring-aspects-5.x.x.RELEASE.jar
+ * spring-beans-5.x.x.RELEASE.jar
+ * spring-context-5.x.x.RELEASE.jar
+ * spring-core-5.x.x.RELEASE.jar
+ * spring-expression-5.x.x.RELEASE.jar
+ * spring-jdbc-5.x.x.RELEASE.jar
+ * spring-web-5.x.x.RELEASE.jar
+ * spring-webmvc-5.x.x.RELEASE.jar
 
-* commons-logging-1.x.x.jar
-* log4j-1.2.x.jar
-* mysql-connector-java-5.x.x.jar
-* slf4j-api-1.7.x.jar
-* slf4j-log4j12-1.7.x.jar
-* spring-aspects-4.x.x.RELEASE.jar
-* spring-aop-4.x.x.RELEASE.jar
-* spring-beans-4.x.x.RELEASE.jar
-* spring-context-4.x.x.RELEASE.jar
-* spring-core-4.x.x.RELEASE.jar
-* spring-expression-4.x.x.RELEASE.jar
-* spring-jdbc-4.x.x.RELEASE
-* spring-web-4.x.x.jar
-* spring-webmvc-4.x.x.RELEASE.jar
-
+Você também pode optar por seguir o exercício a seguir no qual criaremos um novo projeto do tipo **Dynamic Web Project** e importaremos todas as dependências listadas acima através de um arquivo compactado.
 
 ## Exercícios: Configurando o Spring MVC e testando a configuração
 1. Vamos configurar o Spring MVC em um novo projeto.
 
-	* Crie um novo projeto web: **File** -> **New** -> **Project...** -> **Dynamic Web Project**
-	chamado `fj21-tarefas`.
-	* Na aba **Servers**, clique com o botão direito no Tomcat e vá em **Add and Remove...**:
+* Crie um novo projeto web: **File** -> **New** -> **Project...** -> **Dynamic Web Project**
+ chamado `fj21-tarefas`.
+* Na aba **Servers**, clique com o botão direito no Tomcat e vá em **Add and Remove...**:
 
-	* Basta selecionar o nosso projeto `fj21-tarefas` e clicar em **Add**:
+* Basta selecionar o nosso projeto `fj21-tarefas` e clicar em **Add**:
 
-	* Vamos começar importando as classes que serão necessárias ao nosso projeto, como o
-	modelo de `Tarefas` e o `DAO`.
+* Vamos começar importando as classes que serão necessárias ao nosso projeto, como o
+ modelo de `Tarefas` e o `DAO`.
 
-	* Clique com o botão direito no projeto `fj21-tarefas` e escolha a opção
-	`Import`.
-	* Selecione General -> Archive File
-	* Escolha o arquivo `projeto-tarefas.zip` que está em
-	`Desktop/21` e confirme a importação.
+* Clique com o botão direito no projeto `fj21-tarefas` e escolha a opção
+ `Import`.
+* Selecione General -> Archive File
+* Escolha o arquivo `projeto-tarefas.zip` que está em
+ `21/projeto-tarefas/` e confirme a importação.
 
-	* Abra o arquivo `web.xml` para fazermos a declaração do servlet
-	do Spring MVC:
+* Abra o arquivo `web.xml` para fazermos a declaração do servlet
+ do Spring MVC:
 
-	``` xml
-	        <servlet>
-				<servlet-name>springmvc</servlet-name>
-				<servlet-class>
-					org.springframework.web.servlet.DispatcherServlet
-				</servlet-class>
-				<init-param>
-					<param-name>contextConfigLocation</param-name>
-					<param-value>
-						/WEB-INF/spring-context.xml
-					</param-value>
-				</init-param>
-				<load-on-startup>1</load-on-startup>
-			</servlet>
+``` xml
+  <servlet>
+      <servlet-name>springmvc</servlet-name>
+      <servlet-class>
+          org.springframework.web.servlet.DispatcherServlet
+      </servlet-class>
+      <init-param>
+          <param-name>contextConfigLocation</param-name>
+          <param-value>/WEB-INF/spring-context.xml</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
 
-			<servlet-mapping>
-				<servlet-name>springmvc</servlet-name>
-				<url-pattern>/</url-pattern>
-			</servlet-mapping>
-	```
+  <servlet-mapping>
+      <servlet-name>springmvc</servlet-name>
+      <url-pattern>/</url-pattern>
+  </servlet-mapping>
+```
 1. Vamos fazer um simples Olá Mundo, para testarmos nossa configuração:
 
-	* Crie uma nova classe chamada `OlaMundoController` no pacote `br.com.caelum.tarefas.controller`
+* Crie uma nova classe chamada `OlaMundoController` no pacote `br.com.caelum.tarefas.controller`
 
-	* Adicione nessa classe o seguinte conteúdo:
-	``` java
-		@Controller
-		public class OlaMundoController {
+* Adicione nessa classe o seguinte conteúdo:
+``` java
+  @Controller
+  public class OlaMundoController {
 
-			@RequestMapping("/olaMundoSpring")
-			public String execute() {
-			    System.out.println("Executando a lógica com Spring MVC");
-			    return "ok";
-			}
-		}
-	```
+      @RequestMapping("/olaMundoSpring")
+      public String execute() {
+        System.out.println("Executando a lógica com Spring MVC");
+        return "ok";
+      }
+    }
+```
 
-	Dica: Use `Ctrl+Shift+O` para importar as classes.
+ Dica: Use `Ctrl+Shift+O` para importar as classes.
 
-	* Precisamos preparar a camada de visualização. Crie uma pasta **views** para nossos JSPs
-	que deve ficar dentro da pasta `WebContent/WEB-INF`.
+* Precisamos preparar a camada de visualização. Crie uma pasta **views** para nossos JSPs
+ que deve ficar dentro da pasta `WebContent/WEB-INF`.
 
-	* Falta o JSP que será exibido após a execução da nossa lógica.
-	Crie o JSP **`ok.jsp`** no diretório `WebContent/WEB-INF/views`
-	do projeto com o conteúdo:
+* Falta o JSP que será exibido após a execução da nossa lógica.
+ Crie o JSP **`ok.jsp`** no diretório `WebContent/WEB-INF/views`
+ do projeto com o conteúdo:
 
-	``` xml
-		<html>
-			<body>
-				<h2>Olá mundo com Spring MVC!</h2>
-			</body>
-		</html>
-	```
+ ``` html
+  <html>
+    <body>
+      <h2>Olá mundo com Spring MVC!</h2>
+    </body>
+  </html>
+ ```
 
-	* Reinicie o Tomcat e acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/olaMundoSpring`.
-	O resultado deve ser algo parecido com:
-	![ {w=80%}](assets/imagens/springmvc/olaMundoSpring.png)
+* Reinicie o Tomcat e acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/olaMundoSpring`.
+ O resultado deve ser algo parecido com:
+ ![ {w=80%}](assets/imagens/springmvc/olaMundoSpring.png)
 
 
 
@@ -364,14 +362,14 @@ indicação informando se a tarefa já foi finalizada ou não e quando foi final
 composto pelo seguinte modelo:
 
 ``` java
-	public class Tarefa {
-		private Long id;
-		private String descricao;
-		private boolean finalizado;
-		private Calendar dataFinalizacao;
-		
-		//getters e setters
-	}
+  public class Tarefa {
+      private Long id;
+      private String descricao;
+      private boolean finalizado;
+      private Calendar dataFinalizacao;
+
+      //getters e setters
+  }
 ```
 
 Vamos criar a funcionalidade de adição de novas tarefas. Para isso, teremos uma tela contendo um
@@ -380,18 +378,18 @@ venha por padrão como não finalizada e, consequentemente, sem a data de finali
 Dessa forma, nosso formulário terá apenas o campo `descricao`. Podemos criar um JSP chamado
 `formulario.jsp` contendo somente o campo para descrição:
 
-``` xml
-	<html>
-		<body>
-			<h3>Adicionar tarefas</h3>
-			<form action="adicionaTarefa" method="post">
-				Descrição: <br />
-				<textarea name="descricao" rows="5" cols="100"></textarea><br />
-				
-				<input type="submit" value="Adicionar">
-			</form>
-		</body>
-	</html>
+``` html
+  <html>
+    <body>
+      <h3>Adicionar tarefas</h3>
+      <form action="adicionaTarefa" method="post">
+        Descrição: <br />
+        <textarea name="descricao" rows="5" cols="100"></textarea><br />
+
+        <input type="submit" value="Adicionar">
+      </form>
+    </body>
+  </html>
 ```
 
 O nosso form, ao ser submetido, chama uma ação, um método dentro de um `@Controller` que responde
@@ -400,16 +398,16 @@ que o usuário informou na tela. Vamos chamar esse método `adiciona` e colocar 
 `TarefasController`:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@RequestMapping("adicionaTarefa")
-	public String adiciona() {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa-adicionada";
-	}
-}
+      @RequestMapping("adicionaTarefa")
+      public String adiciona() {
+          JdbcTarefaDao dao = new JdbcTarefaDao();
+          dao.adiciona(tarefa);
+          return "tarefa-adicionada";
+      }
+  }
 ```
 
 Mas, como montaremos o objeto `tarefa` para passarmos ao nosso `DAO`? Dentro dessa nossa
@@ -424,16 +422,16 @@ Essa ligação é feita através da criação de um parâmetro do método `adici
 parâmetro é o objeto que deverá ser populado pelo Spring MVC com os dados que vieram da requisição.
 Portanto, vamos criar no nosso método um novo parâmetro chamado `tarefa`:
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(Tarefa tarefa) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa-adicionada";
-	}
-}
+      @RequestMapping("adicionaTarefa")
+      public String adiciona(Tarefa tarefa) {
+          JdbcTarefaDao dao = new JdbcTarefaDao();
+          dao.adiciona(tarefa);
+          return "tarefa-adicionada";
+      }
+  }
 ```
 
 Queremos que o campo de texto que criamos no nosso formulário preencha a descrição dessa
@@ -446,12 +444,12 @@ isso não será problema.
 
 Por fim, basta exibirmos a mensagem de confirmação de que a criação da tarefa foi feita com
 sucesso. Criamos o arquivo `tarefa-adicionada.jsp` com o seguinte conteúdo HTML:
-``` xml
-	<html>
-		<body>
-			Nova tarefa adicionada com sucesso!
-		</body>
-	</html>
+``` html
+  <html>
+    <body>
+      Nova tarefa adicionada com sucesso!
+    </body>
+  </html>
 ```
 
 ### Melhorar a organização dos arquivos JSPs
@@ -466,16 +464,16 @@ e devolver o nome da subpasta e o nome da página JSP. Nesse caso o retorno fica
 Por tanto, o código completo do método `adiciona` fica:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(Tarefa tarefa) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
-}
+      @RequestMapping("adicionaTarefa")
+      public String adiciona(Tarefa tarefa) {
+          JdbcTarefaDao dao = new JdbcTarefaDao();
+          dao.adiciona(tarefa);
+          return "tarefa/adicionada";
+      }
+  }
 ```
 
 Na pasta `WEB-INF/views/tarefa` também deve ficar o formulário para adicionar uma tarefa. Como discutimos antes,
@@ -487,32 +485,32 @@ não é possível acessar o formulário. Para resolver isso vamos criar uma nova
 
 Abaixo o código completo do `TarefasController` com os dois métodos:
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@RequestMapping("novaTarefa")
-	public String form() {
-		return "tarefa/formulario";
-	}
+      @RequestMapping("novaTarefa")
+      public String form() {
+          return "tarefa/formulario";
+      }
 
-	
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(Tarefa tarefa) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
-}
+
+      @RequestMapping("adicionaTarefa")
+      public String adiciona(Tarefa tarefa) {
+          JdbcTarefaDao dao = new JdbcTarefaDao();
+          dao.adiciona(tarefa);
+          return "tarefa/adicionada";
+      }
+  }
 ```
 
 A estrutura das pasta `WEB-INF` fica como:
 
 ```
-WEB-INF
-  -views
-     -tarefa
-         -formulario.jsp
-         -adicionada.jsp 
+  WEB-INF
+    -views
+      -tarefa
+          -formulario.jsp
+          -adicionada.jsp
 ```
 
 
@@ -522,100 +520,100 @@ Para chamar o formulário usaremos a URL: http://localhost:8080/fj21-tarefas/nov
 
 Vamos criar o formulário e nossa ação para fazer a gravação das tarefas.
 1. O primeiro passo é criar nosso formulário para adicionar uma tarefa.
-	Para isso crie uma pasta **tarefa** dentro da pasta **`WebContent/WEB-INF/views`**. Dentro da pasta **tarefa** adicione um novo arquivo **formulario.jsp**.
+  Para isso crie uma pasta **tarefa** dentro da pasta **`WebContent/WEB-INF/views`**. Dentro da pasta **tarefa** adicione um novo arquivo **formulario.jsp**.
 
-	``` xml
-		<html>
-			<body>
-				<h3>Adicionar tarefas</h3>
-				<form action="adicionaTarefa" method="post">
-					Descrição: <br />
-					<textarea name="descricao" rows="5" cols="100"></textarea><br />
-					<input type="submit" value="Adicionar">
-				</form>
-			</body>
-		</html>
-	```
+``` html
+  <html>
+    <body>
+      <h3>Adicionar tarefas</h3>
+      <form action="adicionaTarefa" method="post">
+        Descrição: <br />
+        <textarea name="descricao" rows="5" cols="100"></textarea><br />
+        <input type="submit" value="Adicionar">
+      </form>
+    </body>
+  </html>
+```
 1. Agora precisamos um método (action) dentro de um `@Controller` para acessar o JSP.
-	Crie uma nova classe no pacote `br.com.caelum.tarefas.controller` chamada `TarefasController`.
+  Crie uma nova classe no pacote `br.com.caelum.tarefas.controller` chamada `TarefasController`.
 
-	Nossa classe precisa ter um método para acessar o JSP. Vamos chamar o método **form()** e
-	usar a anotação **@RequestMapping**:
-	``` java
-		@Controller
-		public class TarefasController {
+  Nossa classe precisa ter um método para acessar o JSP. Vamos chamar o método **form()** e
+  usar a anotação **@RequestMapping**:
+``` java
+  @Controller
+  public class TarefasController {
 
-			@RequestMapping("novaTarefa")
-			public String form() {
-				return "tarefa/formulario";
-			}
+      @RequestMapping("novaTarefa")
+      public String form() {
+          return "tarefa/formulario";
+      }
 
-		}
-	```
+  }
+```
 
-	Use `Ctrl+Shift+O` para importar as classes.
+  Use `Ctrl+Shift+O` para importar as classes.
 1. Ainda falta o método que realmente adiciona a tarefa no banco de dados. Esse método é
-	chamado pelo nosso formulário e recebe uma tarefa como parâmetro. Ele novamente usa
-	a anotação `@RequestMapping` para definir a URL.
+  chamado pelo nosso formulário e recebe uma tarefa como parâmetro. Ele novamente usa
+  a anotação `@RequestMapping` para definir a URL.
 
-	Dentro da classe `TarefasController` crie o método `adiciona`
-	que recebe uma tarefa. No método usamos a `JdbcTarefaDao` para persistir os dados.
-	O retorno do método define o local e nome do JSP.
+  Dentro da classe `TarefasController` crie o método `adiciona`
+  que recebe uma tarefa. No método usamos a `JdbcTarefaDao` para persistir os dados.
+  O retorno do método define o local e nome do JSP.
 
-	O código deve ficar:
-	``` java
-		@RequestMapping("adicionaTarefa")
-		public String adiciona(Tarefa tarefa) {
-			JdbcTarefaDao dao = new JdbcTarefaDao();			
-			dao.adiciona(tarefa);
-			return "tarefa/adicionada";
-		}
-	```
+  O código deve ficar:
+``` java
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.adiciona(tarefa);
+      return "tarefa/adicionada";
+  }
+```
 1. E, por fim, criamos o arquivo **adicionada.jsp** na pasta **tarefa** que mostrará uma
-	mensagem de confirmação de que a tarefa foi efetivamente adicionada.
+  mensagem de confirmação de que a tarefa foi efetivamente adicionada.
 
-	``` xml
-		<html>
-			<body>
-				Nova tarefa adicionada com sucesso!
-			</body>
-		</html>
-	```
+``` html
+  <html>
+    <body>
+      Nova tarefa adicionada com sucesso!
+    </body>
+  </html>
+```
 1. Reinicie o Tomcat.
 
-	Acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
-	e adicione uma nova tarefa.
+  Acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
+  e adicione uma nova tarefa.
 
-	![ {w=60%}](assets/imagens/springmvc/formulario-tarefa.png)
-	![ {w=60%}](assets/imagens/springmvc/tarefa-adicionada.png)
+  ![ {w=60%}](assets/imagens/springmvc/formulario-tarefa.png)
+  ![ {w=60%}](assets/imagens/springmvc/tarefa-adicionada.png)
 
-	Caso aconteça uma exceção informando que a tabela não está criada, crie-a com o script abaixo e
-	tente inserir novamente a tarefa. Abra o terminal e digite:
+  Caso aconteça uma exceção informando que a tabela não está criada, crie-a com o script abaixo e
+  tente inserir novamente a tarefa. Abra o terminal e digite:
 
-	```
-		mysql -u root
-	```
+```bash
+  mysql -u root
+```
 
-	Lembrando que, se houver senha para logar com o banco, é preciso escrever
-	`mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
+  Lembrando que, se houver senha para logar com o banco, é preciso escrever
+  `mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
 
-	Dentro do MySQL, digite:
-	``` sql
-		use fj21;
-	```
-	Em seguida, digite:
-	``` sql
-		create table tarefas (
-			id BIGINT NOT NULL AUTO_INCREMENT,
-			descricao VARCHAR(255),
-			finalizado BOOLEAN,
-			dataFinalizacao DATE,
-			primary key (id)
-		);
-	```
+  Dentro do MySQL, digite:
+``` sql
+  use fj21;
+```
+  Em seguida, digite:
+``` sql
+  create table tarefas (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    descricao VARCHAR(255),
+    finalizado BOOLEAN,
+    dataFinalizacao DATE,
+    primary key (id)
+  );
+```
 
-	(Dica: esse código encontra-se no arquivo `tarefas.txt` na
-	pasta `21/criacao-tabelas`)
+(Dica: todo código usado para crição da estrutura do banco de dados encontra-se no arquivo
+ `criacao-tableas.sql` na pasta **21/projeto-tarefas/mysql**)
 
 
 ## Incluindo validação no cadastro de tarefas
@@ -635,17 +633,17 @@ da classe `TarefasController` antes de chamar `dao.adiciona(tarefa)`, executando
 validação programaticamente. O código seguinte mostra a ideia:
 
 ``` java
-@RequestMapping("adicionaTarefa")
-public String adiciona(Tarefa tarefa) {
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(Tarefa tarefa) {
 
-	if(tarefa.getDescricao() == null || tarefa.getDescricao().equals("")) {
-		return "tarefa/formulario";
-	}
+      if(tarefa.getDescricao() == null || tarefa.getDescricao().equals("")) {
+          return "tarefa/formulario";
+      }
 
-	JdbcTarefaDao dao = new JdbcTarefaDao();
-	dao.adiciona(tarefa);
-	return "tarefa/adicionada";
-}
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.adiciona(tarefa);
+      return "tarefa/adicionada";
+  }
 ```
 
 O problema aqui é quanto mais atributos na tarefa mais `if`s teremos.
@@ -665,18 +663,18 @@ qualquer camada da aplicação.
 Com o Bean Validation declaramos através de anotações as regras de validação dentro do nosso
 modelo, por exemplo, na nossa tarefa:
 ``` java
-public class Tarefa {
-	
-	private Long id;
+  public class Tarefa {
 
-	@Size(min=5)
-	private String descricao;
+      private Long id;
 
-	private boolean finalizado;
-	private Calendar dataFinalizacao;
-	
-	//...
-}
+      @Size(min=5)
+      private String descricao;
+
+      private boolean finalizado;
+      private Calendar dataFinalizacao;
+
+      //...
+  }
 ```
 
 Pronto! Com essas anotações, qualquer objeto do tipo `Tarefa` pode ser
@@ -684,12 +682,12 @@ validado na camada de controller. Só falta avisar o Spring MVC que realmente
 queremos executar a validação. Isso é feito pela anotação `Valid` que devemos
 usar na antes do parâmetro da ação:
 ``` java
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();		
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(@Valid Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.adiciona(tarefa);
+      return "tarefa/adicionada";
+  }
 ```
 
 Como estamos falando de Spring MVC, antes da chamada do método é executada a validação,
@@ -705,17 +703,17 @@ para ele se existe um erro de validação e se existir, voltar para o formulári
 código:
 
 ``` java
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
-		
-		if(result.hasFieldErrors("descricao")) {
-			return "tarefa/formulario";
-		}
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
 
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
+      if(result.hasFieldErrors("descricao")) {
+        return "tarefa/formulario";
+      }
+
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.adiciona(tarefa);
+      return "tarefa/adicionada";
+  }
 ```
 
 No código acima verificamos se existe um de erro validação relacionado com o atributo
@@ -723,12 +721,14 @@ No código acima verificamos se existe um de erro validação relacionado com o 
 mais genérico:
 
 ``` java
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
-		
-	if(result.hasErrors()) {
-		return "tarefa/formulario";
-	}
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+
+      if(result.hasErrors()) {
+          return "tarefa/formulario";
+      }
+      //...
+  }
 
 ```
 
@@ -738,8 +738,8 @@ mais genérico:
 Para exibir as mensagens de validação no JSP usamos um tag especial que o
 Spring MVC oferece. O tag se chama **form:errors**:
 
-``` xml
-<form:errors path="tarefa.descricao" />
+``` html
+  <form:errors path="tarefa.descricao" />
 ```
 
 O atributo _path_ indica com que atributo essa mensagem está relacionada.
@@ -749,22 +749,22 @@ O atributo _path_ indica com que atributo essa mensagem está relacionada.
 Abaixo está o código completo do formulário _formulario.jsp_ da pasta `tarefa`.
 Repare que é preciso importar o taglib do Spring MVC:
 
-``` xml
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<html>
-<body>
-	<h3>Adicionar tarefas</h3>
-	<form action="adicionaTarefa" method="post">
-		Descrição:
-            <br/>
-		<textarea rows="5" cols="100" name="descricao"></textarea> 
-            <br/>		 
-		<form:errors path="tarefa.descricao" cssStyle="color:red"/>
-            <br/>
-		<input type="submit" value="Adicionar"/>
-	</form>
-</body>
-</html>
+``` html
+  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+  <html>
+    <body>
+      <h3>Adicionar tarefas</h3>
+      <form action="adicionaTarefa" method="post">
+        Descrição:
+                <br/>
+        <textarea rows="5" cols="100" name="descricao"></textarea>
+                <br/>
+        <form:errors path="tarefa.descricao" cssStyle="color:red"/>
+                <br/>
+        <input type="submit" value="Adicionar"/>
+      </form>
+    </body>
+  </html>
 ```
 
 ### Mensagens internacionalizadas
@@ -786,17 +786,17 @@ O Spring MVC pode carregar automaticamente este arquivo, desde que a linha abaix
 incluída no arquivo _spring-context.xml_:
 
 ``` xml
-<bean id="messageSource" class=
-	"org.springframework.context.support
-	.ReloadableResourceBundleMessageSource">
-	<property name="basename" value="/WEB-INF/mensagens" />
-</bean>
+  <bean id="messageSource" class=
+      "org.springframework.context.support
+      .ReloadableResourceBundleMessageSource">
+      <property name="basename" value="/WEB-INF/mensagens" />
+  </bean>
 ```
 
 Basta então usar a taglib `fmt` para mostra mensagens do arquivo `mensagens.properties` na página HTML:
 
-``` xml
-	<fmt:message key="tarefa.adicionada.com.sucesso"/>
+``` html
+  <fmt:message key="tarefa.adicionada.com.sucesso"/>
 ```
 
 ### Personalizando as mensagens de erros
@@ -805,22 +805,22 @@ Podemos ainda personalizar as mensagens de validação do Bean Validation, escre
 dentro do atributo `message` das anotações:
 
 ``` java
-public class Tarefa {
-	
-	private Long id;
+  public class Tarefa {
 
-	
-	@Size(min=5, message="Descrição deve ter pelo menos 5 carateres")
-	private String descricao;
-	...
+      private Long id;
+
+
+      @Size(min=5, message="Descrição deve ter pelo menos 5 carateres")
+      private String descricao;
+      //...
+  }
 ```
 
 Para não deixar as mensagens de validação espalhadas em nossas classes, podemos isolar estas mensagens
 no arquivo padrão de mensagens do Bean Validation, chamado **`ValidationMessages.properties`**:
 
 ```
-tarefa.descricao.pequena=Descrição deve conter 
-		pelo menos {min} caracteres
+tarefa.descricao.pequena=Descrição deve conter pelo menos {min} caracteres
 ...
 ```
 
@@ -828,73 +828,77 @@ O arquivo deve ficar dentro da pasta **src**. Depois podemos referenciar as chav
 dentro das anotações também pelo atributo `message`:
 
 ``` java
-public class Tarefa {
-	
-	private Long id;
+  public class Tarefa {
 
-	@Size(min=5, message="{tarefa.descricao.pequena}")
-	private String descricao;
-}
+      private Long id;
+
+      @Size(min=5, message="{tarefa.descricao.pequena}")
+      private String descricao;
+  }
 ```
 
 
 
 ## Exercícios: Validando tarefas
-1. Para configurar o framework _Bean Validation_ é preciso copiar quatro jars.
-	* Primeiro, vá ao Desktop, e entre no diretório `21/jars-hibernate-validator`.
+1. Para configurar o framework _Bean Validation_ é preciso copiar cinco jars.
+  * Primeiro, acesse a pasta do arquivos do curso, mais específicamente **21/projeto-tarefas/validator**.
 
-	* Haverá quatro JARs: classmate-x.x.x.jar, hibernate-validator-x.x.x.Final.jar,
-	jboss-logging-x.x.x.GA.jar e validation-api-x.x.x.Final.jar
+  * Haverá cinco JARs:
+     * classmate-1.3.X.jar
+     * hibernate-validator-6.1.X.Final.jar
+     * jakarta.el-3.0.X.jar
+     * jakarta.validation-api-2.0.X.jar
+     * jboss-logging-3.3.X.Final.jar
 
-	* Copie-os (CTRL+C) e cole-os (CTRL+V) dentro do _workspace_ do eclipse na pasta
-	`fj21-tarefas/WebContent/WEB-INF/lib`
-1. Abra a classe `Tarefa`. Nela é preciso definir as regras de validação através das anotações
-	do framework _Bean validation_. A atributo **descricao** deve ter pelo menos 5 caracteres:
+  * Copie-os (CTRL+C) e cole-os (CTRL+V) dentro do _workspace_ do eclipse na pasta
+  `fj21-tarefas/WebContent/WEB-INF/lib`
+2. Abra a classe `Tarefa`. Nela é preciso definir as regras de validação através das anotações
+  do framework _Bean validation_. A atributo **descricao** deve ter pelo menos 5 caracteres:
 
-	``` java
-	public class Tarefa {
+``` java
+  public class Tarefa {
 
-		private Long id;
+      private Long id;
 
-		@Size(min=5)
-		private String descricao;
-	```
+      @Size(min=5)
+      private String descricao;
+```
 1. Abra a classe `TarefasController` e procure o método **`adiciona`**. Coloque a anotação **`@Valid`**
-	na frente do parâmetro `Tarefa tarefa` e adicione o parâmetro `BindingResult` na assinatura do método.
+  na frente do parâmetro `Tarefa tarefa` e adicione o parâmetro `BindingResult` na assinatura do método.
 
-	Além disso, no mesmo método, adicione a verificação se há erros de validação. O método completo fica:
+  Além disso, no mesmo método, adicione a verificação se há erros de validação. O método completo fica:
 
-	``` java
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+``` java
+  @RequestMapping("adicionaTarefa")
+  public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
 
-		if(result.hasFieldErrors("descricao")) {
-			return "tarefa/formulario";
-		}		
+      if(result.hasFieldErrors("descricao")) {
+        return "tarefa/formulario";
+      }
 
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
-	```
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.adiciona(tarefa);
+      return "tarefa/adicionada";
+  }
+```
 1. Abra o JSP **`formulario.jsp`** (da pasta `WEB-INF/views/tarefa`).
-	Adicione no início da página a declaração da taglib do Spring MVC:
+  Adicione no início da página a declaração da taglib do Spring MVC:
 
-	``` xml
-	        <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-	```
+``` html
+  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+```
 
-	Dentro do HTML adicione a tag **form:errors** acima do tag _form_. Adicione
-	apenas o tag _form:errors_:
+  Dentro do HTML adicione a tag **form:errors** acima do tag _form_. Adicione
+  apenas o tag _form:errors_:
 
-	``` xml
-	        <form:errors path="tarefa.descricao"/>
-	        <form action="adicionaTarefa" method="post">
-	```
+``` html
+  <form:errors path="tarefa.descricao"/>
+  <form action="adicionaTarefa" method="post">
+```
 1. Reinicie o Tomcat e acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
-	Envie uma requisição SEM preencher a descrição da tarefa, a mensagem de validação deve aparecer.
+  Envie uma requisição SEM preencher a descrição da tarefa, a mensagem de validação deve aparecer.
 
-	![ {w=60%}](assets/imagens/springmvc/validacao.png)
+  ![ {w=60%}](assets/imagens/springmvc/validacao.png)
 
 
 
@@ -905,12 +909,12 @@ o `JdbcTarefaDao` para conseguir a lista das tarefas que estão no banco de dado
 novo método dentro da classe `TarefasController`:
 
 ``` java
-@RequestMapping("listaTarefas")
-public String lista() {
-	JdbcTarefaDao dao = new JdbcTarefaDao();
-	List<Tarefa> tarefas = dao.lista(); 
-	return "tarefa/lista";
-}
+  @RequestMapping("listaTarefas")
+  public String lista() {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      List<Tarefa> tarefas = dao.lista();
+      return "tarefa/lista";
+  }
 ```
 
 Essa lista de tarefas deverá ser disponibilizada para o JSP fazer sua exibição. Para que possamos
@@ -923,15 +927,15 @@ definir o nome da página JSP. O método `lista` deve retornar esse objeto, não
 `String`. Veja como fica o código:
 
 ``` java
-	@RequestMapping("listaTarefas")
-	public ModelAndView lista() {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		List<Tarefa> tarefas = dao.lista(); 
+  @RequestMapping("listaTarefas")
+  public ModelAndView lista() {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      List<Tarefa> tarefas = dao.lista();
 
-		ModelAndView mv = new ModelAndView("tarefa/lista");
-		mv.addObject("tarefas", tarefas);
-		return mv;
-	}
+      ModelAndView mv = new ModelAndView("tarefa/lista");
+      mv.addObject("tarefas", tarefas);
+      return mv;
+  }
 ```
 
 Dessa forma, será disponibilizado para o JSP um objeto chamado `tarefas`
@@ -949,87 +953,89 @@ com a lista de tarefas. Assim também continuaremos devolver uma String como ret
 que indica o caminho para o JSP:
 
 ``` java
-	@RequestMapping("listaTarefas")
-	public String lista(Model model) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		List<Tarefa> tarefas = dao.lista(); 
-		model.addAttribute("tarefas", tarefas);
-		return "tarefa/lista";
-	}
+  @RequestMapping("listaTarefas")
+  public String lista(Model model) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      List<Tarefa> tarefas = dao.lista();
+      model.addAttribute("tarefas", tarefas);
+      return "tarefa/lista";
+  }
 ```
 
 Dessa maneira não é preciso instanciar o modelo, e sim apenas disponibilizar a lista.
 
 ## Exercícios: Listando tarefas
 1. Vamos criar a listagem das nossas tarefas mostrando se a mesma já foi finalizada ou
-	não.
+  não.
 
-	* Na classe `TarefasController` adicione o método `lista` que
-	recebe um **`Model`** como parâmetro:
-	``` java
-			@RequestMapping("listaTarefas")
-			public String lista(Model model) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				model.addAttribute("tarefas", dao.lista());
-				return "tarefa/lista";
-			}
-	```
+  * Na classe `TarefasController` adicione o método `lista` que
+  recebe um **`Model`** como parâmetro:
+``` java
+  @RequestMapping("listaTarefas")
+  public String lista(Model model) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      model.addAttribute("tarefas", dao.lista());
+      return "tarefa/lista";
+  }
+```
 
-	* Para fazer a listagem, vamos precisar da JSTL (iremos fazer um `forEach`), portanto
-	precisamos importá-la. Primeiro, vá ao Desktop e entre no diretório `21/jars-jstl`.
+  * Para fazer a listagem, vamos precisar da JSTL (iremos fazer um `forEach`), portanto
+  precisamos importá-la. Primeiro, entre no diretório dos arquivos do curso e depois em **21/projeto-tarefas/jstl**.
 
-	* Haverão dois JARs, javax.servlet.jsp.jstl-x.x.x.jar e javax.servlet.jsp.jstl-api-x.x.x.jar.
+  * Haverão dois JARs:
+    * jakarta.servlet.jsp.jstl-1.2.x.jar
+    * jakarta.servlet.jsp.jstl-api-1.2.x.jar.
 
-	* Copie-os (CTRL+C) e cole-os (CTRL+V) dentro do _workspace_ do eclipse na pasta
-	`fj21-tarefas/WebContent/WEB-INF/lib`
+  * Copie-os (CTRL+C) e cole-os (CTRL+V) dentro do _workspace_ do eclipse na pasta
+  `fj21-tarefas/WebContent/WEB-INF/lib`
 
-	* No Eclipse, dê um F5 no seu projeto. Pronto, a JSTL já está em nosso projeto.
+  * No Eclipse, dê um F5 no seu projeto. Pronto, a JSTL já está em nosso projeto.
 
-	* Crie o JSP que fará a exibição das tarefas dentro da pasta `WebContent/WEB-INF/views/tarefa`.
-	Chame-o de `lista.jsp` e adicione o seguinte conteúdo:
+  * Crie o JSP que fará a exibição das tarefas dentro da pasta `WebContent/WEB-INF/views/tarefa`.
+  Chame-o de `lista.jsp` e adicione o seguinte conteúdo:
 
-	``` xml
-			<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-			<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-			<html>
-			<body>
+``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  <html>
+  <body>
 
-				<a href="novaTarefa">Criar nova tarefa</a> 
+    <a href="novaTarefa">Criar nova tarefa</a>
 
-				<br /> <br />				
+    <br /> <br />
 
-				<table>
-					<tr>
-						<th>Id</th>
-						<th>Descrição</th>
-						<th>Finalizado?</th>
-						<th>Data de finalização</th>
-					</tr>
-					<c:forEach items="${tarefas}" var="tarefa">
-						<tr>
-							<td>${tarefa.id}</td>
-							<td>${tarefa.descricao}</td>
-							<c:if test="${tarefa.finalizado eq false}">
-								<td>Não finalizado</td>
-							</c:if>
-							<c:if test="${tarefa.finalizado eq true}">
-								<td>Finalizado</td>
-							</c:if>
-							<td>
-								<fmt:formatDate
-									value="${tarefa.dataFinalizacao.time}"
-									pattern="dd/MM/yyyy"/>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</body>
-			</html>
-	```
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Finalizado?</th>
+        <th>Data de finalização</th>
+      </tr>
+      <c:forEach items="${tarefas}" var="tarefa">
+        <tr>
+          <td>${tarefa.id}</td>
+          <td>${tarefa.descricao}</td>
+          <c:if test="${tarefa.finalizado eq false}">
+            <td>Não finalizado</td>
+          </c:if>
+          <c:if test="${tarefa.finalizado eq true}">
+            <td>Finalizado</td>
+          </c:if>
+          <td>
+            <fmt:formatDate
+              value="${tarefa.dataFinalizacao.time}"
+              pattern="dd/MM/yyyy"/>
+          </td>
+        </tr>
+      </c:forEach>
+    </table>
+  </body>
+  </html>
+```
 
-	* Reinicie o Tomcat e acesse o endereço http://localhost:8080/fj21-tarefas/listaTarefas
-	e veja o resultado.
-	![ {w=60%}](assets/imagens/springmvc/lista-tarefas.png)
+  * Reinicie o Tomcat e acesse o endereço http://localhost:8080/fj21-tarefas/listaTarefas
+  e veja o resultado.
+  ![ {w=60%}](assets/imagens/springmvc/lista-tarefas.png)
 
 
 
@@ -1042,8 +1048,8 @@ o código da tarefa para ser removida.
 
 O link pode ser feito com HTML na lista de tarefas da seguinte forma:
 
-``` xml
-	<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+``` html
+  <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
 ```
 
 Podemos desenvolver um método para fazer a remoção. A lógica não possui nenhuma novidade,
@@ -1051,12 +1057,12 @@ basta recuperarmos o parâmetro como aprendemos nesse capítulo e invocarmos
 o `DAO` para fazer a remoção:
 
 ``` java
-@RequestMapping("removeTarefa")
-public String remove(Tarefa tarefa) {
-	JdbcTarefaDao dao = new JdbcTarefaDao();
-	dao.remove(tarefa);
-	return "para onde ir???";
-}
+  @RequestMapping("removeTarefa")
+  public String remove(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.remove(tarefa);
+      return "para onde ir???";
+  }
 ```
 
 A questão é: Para qual lugar redirecionar o usuário após a exclusão?
@@ -1080,23 +1086,23 @@ pelo navegador, no lado do cliente (_redirect_).
 Para fazer um redirecionamento no lado do servidor basta usar o prefixo _forward_ no retorno:
 
 ``` java
-@RequestMapping("removeTarefa")
-public String remove(Tarefa tarefa) {
-	JdbcTarefaDao dao = new JdbcTarefaDao();
-	dao.remove(tarefa);
-	return "forward:listaTarefas";
-}
+  @RequestMapping("removeTarefa")
+  public String remove(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.remove(tarefa);
+      return "forward:listaTarefas";
+  }
 ```
 
 Para fazer um redirecionamento no lado do cliente usamos o prefixo _redirect_:
 
 ``` java
-@RequestMapping("removeTarefa")
-public String remove(Tarefa tarefa) {
-	JdbcTarefaDao dao = new JdbcTarefaDao();	
-	dao.remove(tarefa);
-	return "redirect:listaTarefas";
-}
+  @RequestMapping("removeTarefa")
+  public String remove(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.remove(tarefa);
+      return "redirect:listaTarefas";
+  }
 ```
 
 
@@ -1104,111 +1110,112 @@ public String remove(Tarefa tarefa) {
 ## Exercícios: Removendo e alterando tarefas
 1. Vamos fazer a funcionalidade de remoção de tarefas.
 
-	* Adicione no arquivo `lista.jsp` uma coluna com um link que ao ser clicado
-	invocará a `Action` para remover tarefa.
-	``` xml
-				<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
-	```
+  * Adicione no arquivo `lista.jsp` uma coluna com um link que ao ser clicado
+  invocará a `Action` para remover tarefa.
+``` html
+  <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+```
 
-	* Crie um novo método **remove** na classe `TarefasController` com o código:
+  * Crie um novo método **remove** na classe `TarefasController` com o código:
 
-	``` java
-			@RequestMapping("removeTarefa")
-			public String remove(Tarefa tarefa) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				dao.remove(tarefa);
-				return "redirect:listaTarefas";
-			}
-	```
+``` java
+  @RequestMapping("removeTarefa")
+  public String remove(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.remove(tarefa);
+      return "redirect:listaTarefas";
+  }
+```
 
-	* Acesse a lista de tarefas em http://localhost:8080/fj21-tarefas/listaTarefas e
-	remova algumas tarefas.
+  * Acesse a lista de tarefas em http://localhost:8080/fj21-tarefas/listaTarefas e
+  remova algumas tarefas.
 1. Criaremos a tela para fazer a alteração das tarefas, como por exemplo, marcá-la como
-	finalizada e definirmos a data de finalização.
+  finalizada e definirmos a data de finalização.
 
-	* Primeiro vamos criar um novo link na nossa listagem que enviará o usuário para a tela
-	contendo os dados da tarefa selecionada:
-	``` xml
-			<td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
-	```
+  * Primeiro vamos criar um novo link na nossa listagem que enviará o usuário para a tela
+  contendo os dados da tarefa selecionada:
+``` html
+  <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
+```
 
-	* Vamos criar uma nova ação que dado um `id`, devolverá a `Tarefa` correspondente
-	para um JSP, que mostrará os dados para que a alteração possa ser feita.
+  * Vamos criar uma nova ação que dado um `id`, devolverá a `Tarefa` correspondente
+  para um JSP, que mostrará os dados para que a alteração possa ser feita.
 
-	Crie um novo método `mostra` na classe `TarefasController`:
+  Crie um novo método `mostra` na classe `TarefasController`:
 
-	``` java
-			@RequestMapping("mostraTarefa")
-			public String mostra(Long id, Model model) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				model.addAttribute("tarefa", dao.buscaPorId(id));
-				return "tarefa/mostra";
-			}
-	```
+``` java
+  @RequestMapping("mostraTarefa")
+  public String mostra(Long id, Model model) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      model.addAttribute("tarefa", dao.buscaPorId(id));
+      return "tarefa/mostra";
+  }
+```
 
-	* Crie o JSP `mostra.jsp` dentro da pasta `views/tarefa`
-	para mostrar a tarefa escolhida:
-	``` xml
-		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+  * Crie o JSP `mostra.jsp` dentro da pasta `views/tarefa`
+  para mostrar a tarefa escolhida:
+``` html
+  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-		<html>
-		<body>
-			<h3>Alterar tarefa - ${tarefa.id}</h3>
-			<form action="alteraTarefa" method="post">
+  <html>
+    <body>
+      <h3>Alterar tarefa - ${tarefa.id}</h3>
+      <form action="alteraTarefa" method="post">
 
-				<input type="hidden" name="id" value="${tarefa.id}" />
+        <input type="hidden" name="id" value="${tarefa.id}" />
 
-				Descrição:<br />
-				<textarea name="descricao" cols="100" rows="5"><%--
-					--%>${tarefa.descricao}<%--
-				--%></textarea>
-				<br />			
+        Descrição:<br />
+        <textarea name="descricao" cols="100" rows="5">
+          <!-- {tarefa.descricao} -->
+        </textarea>
+        <br />
 
-				Finalizado? <input type="checkbox" name="finalizado" 
-					value="true" ${tarefa.finalizado? 'checked' : '' }/> <br />			
+        Finalizado? <input type="checkbox" name="finalizado"
+          value="true" ${tarefa.finalizado? 'checked' : '' }/> <br />
 
-				Data de finalização: <br />
-				<input type="text" name="dataFinalizacao" 
-				  value="<fmt:formatDate 
-					value="${tarefa.dataFinalizacao.time}" 
-					pattern="dd/MM/yyyy" />"/> 
-				<br />
+        Data de finalização: <br />
+        <input type="text" name="dataFinalizacao"
+          value="<fmt:formatDate
+          value="${tarefa.dataFinalizacao.time}"
+          pattern="dd/MM/yyyy" />"/>
+        <br />
 
-				<input type="submit" value="Alterar"/>
-			</form>
-		</body>
-		</html>			
-	```
+        <input type="submit" value="Alterar"/>
 
-	* Para o Spring MVC saber converter automaticamente a data no formato brasileiro para um
-	`Calendar` é preciso usar a anotação `@DateTimeFormat`. Abra a classe `Tarefa` e
-	adicione a anotação acima do atributo `dataFinalizacao`:
+      </form>
+    </body>
+  </html>
+```
 
-	``` java
-			@DateTimeFormat(pattern="dd/MM/yyyy")
-			private Calendar dataFinalizacao;
-	```
+  * Para o Spring MVC saber converter automaticamente a data no formato brasileiro para um
+  `Calendar` é preciso usar a anotação `@DateTimeFormat`. Abra a classe `Tarefa` e
+  adicione a anotação acima do atributo `dataFinalizacao`:
 
-	* Falta criar um método que cuidará da alteração da tarefa. Na classe
-	`TarefasController` adicione esse método:
-	``` java
-			@RequestMapping("alteraTarefa")
-			public String altera(Tarefa tarefa) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				dao.altera(tarefa);
-				return "redirect:listaTarefas";
-			}
-	```
-	* Acesse a lista de tarefas em http://localhost:8080/fj21-tarefas/listaTarefas e
-	altere algumas tarefas.
+``` java
+  @DateTimeFormat(pattern="dd/MM/yyyy")
+  private Calendar dataFinalizacao;
+```
+
+  * Falta criar um método que cuidará da alteração da tarefa. Na classe
+  `TarefasController` adicione esse método:
+``` java
+  @RequestMapping("alteraTarefa")
+  public String altera(Tarefa tarefa) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.altera(tarefa);
+      return "redirect:listaTarefas";
+  }
+```
+  * Acesse a lista de tarefas em http://localhost:8080/fj21-tarefas/listaTarefas e
+  altere algumas tarefas.
 
 
 
 ## Desafio - Calendário
 1. Adicione o campo com calendário que fizemos no capítulo de criação de Tags
-	em nosso projeto e utilize-o no formulário de alteração.
+  em nosso projeto e utilize-o no formulário de alteração.
 
-	
+  
 
 
 
@@ -1248,28 +1255,28 @@ método utilizaremos para enviar essa requisição (POST ou GET). O jQuery nos f
 `$.post` e `$.get`, cada uma para cada método.
 
 Para as funções basta passarmos o endereço que queremos invocar, como por exemplo:
-```
-	$.get("minhaPagina.jsp")
+``` javascript
+  $.get("minhaPagina.jsp")
 ```
 
 Nesse caso, estamos enviando uma requisição via GET para o endereço `minhaPagina.jsp`.
 
 Sabendo isso, vamos criar um link que invocará uma função Javascript e fará requisição AJAX para
 uma ação que finalizará a tarefa:
-``` xml
-	<td><a href="#" onclick="finalizaAgora(${tarefa.id})">
-		Finalizar agora
-	</a></td>
+``` html
+  <td><a href="#" onclick="finalizaAgora(${tarefa.id})">
+    Finalizar agora
+  </a></td>
 ```
 
 Vamos criar a função `finalizaAgora` que recebe o id da tarefa que será finalizada e
 a passará como parâmetro para a ação:
-``` xml
-	<script type="text/javascript">
-		function finalizaAgora(id) {
-			$.get("finalizaTarefa?id=" + id);
-		}
-	</script>
+``` html
+  <script type="text/javascript">
+    function finalizaAgora(id) {
+      $.get("finalizaTarefa?id=" + id);
+    }
+  </script>
 ```
 
 Por fim, basta criarmos a nossa ação que receberá o parâmetro e invocará um método do `JdbcTarefaDao`
@@ -1291,12 +1298,12 @@ da tarefa com o seguinte código:
 
 
 ``` java
-@RequestMapping("finalizaTarefa")
-public void finaliza(Long id, HttpServletResponse response) {
-	JdbcTarefaDao dao = new JdbcTarefaDao();
-	dao.finaliza(id);
-	response.setStatus(200);
-}
+  @RequestMapping("finalizaTarefa")
+  public void finaliza(Long id, HttpServletResponse response) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+      response.setStatus(200);
+  }
 ```
 
 O primeiro parâmetro é a id da tarefa que vem através da requisição, o segundo é a resposta para
@@ -1312,12 +1319,12 @@ da nossa resposta. Ou se nada for retornado, então a resposta será vazia poré
 Nosso código pode ficar mais enxuto e sem a manipulação do response:
 
 ``` java
-@ResponseBody
-@RequestMapping("finalizaTarefa")
-public void finaliza(Long id) {
-  JdbcTarefaDao dao = new JdbcTarefaDao();
-  dao.finaliza(id);
-}
+  @ResponseBody
+  @RequestMapping("finalizaTarefa")
+  public void finaliza(Long id) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+  }
 ```
 
 
@@ -1329,13 +1336,13 @@ com sucesso. O jQuery já fornece um jeito muito simples de implementar isso. É
 uma função que é chamada quando a requisição termina com sucesso (status 200).
 
 ``` xml
-	<script type="text/javascript">
-		function finalizaAgora(id) {
-			$.get("finalizaTarefa?id=" + id, function(dadosDeResposta) {
-					alert("Tarefa Finalizada!");
-				});
-		}
-	</script>
+  <script type="text/javascript">
+    function finalizaAgora(id) {
+      $.get("finalizaTarefa?id=" + id, function(dadosDeResposta) {
+          alert("Tarefa Finalizada!");
+        });
+    }
+  </script>
 ```
 
 Repare que `$.get` recebe mais uma função como parâmetro (também chamado _callback de sucesso_).
@@ -1345,15 +1352,15 @@ para alterar qualquer  elemento HTML dentro do navegador.
 
 Por exemplo, podemos selecionar um elemento da página pela `id` e mudar o conteúdo desse elemento:
 
-``` xml
-	$("#idDoElementoHTML").html("Novo conteúdo HTML desse elemento");
+``` javascript
+  $("#idDoElementoHTML").html("Novo conteúdo HTML desse elemento");
 ```
 
 Para o nosso exemplo, então é interessante atualizar a coluna da tarefa para indicar que
 ela foi finalizada:
 
 ``` xml
-	$("#tarefa_"+id).html("Tarefa finalizada");
+  $("#tarefa_"+id).html("Tarefa finalizada");
 ```
 
 
@@ -1372,7 +1379,7 @@ Para isso é preciso adicionar no arquivo `spring-context.xml` um mapeamento que
 que ele deve ignorar todo acesso a conteúdo estático.
 
 ``` xml
-	<mvc:default-servlet-handler/>
+  <mvc:default-servlet-handler/>
 ```
 
 
@@ -1380,103 +1387,103 @@ que ele deve ignorar todo acesso a conteúdo estático.
 ## Exercícios: Ajax
 1. Abra o arquivo `spring-context.xml` e acrescente:
 
-	``` xml
-				<mvc:default-servlet-handler/>
-	```
-	Na pasta `WebContent` crie uma nova pasta **`resources`**, vamos colocar nela tudo relativo
-	a conteúdo estático do nosso sistema.
+``` xml
+  <mvc:default-servlet-handler/>
+```
+  Na pasta `WebContent` crie uma nova pasta **`resources`**, vamos colocar nela tudo relativo
+  a conteúdo estático do nosso sistema.
 1. Vamos adicionar AJAX na nossa aplicação. Para isso, utilizaremos o jQuery que
-	precisamos importar para nosso projeto e em nossas páginas.
+  precisamos importar para nosso projeto e em nossas páginas.
 
-	* Vá ao Desktop, e entre na pasta `21`;
-	* Copie o diretório `js` e cole-o dentro de `WebContent/resources` no
-	seu projeto fj21-tarefas; Caso você esteja em casa, faça o download
-	em http://jquery.com/download
+  * Vá até a pasta de arquivos do curso, em **21/projeto-agenda/**;
+  * Copie o diretório `js` e cole-o dentro de `WebContent/resources` no
+  seu projeto fj21-tarefas; Caso você esteja em casa, faça o download
+  em https://jquery.com/download/
 
-	* Precisamos importar o jQuery em nossa página de listagem. Para isso,
-	adicione logo após a Tag `<html>` o seguinte código no arquivo `lista.jsp`:
-	``` xml
-			<head>
-				<script type="text/javascript" src="resources/js/jquery.js"></script>
-			</head>
-	```
-	* Pronto, importamos o jQuery para nossa aplicação.
+  * Precisamos importar o jQuery em nossa página de listagem. Para isso,
+  adicione logo após a Tag `<html>` o seguinte código no arquivo `lista.jsp`:
+``` html
+  <head>
+    <script type="text/javascript" src="resources/js/jquery.js"></script>
+  </head>
+```
+  * Pronto, importamos o jQuery para nossa aplicação.
 1. Caso a tarefa não esteja finalizada, queremos que ela possua um novo link que
-	se chamará "Finalizar agora". Ao clicar nele, será chamada via AJAX uma `Action` que
-	marcará a tarefa como finalizada e a data de hoje será marcada como a data de finalização
-	da mesma.
+  se chamará "Finalizar agora". Ao clicar nele, será chamada via AJAX uma `Action` que
+  marcará a tarefa como finalizada e a data de hoje será marcada como a data de finalização
+  da mesma.
 
-	* Altere a coluna que mostra a tarefa como **não** finalizada
-	no arquivo `lista.jsp`. Adicione um link que ao ser clicada,
-	chamará	uma função Javascript passando o `id` da tarefa para finalizar.
-	Também adicione uma id para cada elemento `<td>`.
+  * Altere a coluna que mostra a tarefa como **não** finalizada
+  no arquivo `lista.jsp`. Adicione um link que ao ser clicada,
+  chamará uma função Javascript passando o `id` da tarefa para finalizar.
+  Também adicione uma id para cada elemento `<td>`.
 
-	No arquivo procure o _c:if_ para tarefas não finalizadas,
-	altere o elemento `td` dentro _c:if_:
-	``` xml
-			<c:if test="${tarefa.finalizado eq false}">
-				<td id="tarefa_${tarefa.id}">
-				    <a href="#" onClick="finalizaAgora(${tarefa.id})">
-						Finaliza agora!
-				    </a>
-				</td>
-			</c:if>
-	```
+  No arquivo procure o _c:if_ para tarefas não finalizadas,
+  altere o elemento `td` dentro _c:if_:
+``` html
+  <c:if test="${tarefa.finalizado eq false}">
+    <td id="tarefa_${tarefa.id}">
+        <a href="#" onClick="finalizaAgora(${tarefa.id})">
+        Finaliza agora!
+        </a>
+    </td>
+  </c:if>
+```
 
-	* Crie a função Javascript `finalizaAgora` para chamar a ação que criaremos
-	a seguir via uma requisição POST:
-	``` xml
-	<!-- Começo da página com o import do Javascript -->
-	<body>
-		<script type="text/javascript">
-			function finalizaAgora(id) {
-				$.post("finalizaTarefa", {'id' : id}, function() {
-					// selecionando o elemento html através da 
-					// ID e alterando o HTML dele 
-					$("#tarefa_"+id).html("Finalizado");
-				});
-			}
-		</script>
+  * Crie a função Javascript `finalizaAgora` para chamar a ação que criaremos
+  a seguir via uma requisição POST:
+``` html
+<!-- Começo da página com o import do Javascript -->
+  <body>
+    <script type="text/javascript">
+      function finalizaAgora(id) {
+        $.post("finalizaTarefa", {'id' : id}, function() {
+          // selecionando o elemento html através da
+          // ID e alterando o HTML dele
+          $("#tarefa_"+id).html("Finalizado");
+        });
+      }
+    </script>
 
-		<a href="novaTarefa">Criar nova tarefa</a>
-		<br /> <br />
+    <a href="novaTarefa">Criar nova tarefa</a>
+    <br /> <br />
 
-		<table>
-		<!-- Resto da página com a tabela -->
-	```
+    <table>
+    <!-- Resto da página com a tabela -->
+```
 1. Vamos criar o método para finalizar a tarefa. Após o mesmo ser executado, ele não deverá
-	nos redirecionar para lugar nenhum, apenas indicar que a execução ocorreu com sucesso.
+  nos redirecionar para lugar nenhum, apenas indicar que a execução ocorreu com sucesso.
 
-	* Abra a classe `TarefasController`
-	Adicione o método `finaliza` com o conteúdo:
-	``` java
-			@ResponseBody
-			@RequestMapping("finalizaTarefa")
-			public void finaliza(Long id) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				dao.finaliza(id);
-			}
-	```
-	* Acesse a listagem http://localhost:8080/fj21-tarefas/listaTarefas e clique no novo
-	link para finalizar tarefa. A tela muda sem precisar uma atualização inteira da página.
+  * Abra a classe `TarefasController`
+  Adicione o método `finaliza` com o conteúdo:
+``` java
+  @ResponseBody
+  @RequestMapping("finalizaTarefa")
+  public void finaliza(Long id) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+  }
+```
+  * Acesse a listagem http://localhost:8080/fj21-tarefas/listaTarefas e clique no novo
+  link para finalizar tarefa. A tela muda sem precisar uma atualização inteira da página.
 
-	![ {w=80%}](assets/imagens/springmvc/ajax-finalizar-tarefa.png)
-	
+  ![ {w=80%}](assets/imagens/springmvc/ajax-finalizar-tarefa.png)
+  
 1. (Opcional, Avançado) No mesmo estilo do exercício anterior, use o jQuery
-	para acionar o método `removeTarefa` quando clicado em um botão
-	de "_excluir_". Para isso, crie uma nova coluna na tabela com um link
-	que o onClick vai chamar o endereço associado a `removeTarefa`, e
-	via AJAX devemos remover a linha da tabela. Pra isso você pode usar
-	um recurso poderoso do jQuery e pedir que seja escondida a linha de onde veio
-	o clique:
+  para acionar o método `removeTarefa` quando clicado em um botão
+  de "_excluir_". Para isso, crie uma nova coluna na tabela com um link
+  que o onClick vai chamar o endereço associado a `removeTarefa`, e
+  via AJAX devemos remover a linha da tabela. Pra isso você pode usar
+  um recurso poderoso do jQuery e pedir que seja escondida a linha de onde veio
+  o clique:
 
-	``` xml
-			$(elementoHtml).closest("tr").hide();
-	```
+``` javascript
+  $(elementoHtml).closest("tr").hide();
+```
 
-	Dessa maneira você nem precisaria usar `id`s nas `tr`s.
+  Dessa maneira você nem precisaria usar `id`s nas `tr`s.
 
-	
+  
 
 
 
@@ -1492,15 +1499,15 @@ data para nosso jQuery. Mas como?
 Uma solução possível seria escrevê-la direto no response. Algo parecido com isso:
 
 ``` java
-		@RequestMapping("finalizaTarefa")
-		public void finaliza(Long id, HttpServletResponse response) throws IOException {
-			JdbcTarefaDao dao = new JdbcTarefaDao();
-			dao.finaliza(id);
-			Date dataDeFinalizacao = dao.buscaPorId(id).getDataFinalizacao().getTime();
-			String data = new SimpleDateFormat("dd/MM/yyyy").format(dataDeFinalizacao);		
-			response.getWriter().write(data);
-			response.setStatus(200);
-		}
+  @RequestMapping("finalizaTarefa")
+  public void finaliza(Long id, HttpServletResponse response) throws IOException {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+      Date dataDeFinalizacao = dao.buscaPorId(id).getDataFinalizacao().getTime();
+      String data = new SimpleDateFormat("dd/MM/yyyy").format(dataDeFinalizacao);
+      response.getWriter().write(data);
+      response.setStatus(200);
+  }
 ```
 
 Resolve nosso problema mas ainda assim teríamos que ficar trabalhando direto em
@@ -1516,23 +1523,23 @@ ela e depois fazer com que a Action retorne a `String` referente a JSP.
 
 
 ``` java
-			@RequestMapping("finalizaTarefa")
-			public String finaliza(Long id, Model model) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				dao.finaliza(id);
-				model.addAttribute("tarefa", dao.buscaPorId(id));
-				return "tarefa/dataFinalizada";
-			}
+  @RequestMapping("finalizaTarefa")
+  public String finaliza(Long id, Model model) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+      model.addAttribute("tarefa", dao.buscaPorId(id));
+      return "tarefa/dataFinalizada";
+  }
 ```
 
 Agora só falta realmente criarmos o arquivo `dataFinalizada` na pasta
 `/WEB-INF/views/tarefa` e formatar a data usando a tag <fmt>.
 
-``` xml
+``` html
 
-		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-		<fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
+  <fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
 
 ```
 
@@ -1541,38 +1548,38 @@ para o jQuery. Só que até agora não fizemos nada com essa data que o JSP rend
 Para que se pegue algo enviado pelo nosso servidor, a função de callback deve receber
 um parâmetro com esse conteúdo. Vamos executar um `alert` com esta variável.
 
-``` xml
-		<script type="text/javascript">
-			function finalizaAgora(id) {
-				$.post("finalizaTarefa", {'id' : id}, function(resposta) {
-					$("#tarefa_"+id).html("Finalizado");
-					alert(resposta);
-				});
-			}
-		</script>
+``` javascript
+  <script type="text/javascript">
+    function finalizaAgora(id) {
+      $.post("finalizaTarefa", {'id' : id}, function(resposta) {
+        $("#tarefa_"+id).html("Finalizado");
+        alert(resposta);
+      });
+    }
+  </script>
 ```
 
 A execução desse `alert` nos mostra a data, falta apenas inseri-la em lugar apropriado.
 Vamos usar a mesma estratégia que usamos para mudar de _Não Finalizado_ para _Finalizado_,
 atrelando um id a nossa `<td>` referente ao campo de de data.
 
-``` xml
-			<td id="tarefa_data_${tarefa.id}">
-				<fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
-			</td>
+``` html
+  <td id="tarefa_data_${tarefa.id}">
+    <fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
+  </td>
 ```
 
 Fazendo isso basta trocarmos o conteúdo do `<td>` na função.
 
-``` xml
-		<script type="text/javascript">
-			function finalizaAgora(id) {
-				$.post("finalizaTarefa", {'id' : id}, function(resposta) {
-					$("#tarefa_"+id).html("Finalizado");
-					$("#tarefa_data_"+id).html(resposta);
-				});
-			}
-		</script>
+``` javascript
+  <script type="text/javascript">
+    function finalizaAgora(id) {
+      $.post("finalizaTarefa", {'id' : id}, function(resposta) {
+        $("#tarefa_"+id).html("Finalizado");
+        $("#tarefa_data_"+id).html(resposta);
+      });
+    }
+  </script>
 ```
 
 O nosso desafio foi cumprido de forma elegante, mas ainda assim poderíamos melhorar
@@ -1583,20 +1590,17 @@ de um parâmetro a ela. Como resolver esta questão?
 Uma solução viável é passar a própria `<tr>`, completa, com as alteração necessárias. Para isso uma
 alteração na JSP se faz necessária.
 
-``` xml
-		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-		
-		<td>${tarefa.id}</td>
-		<td>${tarefa.descricao}</td>
-		<td>Finalizada</td>
-		<td>
-			<fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
-		</td>
-		<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
-		<td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
-
-		
+``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  ...
+  <td>${tarefa.id}</td>
+  <td>${tarefa.descricao}</td>
+  <td>Finalizada</td>
+  <td>
+    <fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" />
+  </td>
+  <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+  <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
 ```
 
 Uma alteração no nome do aquivo `dataFinalizada.jsp` seria mais do que recomendada,
@@ -1605,11 +1609,11 @@ Vamos renomeá-lo para `finalizada.jsp`. Sem esquecer de modificar o retorno da 
 de _tarefa/dataFinalizada_ para _tarefa/finalizada_:
 
 ``` java
-		@RequestMapping("finalizaTarefa")
-		public String finaliza(Long id, Model model) {
-			...
-			return "tarefa/finalizada";
-		}
+  @RequestMapping("finalizaTarefa")
+  public String finaliza(Long id, Model model) {
+      ...
+      return "tarefa/finalizada";
+  }
 ```
 
 Agora que retornamos uma `<tr>` com todas as alterações vamos modificar a função de callback,
@@ -1617,139 +1621,135 @@ para que ela apenas modifique o conteúdo da `<tr>` correspondente a tarefa fina
 isso é preciso diferenciar um `<tr>` do outro. Vamos utilizar agora um id na própria `<tr>` e
 removeremos os ids desnecessários dos `<td>`'s.
 
-``` xml
-		<table>
-			...
-			<c:forEach items="${tarefas}" var="tarefa">
-				<tr id="tarefa_${tarefa.id}">
-					<td>${tarefa.id}</td>
-					<td>${tarefa.descricao}</td>
-					
-					<c:if test="${tarefa.finalizado eq true}">
-						<td>Finalizado</td>
-					</c:if>
-					
-					<c:if test="${tarefa.finalizado eq false}">
-						<td>
-							<a href="#" onClick="finalizaAgora(${tarefa.id})">
-								Finalizar
-							</a>
-						</td>
-					</c:if>
-					
-					<td>
-						<fmt:formatDate
-							value="${tarefa.dataFinalizacao.time}"
-							pattern="dd/MM/yyyy" />
-					</td>
-					
-					<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
-					<td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
-					
-				</tr>
-				
-			</c:forEach>	
-			....
-			
-		</table>
+``` html
+  <table>
+    ...
+    <c:forEach items="${tarefas}" var="tarefa">
+      <tr id="tarefa_${tarefa.id}">
+        <td>${tarefa.id}</td>
+        <td>${tarefa.descricao}</td>
+
+        <c:if test="${tarefa.finalizado eq true}">
+          <td>Finalizado</td>
+        </c:if>
+
+        <c:if test="${tarefa.finalizado eq false}">
+          <td>
+            <a href="#" onClick="finalizaAgora(${tarefa.id})">
+              Finalizar
+            </a>
+          </td>
+        </c:if>
+
+        <td>
+          <fmt:formatDate
+            value="${tarefa.dataFinalizacao.time}"
+            pattern="dd/MM/yyyy" />
+        </td>
+
+        <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+        <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
+
+      </tr>
+
+    </c:forEach>
+    ....
+
+  </table>
 ```
 
 E por último, falta mudar a função de callback para que esta modifique o conteúdo do `<tr>`.
 
-``` xml
-		...
-		$.post("finalizaTarefa", {'id' : id}, function(resposta) {
-			$("#tarefa_"+id).html(resposta);
-		});
-		...
-
+``` javascript
+  ...
+  $.post("finalizaTarefa", {'id' : id}, function(resposta) {
+    $("#tarefa_"+id).html(resposta);
+  });
+  ...
 ```
 
 Agora sim, temos um código simples e fácil de manter. Tudo o que um bom programador
 gostaria de encontrar.
 
 ## Exercícios Opcionais: Melhorando nosso AJAX
-1. 
-	Vamos buscar uma tarefa e passá-la para nossa JSP através do Model.
-	Abra o `TarefasController.java` e modifique a action
-	que finaliza uma tarefa para o que segue:
+1. Vamos buscar uma tarefa e passá-la para nossa JSP através do Model.
+  Abra o `TarefasController.java` e modifique a action
+  que finaliza uma tarefa para o que segue:
 
-	``` java
-			@RequestMapping("finalizaTarefa")
-			public String finaliza(Long id, Model model) {
-				JdbcTarefaDao dao = new JdbcTarefaDao();
-				dao.finaliza(id);
-				model.addAttribute("tarefa", dao.buscaPorId(id));
-				return "tarefa/finalizada";
-			}
-	```
+``` java
+  @RequestMapping("finalizaTarefa")
+  public String finaliza(Long id, Model model) {
+      JdbcTarefaDao dao = new JdbcTarefaDao();
+      dao.finaliza(id);
+      model.addAttribute("tarefa", dao.buscaPorId(id));
+      return "tarefa/finalizada";
+  }
+```
 1. Agora falta criarmos o arquivo `finalizada.jsp` dentro do diretório:
-	`/WEB-INF/views/tarefa/`. Que deverá ter o seguinte conteúdo da <tr>
-	relacionada a tarefa finalizada.
+  `/WEB-INF/views/tarefa/`. Que deverá ter o seguinte conteúdo da <tr>
+  relacionada a tarefa finalizada.
 
-	``` xml
-			<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-			<td>${tarefa.id}</td>
-			<td>${tarefa.descricao}</td>
-			<td>Finalizada</td>
-			<td><fmt:formatDate value="${tarefa.dataFinalizacao.time}"
-					pattern="dd/MM/yyyy" /></td>
-			<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
-			<td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
-
-	```
+``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+  ...
+  <td>${tarefa.id}</td>
+  <td>${tarefa.descricao}</td>
+  <td>Finalizada</td>
+  <td><fmt:formatDate value="${tarefa.dataFinalizacao.time}"
+      pattern="dd/MM/yyyy" /></td>
+  <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+  <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
+```
 1. Por último devemos modificar o arquivo `tarefa/lista.jsp` para que ele tenha
-	um identificador de cada linha, ou seja, elemento <tr> da tabela.
-	De maneira análoga ao que foi feito no exercício anterior vamos concatenar
-	com o `id` da tarefa um valor de `tarefa_`. Lembre-se de remover os ids
-	dos outros <td>'s já que eles não serão necessários e podem estar com o mesmo
-	nome do identificador da <tr>.
+  um identificador de cada linha, ou seja, elemento <tr> da tabela.
+  De maneira análoga ao que foi feito no exercício anterior vamos concatenar
+  com o `id` da tarefa um valor de `tarefa_`. Lembre-se de remover os ids
+  dos outros <td>'s já que eles não serão necessários e podem estar com o mesmo
+  nome do identificador da <tr>.
 
-	``` xml
-				....
-				<c:forEach items="${tarefas}" var="tarefa">
-				<tr id="tarefa_${tarefa.id}">
-					<td>${tarefa.id}</td>
-					<td>${tarefa.descricao}</td>
+``` html
+  ....
+  <c:forEach items="${tarefas}" var="tarefa">
+  <tr id="tarefa_${tarefa.id}">
+    <td>${tarefa.id}</td>
+    <td>${tarefa.descricao}</td>
 
-					<c:if test="${tarefa.finalizado eq true}">
-						<td>Finalizado</td>
-					</c:if>
+    <c:if test="${tarefa.finalizado eq true}">
+      <td>Finalizado</td>
+    </c:if>
 
-					<c:if test="${tarefa.finalizado eq false}">
-						<td >
-							<a href="#" onClick="finalizaAgora(${tarefa.id})">
-								Finalizar
-							</a>
-						</td>
-					</c:if>
+    <c:if test="${tarefa.finalizado eq false}">
+      <td >
+        <a href="#" onClick="finalizaAgora(${tarefa.id})">
+          Finalizar
+        </a>
+      </td>
+    </c:if>
 
-					<td>
-						<fmt:formatDate
-							value="${tarefa.dataFinalizacao.time}"
-							pattern="dd/MM/yyyy" />
-					</td>
-					....
-				</tr>
-				.....
-
-	```
+    <td>
+      <fmt:formatDate
+        value="${tarefa.dataFinalizacao.time}"
+        pattern="dd/MM/yyyy" />
+    </td>
+    ....
+  </tr>
+  .....
+```
 1. E agora para fazer uso do conteúdo renderizado pela JSP, é necessário
-	que a função de callback do AJAX receba como parâmetro esse conteúdo.
-	Vamos alterar a função do `finalizaAgora` no mesmo arquivo `lista.jsp`,
-	para o que segue:
+  que a função de callback do AJAX receba como parâmetro esse conteúdo.
+  Vamos alterar a função do `finalizaAgora` no mesmo arquivo `lista.jsp`,
+  para o que segue:
 
-	``` xml
-			<script type="text/javascript">
-			function finalizaAgora(id) {
-				$.post("finalizaTarefa", {'id' : id}, function(resposta) {
-					$("#tarefa_"+id).html(resposta);
-				});
-			}
-		</script>
-	```
+``` html
+  <script type="text/javascript">
+    function finalizaAgora(id) {
+      $.post("finalizaTarefa", {'id' : id}, function(resposta) {
+        $("#tarefa_"+id).html(resposta);
+      });
+    }
+</script>
+```
 1. Reinicie o servidor e verifique que agora ao clicar no link `Finalizar` o usuário
-	tem a alteração tanto de _Não Finalizada_ para _Finalizada_ quando uma mudança
-	na data de finalização.
+  tem a alteração tanto de _Não Finalizada_ para _Finalizada_ quando uma mudança
+  na data de finalização.
 

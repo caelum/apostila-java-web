@@ -35,13 +35,13 @@ Para utilizá-la, basta indicarmos qual a classe queremos instanciar e como se c
 será atribuída essa nova instância.
 
 ``` html
-	<jsp:useBean id="contato" class="br.com.caelum.agenda.modelo.Contato"/>
+  <jsp:useBean id="contato" class="br.com.caelum.agenda.modelo.Contato"/>
 ```
 
 Podemos imprimir o nome do contato (que está em branco, claro...):
 
 ``` html
-	${contato.nome}
+  ${contato.nome}
 ```
 
 Mas, onde está o `getNome()`? A expression language é capaz de perceber sozinha a necessidade de
@@ -115,7 +115,7 @@ Esse prefixo pode ter qualquer valor mas no caso da taglib core da JSTL o padrã
 protocolo http e sim uma busca entre os arquivos .jar no diretório lib.
 
 ``` html
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 ```
 
 ## ForEach
@@ -124,7 +124,7 @@ Usando a JSTL core, vamos reescrever o arquivo que lista todos contatos.
 O cabeçalho já é conhecido da seção anterior:
 
 ``` html
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 ```
 
 Depois, precisamos instanciar e declarar nosso DAO. Ao revisar o exemplo da lista através de
@@ -142,14 +142,14 @@ argumentos e dar um nome (id) para essa variável.
 Portanto vamos utilizar a tag `useBean` para instanciar nosso `ContatoDao`:
 
 ``` html
-	<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
+  <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
 ```
 
 Como temos a variável `dao`, desejamos chamar o método `getLista` e podemos fazer
 isso através da EL:
 
 ``` html
-	${dao.lista}
+  ${dao.lista}
 ```
 
 Desejamos executar um loop para cada `contato` dentro da coleção retornada por esse método:
@@ -161,18 +161,18 @@ Desejamos executar um loop para cada `contato` dentro da coleção retornada por
 
 No nosso exemplo com scriptlets, o que falta é a chamada do método `getLista` e a iteração:
 
-``` java
-	<%
-	// ...
-	List<Contato> contatos = dao.getLista();
-	
-	for (Contato contato : contatos ) {
-	%>
-		<%=contato.getNome()%>, <%=contato.getEmail()%>,
-			<%=contato.getEndereco()%>, <%=contato.getDataNascimento() %>
-	<%
-	}
-	%>
+``` html
+  <%
+  // ...
+  List<Contato> contatos = dao.getLista();
+  
+  for (Contato contato : contatos ) {
+  %>
+    <%=contato.getNome()%>, <%=contato.getEmail()%>,
+      <%=contato.getEndereco()%>, <%=contato.getDataNascimento() %>
+  <%
+  }
+  %>
 ```
 
 
@@ -197,13 +197,13 @@ Mais elegante que o código que foi apresentado usando scriptlets, não?
 > dessa variável.
 >
 > ``` html
-> 	<table border="1">
-> 		<c:forEach var="contato" items="${dao.lista}" varStatus="id">
-> 			<tr bgcolor="#${id.count % 2 == 0 ? 'aaee88' : 'ffffff' }" >
-> 				<td>${id.count}</td><td>${contato.nome}</td>
-> 			</tr>
-> 		</c:forEach>
-> 	</table>
+>  <table border="1">
+>     <c:forEach var="contato" items="${dao.lista}" varStatus="id">
+>       <tr bgcolor="#${id.count % 2 == 0 ? 'aaee88' : 'ffffff' }" >
+>         <td>${id.count}</td><td>${contato.nome}</td>
+>       </tr>
+>     </c:forEach>
+>  </table>
 > ```
 
 
@@ -212,64 +212,65 @@ Mais elegante que o código que foi apresentado usando scriptlets, não?
 ## Exercícios: forEach
 1. Precisamos primeiro colocar os JARs da JSTL em nossa aplicação.
 
-	* Primeiro, vá ao Desktop, e entre no diretório `21/jars-jstl`
-	* Haverá dois jars, javax.servlet.jsp.jstl-x.x.x.jar e javax.servlet.jsp.jstl-api-x.x.x.jar
-	* Copie-os (CTRL+C) e cole-os (CTRL+V) dentro de
-	**workspace/fj21-agenda/WebContent/WEB-INF/lib**
-	* No Eclipse, dê um F5 no seu projeto ou clique com o botão direito do
-	mouse sobre o nome do projeto e escolha a opção _Refresh_.
+  * Primeiro, vá ao Desktop, e entre no diretório **21/projeto-agenda/jstl**
+  * Haverá dois jars, **jakarta.servlet.jsp.jstl-1.2.x.jar** e **jakarta.servlet.jsp.jstl-api-1.2.x.jar**
+  * Copie-os (CTRL+C) e cole-os (CTRL+V) dentro de
+  **workspace/fj21-agenda/WebContent/WEB-INF/lib**
+  * No Eclipse, dê um F5 no seu projeto ou clique com o botão direito do
+  mouse sobre o nome do projeto e escolha a opção _Refresh_.
 
-	> **Em casa**
-	>
-	> Caso você esteja em casa, pode fazer o download da JSTL API e da implementação em:
-	> https://jstl.java.net/download.html
+  > **Em casa**
+  >
+  > Caso você esteja em casa, pode fazer o download da JSTL API e da implementação em:
+  > https://bit.ly/fj21_jstl_api
+  > https://bit.ly/fj21_jstl_impl
 
-	
+  
 1. Liste os contatos de `ContatoDao` usando `jsp:useBean` e JSTL.
 
-	* Crie o arquivo `lista-contatos.jsp`, dentro da pasta **WebContent/** usando
-	o atalho de novo JSP no Eclipse;
+  * Crie o arquivo `lista-contatos.jsp`, dentro da pasta **WebContent/** usando
+  o atalho de novo JSP no Eclipse;
 
-	* Antes de escrevermos nosso código, precisamos importar a taglib JSTL Core. Isso é feito
-	com a diretiva `<%@ taglib %>` no topo do arquivo. Usando o recurso de autocompletar
-	do Eclipse (inclusive na URL), declare a taglib no topo do arquivo:
+  * Antes de escrevermos nosso código, precisamos importar a taglib JSTL Core. Isso é feito
+  com a diretiva `<%@ taglib %>` no topo do arquivo. Usando o recurso de autocompletar
+  do Eclipse (inclusive na URL), declare a taglib no topo do arquivo:
 
-	``` html
-				<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	```
+  ``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  ```
 
-	* Localize a tag `<body>` no arquivo e implemente o conteúdo da nossa página **dentro
-	do body**. Vamos usar uma tabela HTML e as tags `<jsp:useBean/>` e `<c:forEach/>`
-	que vimos antes:
+  * Localize a tag `<body>` no arquivo e implemente o conteúdo da nossa página **dentro
+  do body**. Vamos usar uma tabela HTML e as tags `<jsp:useBean/>` e `<c:forEach/>`
+  que vimos antes:
 
-	``` html
-				<!-- cria o DAO -->
-				<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
+  ``` html
+  <!-- cria o DAO -->
+  <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
 
-				<table>
-					<!-- percorre contatos montando as linhas da tabela -->
-					<c:forEach var="contato" items="${dao.lista}">
-						<tr>
-							<td>${contato.nome}</td>
-							<td>${contato.email}</td>
-							<td>${contato.endereco}</td>
-							<td>${contato.dataNascimento.time}</td>
-						</tr>
-					</c:forEach>
-				</table>
-	```
+  <table>
+    <!-- percorre contatos montando as linhas da tabela -->
+    <c:forEach var="contato" items="${dao.lista}">
+      <tr>
+        <td>${contato.nome}</td>
+        <td>${contato.email}</td>
+        <td>${contato.endereco}</td>
+        <td>${contato.dataNascimento.time}</td>
+      </tr>
+    </c:forEach>
+  </table>
+  ```
 
-	* Acesse http://localhost:8080/fj21-agenda/lista-contatos.jsp
-	![ {w=80%}](assets/imagens/jstl/lista-elegante.png)
+  * Acesse http://localhost:8080/fj21-agenda/lista-contatos.jsp
+  ![ {w=80%}](assets/imagens/jstl/lista-elegante.png)
 
-	**Repare que após criar uma nova página JSP não precisamos reiniciar o nosso container!**
+  **Repare que após criar uma nova página JSP não precisamos reiniciar o nosso container!**
 1. Scriptlets ou JSTL? Qual dos dois é mais fácil entender?
 
 
 ## Exercícios opcionais
 1. Coloque um cabeçalho nas colunas da tabela com um título dizendo à que se refere a coluna.
 1. Utilize uma variável de status no seu `c:forEach` para colocar duas cores diferentes em linhas
-	pares e ímpares. (Utilize como auxílio o `box` imediatamente antes do exercício sobre `forEach`)
+  pares e ímpares. (Utilize como auxílio o `box` imediatamente antes do exercício sobre `forEach`)
 
 
 ## Evoluindo nossa listagem
@@ -293,9 +294,9 @@ na qual podemos indicar qual o teste lógico deve ser feito através do atributo
 Para verificarmos se o e-mail está preenchido ou não, podemos fazer o seguinte:
 
 ``` html
-	<c:if test="${not empty contato.email}">
-		<a href="mailto:${contato.email}">${contato.email}</a>
-	</c:if>
+  <c:if test="${not empty contato.email}">
+    <a href="mailto:${contato.email}">${contato.email}</a>
+  </c:if>
 ```
 
 Podemos também, caso o e-mail não tenha sido preenchido, colocar a mensagem "e-mail não informado", ao
@@ -312,71 +313,72 @@ fazemos `c:when`. O `default` do switch pode ser representado através da tag `c
 como no exemplo a seguir:
 
 ``` html
-	<c:choose>
-		<c:when test="${not empty contato.email}">
-			<a href="mailto:${contato.email}">${contato.email}</a>
-		</c:when>
-		<c:otherwise>
-			E-mail não informado
-		</c:otherwise>
-	</c:choose>
+  <c:choose>
+    <c:when test="${not empty contato.email}">
+      <a href="mailto:${contato.email}">${contato.email}</a>
+    </c:when>
+    <c:otherwise>
+      E-mail não informado
+    </c:otherwise>
+  </c:choose>
 ```
 
 ## Exercícios: lista de contatos com condicionais
 1. Vamos colocar em nossa listagem um link para envio de e-mail caso o mesmo tenha sido
-	informado.
+  informado.
 
-	* Abra o arquivo `lista-contatos.jsp` no Eclipse;
+  * Abra o arquivo `lista-contatos.jsp` no Eclipse;
 
-	* No momento de imprimir o e-mail do contato, adicione uma verificação para saber
-	se o e-mail está preenchido e, caso esteja, adicione um link para envio de e-mail:
-	``` html
-				<c:forEach var="contato" items="${dao.lista}">
-					<tr>
-						<td>${contato.nome}</td>
-						<td>
-							<c:if test="${not empty contato.email}">
-								<a href="mailto:${contato.email}">${contato.email}</a>
-							</c:if>
-						</td>
-						<td>${contato.endereco}</td>
-						<td>${contato.dataNascimento.time}</td>
-					</tr>
-				</c:forEach>
-	```
+  * No momento de imprimir o e-mail do contato, adicione uma verificação para saber
+  se o e-mail está preenchido e, caso esteja, adicione um link para envio de e-mail:
 
-	* Acesse a página no navegador pelo endereço
-	http://localhost:8080/fj21-agenda/lista-contatos.jsp
-	![](imagens/jstl/lista-elegante-cif.png)
+``` html
+  <c:forEach var="contato" items="${dao.lista}">
+    <tr>
+      <td>${contato.nome}</td>
+      <td>
+        <c:if test="${not empty contato.email}">
+          <a href="mailto:${contato.email}">${contato.email}</a>
+        </c:if>
+      </td>
+      <td>${contato.endereco}</td>
+      <td>${contato.dataNascimento.time}</td>
+    </tr>
+  </c:forEach>
+```
+
+  * Acesse a página no navegador pelo endereço
+  http://localhost:8080/fj21-agenda/lista-contatos.jsp
+  ![](imagens/jstl/lista-elegante-cif.png)
 1. Vamos colocar a mensagem "E-mail não informado" caso o e-mail não tenha sido
-	informado
+  informado
 
-	* Abaixo do novo `if` que fizemos no item anterior, vamos colocar mais um if,
-	dessa vez com a verificação contrária, ou seja, queremos saber se está vazio:
+  * Abaixo do novo `if` que fizemos no item anterior, vamos colocar mais um if,
+  dessa vez com a verificação contrária, ou seja, queremos saber se está vazio:
 
-	``` html
-				<c:forEach var="contato" items="${dao.lista}">
-					<tr>
-						<td>${contato.nome}</td>
-						<td>
-							<c:if test="${not empty contato.email}">
-								<a href="mailto:${contato.email}">${contato.email}</a>
-							</c:if>
+``` html
+  <c:forEach var="contato" items="${dao.lista}">
+    <tr>
+      <td>${contato.nome}</td>
+      <td>
+        <c:if test="${not empty contato.email}">
+          <a href="mailto:${contato.email}">${contato.email}</a>
+        </c:if>
 
-							<c:if test="${empty contato.email}">
-								E-mail não informado
-							</c:if>
-						</td>
-						<td>${contato.endereco}</td>
-						<td>${contato.dataNascimento.time}</td>
-					</tr>
-				</c:forEach>
-	```
+        <c:if test="${empty contato.email}">
+          E-mail não informado
+        </c:if>
+      </td>
+      <td>${contato.endereco}</td>
+      <td>${contato.dataNascimento.time}</td>
+    </tr>
+  </c:forEach>
+```
 
-	* Caso você não possua nenhum contato sem e-mail, cadastre algum.
+  * Caso você não possua nenhum contato sem e-mail, cadastre algum.
 
-	* Acesse a lista-contatos.jsp pelo navegador e veja o resultado final.
-	![](imagens/jstl/lista-elegante-else.png)
+  * Acesse a lista-contatos.jsp pelo navegador e veja o resultado final.
+  ![](imagens/jstl/lista-elegante-else.png)
 1. (Opcional) Ao invés de utilizar dois `ifs`, use a tag `c:choose`
 
 
@@ -399,110 +401,110 @@ precisam dessa outra página nela, através de uma tag nova, a `c:import`.
 Para utilizá-la, podemos criar uma pagina com o cabeçalho do sistema, por exemplo, a `cabecalho.jsp`:
 
 ``` html
-	<img src="imagens/logomarca.jpg" /> Nome da empresa
+  <img src="imagens/logomarca.jpg" /> Nome da empresa
 ```
 
 E uma página para o rodapé, por exemplo, `rodape.jsp`:
 ``` html
-	Copyright 2010 - Todos os direitos reservados
+  Copyright 2010 - Todos os direitos reservados
 ```
 
 Bastaria que, em todas as nossas páginas, por exemplo, na `lista-contatos.jsp`,
 colocássemos ambas as páginas, através da `c:import` como abaixo:
 
 ``` html
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<html>
-	<body>
-	
-	<c:import url="cabecalho.jsp" />
-	
-	<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
-	<table>
-		<!-- for -->
-		<c:forEach var="contato" items="${dao.lista}">
-			<tr>
-				<td>${contato.nome}</td>
-				<td>${contato.email}</td>
-				<td>${contato.endereco}</td>
-				<td>${contato.dataNascimento.time}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<c:import url="rodape.jsp" />
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <html>
+  <body>
+  
+  <c:import url="cabecalho.jsp" />
+  
+  <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
+  <table>
+    <!-- for -->
+    <c:forEach var="contato" items="${dao.lista}">
+      <tr>
+        <td>${contato.nome}</td>
+        <td>${contato.email}</td>
+        <td>${contato.endereco}</td>
+        <td>${contato.dataNascimento.time}</td>
+      </tr>
+    </c:forEach>
+  </table>
+  
+  <c:import url="rodape.jsp" />
 
-	</body>
-	</html>
+  </body>
+  </html>
 ```
 
 ## Exercícios: cabeçalhos e rodapés
 1. Vamos primeiro criar o nosso cabeçalho, utilizando o logotipo da Caelum.
 
-	* Vá no Desktop, entre na pasta `21` e copie o **diretório** `imagens`
-	para dentro do diretório `WebContent` do seu projeto. Esse diretório
-	possui o logotipo da Caelum.
+  * Vá no Desktop, entre na pasta **21/projeto-agenda** e copie o diretório **imagens**
+  para dentro do diretório `WebContent` do seu projeto. Esse diretório
+  possui o logotipo da Caelum.
 
-	Ou você pode usar o que se encontra em:
-	http://www.caelum.com.br/imagens/base/caelum-ensino-inovacao.png
+  * Crie dentro de `WebContent` um arquivo chamado `cabecalho.jsp`
+  com o logotipo do sistema:
 
-	* Crie dentro de `WebContent` um arquivo chamado `cabecalho.jsp`
-	com o logotipo do sistema:
+``` html
+  <img src="imagens/caelum.png" style="width: 40%;"/> 
+    <h2>Agenda de Contatos do(a) (Seu nome aqui)</h2>
+  <hr />
+```
 
-	``` html
-					<img src="imagens/caelum.png" /> 
-					<h2>Agenda de Contatos do(a) (Seu nome aqui)</h2>
-					<hr /> 			
-	```
+  * Você pode ajustar a largura da imagem alterando a porcentagem no estilo css `style=" width: 40%;"`
 
-	* Crie também a página `rodape.jsp`:
-	``` html
-					<hr />
-					Copyright 2010 - Todos os direitos reservados
-	```
+  * Crie também a página `rodape.jsp`:
 
-	* Podemos importar as duas páginas (`cabecalho.jsp` e `rodape.jsp`), dentro
-	da nossa `lista-contatos.jsp` usando a tag `c:import` que vimos:
+``` html
+  <hr />
+  Copyright 2020 - Todos os direitos reservados
+```
 
-	``` html
-				<html>
-				<body>
-				<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  * Podemos importar as duas páginas (`cabecalho.jsp` e `rodape.jsp`), dentro
+  da nossa `lista-contatos.jsp` usando a tag `c:import` que vimos:
 
-				<c:import url="cabecalho.jsp" />
+``` html
+  <html>
+    <body>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-				<!-- cria a lista -->
-				<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
-				<table>
-					<!-- for -->
-					<c:forEach var="contato" items="${dao.lista}">
-						<tr>
-							<td>${contato.nome}</td>
+      <c:import url="cabecalho.jsp" />
 
-							<td>
-							<c:if test="${not empty contato.email}">
-								<a href="mailto:${contato.email}">${contato.email}</a>
-							</c:if>
-							<c:if test="${empty contato.email}">
-								E-mail não informado
-							</c:if>
-							</td>
+      <!-- cria a lista -->
+      <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
+      <table>
+        <!-- for -->
+        <c:forEach var="contato" items="${dao.lista}">
+          <tr>
+            <td>${contato.nome}</td>
 
-							<td>${contato.endereco}</td>
-							<td>${contato.dataNascimento.time}</td>
-						</tr>
-					</c:forEach>
-				</table>
+            <td>
+            <c:if test="${not empty contato.email}">
+              <a href="mailto:${contato.email}">${contato.email}</a>
+            </c:if>
+            <c:if test="${empty contato.email}">
+              E-mail não informado
+            </c:if>
+            </td>
 
-				<c:import url="rodape.jsp" />
-				</body>
-				</html>
-	```
+            <td>${contato.endereco}</td>
+            <td>${contato.dataNascimento.time}</td>
+          </tr>
+        </c:forEach>
+      </table>
 
-	* Visualize o resultado final acessando no navegador
-	`http://localhost:8080/fj21-agenda/lista-contatos.jsp`
+      <c:import url="rodape.jsp" />
+    </body>
+  </html>
+```
 
-	![](imagens/jstl/import.png)
+  * Visualize o resultado final acessando no navegador
+  `http://localhost:8080/fj21-agenda/lista-contatos.jsp`
+
+  ![](imagens/jstl/import.png)
 
 
 
@@ -521,7 +523,7 @@ Para utilizarmos a taglib `fmt`, precisamos importá-la, da mesma forma que fize
 tag `core`, através da diretiva de `taglib`, como abaixo:
 
 ``` html
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 ```
 
 Dentro da taglib `fmt`, uma das tags que ela possui é a `formatDate`, que faz com que
@@ -529,8 +531,8 @@ um determinado objeto do tipo `java.util.Date` seja formatado para um dado `patt
 Então, podemos utilizar a tag `fmt:formatDate` da seguinte forma:
 
 ``` html
-    <fmt:formatDate value="${contato.dataNascimento.time}"
-        pattern="dd/MM/yyyy" />
+  <fmt:formatDate value="${contato.dataNascimento.time}"
+      pattern="dd/MM/yyyy" />
 ```
 
 Repare que, na _Expression Language_ que colocamos no `value`, há no final um `.time`.
@@ -560,23 +562,23 @@ seu respectivo `java.util.Date`.
 ## Exercícios: Formatando a data de nascimento dos contatos
 1. Vamos fazer a formatação da data de nascimento dos nossos contatos.
 
-	* Na `lista-contatos.jsp`, importe a taglib `fmt` no topo do arquivo. Use
-	o autocompletar do Eclipse para te ajudar a escrever:
+  * Na `lista-contatos.jsp`, importe a taglib `fmt` no topo do arquivo. Use
+  o autocompletar do Eclipse para te ajudar a escrever:
 
-	``` html
-				<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-	```
+``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+```
 
-	* Troque a Expression Language que mostra a data de nascimento para passar pela
-	tag `formatDate` abaixo:
+  * Troque a Expression Language que mostra a data de nascimento para passar pela
+  tag `formatDate` abaixo:
 
-	``` html
-            <fmt:formatDate value="${contato.dataNascimento.time}"
-                pattern="dd/MM/yyyy" />
-	```
+``` html
+  <fmt:formatDate value="${contato.dataNascimento.time}"
+      pattern="dd/MM/yyyy" />
+```
 
-	* Acesse a página pelo navegador e veja o resultado final:
-	![](imagens/jstl/formatacao.png)
+  * Acesse a página pelo navegador e veja o resultado final:
+  ![](imagens/jstl/formatacao.png)
 
 
 
@@ -611,33 +613,34 @@ Para resolver este problema, podemos utilizar a tag `<c:url>` da JSTL. O uso del
 simples. Para adicionarmos o logotipo da caelum no `cabecalho.jsp`, faríamos da seguinte maneira:
 
 ``` html
-	<c:url value="/imagens/caelum.png" var="imagem"/>
-	<img src="${imagem}"/>
+  <c:url value="/imagens/caelum.png" var="imagem"/>
+  <img src="${imagem}"/>
 ```
 
 Ou de uma forma ainda mais simples:
 
 ``` html
-	<img src="<c:url value="/imagens/caelum.png"/>"/>
+  <img src="<c:url value="/imagens/caelum.png"/>"/>
 ```
 
 O HTML gerado pelo exemplo seria: `<img src="fj21-tarefas/imagens/caelum.png"/>`.
 
 ## Exercícios opcionais: Caminho absoluto
-1. 
-	* Abra o arquivo `cabecalho.jsp` e **altere-o** adicionando a tag `<c:url>`:
-	``` html
-				<img src="<c:url value="/imagens/caelum.png"/>" /> 
-	```
+1. Vamos substituir o caminho relativo pelo absoluto.
+  * Abra o arquivo `cabecalho.jsp` e **altere-o** adicionando a tag `<c:url>`:
 
-	Como vamos usar a JSTL também nesse novo arquivo de cabeçalho, não deixe de incluir
-	a declaração da taglib no início do arquivo. (o comando `<%@ taglib ... %>` semelhante
-	ao usado na listagem)
+``` html
+  <img src="<c:url value="/imagens/caelum.png"/>" /> 
+```
 
-	* Visualize o resultado acessando no navegador
-	`http://localhost:8080/fj21-agenda/lista-contatos.jsp`
+  Como vamos usar a JSTL também nesse novo arquivo de cabeçalho, não deixe de incluir
+  a declaração da taglib no início do arquivo. (o comando `<%@ taglib ... %>` semelhante
+  ao usado na listagem)
 
-	* A imagem `caelum.png` continua aparecendo normalmente
+  * Visualize o resultado acessando no navegador
+  `http://localhost:8080/fj21-agenda/lista-contatos.jsp`
+
+  * A imagem `caelum.png` continua aparecendo normalmente
 
 
 
@@ -659,4 +662,4 @@ Abaixo está um resumo com algumas das outras tags da JSTL:
 
 
 Leia detalhes sobre as taglibs da JSTL (JavaDoc das tags e classes) em:
-http://java.sun.com/products/jsp/jstl/reference/api/index.html
+https://jakarta.ee/specifications/tags/1.2/tagdocs/

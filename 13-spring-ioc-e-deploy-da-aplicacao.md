@@ -17,37 +17,37 @@ no banco de dados relacionado com a `Tarefa`. Em cada método do controller cria
 para acessar o banco. Repare no código abaixo quantas vezes instanciamos o DAO na mesma classe:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@RequestMapping("mostraTarefa")
-	public String mostra(Long id, Model model) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		model.addAttribute("tarefa", dao.buscaPorId(id));
-		return "tarefa/mostra";
-	}
+    @RequestMapping("mostraTarefa")
+    public String mostra(Long id, Model model) {
+        JdbcTarefaDao dao = new JdbcTarefaDao();
+        model.addAttribute("tarefa", dao.buscaPorId(id));
+        return "tarefa/mostra";
+    }
 
-	@RequestMapping("listaTarefas")
-	public String lista(Model model) {
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		model.addAttribute("tarefas", dao.lista());
-		return "tarefa/lista";
-	}
+    @RequestMapping("listaTarefas")
+    public String lista(Model model) {
+        JdbcTarefaDao dao = new JdbcTarefaDao();
+        model.addAttribute("tarefas", dao.lista());
+        return "tarefa/lista";
+    }
 
-	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+    @RequestMapping("adicionaTarefa")
+    public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
 
-		if(result.hasFieldErrors("descricao")) {
-			return "tarefa/formulario";
-		}
+        if(result.hasFieldErrors("descricao")) {
+            return "tarefa/formulario";
+        }
 
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.adiciona(tarefa);
-		return "tarefa/adicionada";
-	}
+        JdbcTarefaDao dao = new JdbcTarefaDao();
+        dao.adiciona(tarefa);
+        return "tarefa/adicionada";
+    }
 
-	//outros métodos remove, altera e finaliza também criam a JdbcTarefaDao
-}
+    //outros métodos remove, altera e finaliza também criam a JdbcTarefaDao
+  }
 ```
 
 A classe `TarefasController` instancia um objeto do tipo `JdbcTarefaDao` manualmente. Estamos
@@ -56,32 +56,32 @@ no construtor da classe `TarefasController` e usar um atributo. Assim podemos ap
 linhas de criação do DAO:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	private JdbcTarefaDao dao;
+      private JdbcTarefaDao dao;
 
-	public TarefasController() {
-		this.dao = new JdbcTarefaDao();
-	}
+      public TarefasController() {
+          this.dao = new JdbcTarefaDao();
+      }
 
-	@RequestMapping("mostraTarefa")
-	public String mostra(Long id, Model model) {
-		//dao já foi criado
-		model.addAttribute("tarefa", dao.buscaPorId(id));
-		return "tarefa/mostra";
-	}
+      @RequestMapping("mostraTarefa")
+      public String mostra(Long id, Model model) {
+          //dao já foi criado
+          model.addAttribute("tarefa", dao.buscaPorId(id));
+          return "tarefa/mostra";
+      }
 
-	@RequestMapping("listaTarefas")
-	public String lista(Model model) {
-		//dao já foi criado
-		model.addAttribute("tarefas", dao.lista());
-		return "tarefa/lista";
-	}
+      @RequestMapping("listaTarefas")
+      public String lista(Model model) {
+          //dao já foi criado
+          model.addAttribute("tarefas", dao.lista());
+          return "tarefa/lista";
+      }
 
-	//outros métodos também aproveitam o atributo dao
+    //outros métodos também aproveitam o atributo dao
 
-}
+  }
 ```
 
 O nosso código melhorou, pois temos menos código para manter, mas há mais um problema. Repare que continuamos
@@ -100,20 +100,19 @@ nos preocupar com isso em todos os lugares onde criamos o `JdbcTarefaDao`.
 Para entender isso vamos verificar o construtor do DAO:
 
 ``` java
-public class JdbcTarefaDao {
+  public class JdbcTarefaDao {
 
-	private final Connection connection;
+      private final Connection connection;
 
-	public JdbcTarefaDao() {
-        try {
-            this.connection = new ConnectionFactory().getConnection();
-        } catch (SQLException e) {
-        	throw new RuntimeException(e);
-        }
-    }
-
-    //métodos omitidos
-}
+      public JdbcTarefaDao() {
+          try {
+              this.connection = new ConnectionFactory().getConnection();
+          } catch (SQLException e) {
+              throw new RuntimeException(e);
+          }
+      }
+      //métodos omitidos
+  }
 ```
 
 Repare que aqui existe o mesmo problema. O DAO também resolve a sua dependência e cria através da
@@ -123,38 +122,37 @@ outro lugar. Para melhorar, vamos então declarar a dependência em um lugar nat
 O código fica muito mais simples e não precisa mais da `ConnectionFactory`:
 
 ``` java
-public class JdbcTarefaDao {
+  public class JdbcTarefaDao {
 
-	private final Connection connection;
+      private final Connection connection;
 
-	public JdbcTarefaDao(Connection connection) {
-		this.connection = connection;
-    }
+      public JdbcTarefaDao(Connection connection) {
+          this.connection = connection;
+      }
 
-    //métodos omitidos
-}
+      //métodos omitidos
+  }
 ```
 
 Já com essa pequena mudança, não podemos criar o `JdbcTarefaDao` sem nos preocuparmos com a conexão antes.
 Veja como ficaria o código da classe `TarefasController`:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	private JdbcTarefaDao dao;
+      private JdbcTarefaDao dao;
 
-	public TarefasController() {
-		try {
-            Connection connection = new ConnectionFactory().getConnection();
-            this.dao = new JdbcTarefaDao(connection);
-        } catch (SQLException e) {
-        	throw new RuntimeException(e);
-        }
-    }
-
-    //métodos omitidos
-}
+      public TarefasController() {
+          try {
+              Connection connection = new ConnectionFactory().getConnection();
+              this.dao = new JdbcTarefaDao(connection);
+          } catch (SQLException e) {
+              throw new RuntimeException(e);
+          }
+      }
+      //métodos omitidos
+  }
 ```
 
 A classe `TarefasController` não só criará o DAO, como também a conexão. Já discutimos que não queremos
@@ -162,17 +160,17 @@ ser responsáveis, então vamos agir igual ao `JdbcTarefaDao` e declarar a depen
 Novamente vai simplificar demais o nosso código:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	private JdbcTarefaDao dao;
+      private JdbcTarefaDao dao;
 
-	public TarefasController(JdbcTarefaDao dao) {
-        this.dao = dao;  
-    }
+      public TarefasController(JdbcTarefaDao dao) {
+          this.dao = dao;  
+      }
 
-    //métodos omitidos
-}
+      //métodos omitidos
+  }
 ```
 
 Assim cada classe delega a dependência para cima e não se responsabiliza pela criação. Quem for usar essa
@@ -180,9 +178,6 @@ classe `TarefasController`, agora, vai precisar satisfazer as dependências. Mas
 preocupa com a criação do DAO e com a conexão?
 
 ## Container de Injeção de dependências
-
-
-
 
 O padrão de projetos **Dependency Injection (DI)** (Injeção de dependências), procura resolver esses problemas.
 A ideia é que a classe não mais resolva as suas dependências por conta própria mas apenas declara que
@@ -223,18 +218,18 @@ Para receber o DAO em nosso controlador, usaremos a anotação **`@Autowired`** 
 (_wire_ - amarrar). Isso indica ao Spring que ele precisa resolver e _**injetar**_ a dependência:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	private JdbcTarefaDao dao;
+      private JdbcTarefaDao dao;
 
-	@Autowired
-	public TarefasController(JdbcTarefaDao dao) {
-        this.dao = dao;  
-    }
+      @Autowired
+      public TarefasController(JdbcTarefaDao dao) {
+          this.dao = dao;  
+      }
 
-    //métodos omitidos
-}
+      //métodos omitidos
+  }
 ```
 
 Para o Spring conseguir criar o `JdbcTarefaDao` vamos declarar a classe como componente.
@@ -243,18 +238,18 @@ Além disso, vamos também amarrar a conexão com `@Autowired`. Veja o código s
 `TarefasController`:
 
 ``` java
-@Repository
-public class JdbcTarefaDao {
+  @Repository
+  public class JdbcTarefaDao {
 
-	private final Connection connection;
+      private final Connection connection;
 
-	@Autowired
-	public JdbcTarefaDao(Connection connection) {
-		this.connection = connection;
-    }
+      @Autowired
+      public JdbcTarefaDao(Connection connection) {
+          this.connection = connection;
+      }
 
-    //métodos omitidos
-}
+      //métodos omitidos
+  }
 ```
 
 Ao usar `@Autowired` no construtor, o Spring tenta descobrir como abrir uma conexão,
@@ -267,12 +262,12 @@ Sabendo disso, devemos declarar um `DataSource` no XML do Spring, dentro do
 `spring-context.xml`:
 
 ``` xml
-<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost/fj21"/>
-    <property name="username" value="root"/>
-    <property name="password" value="<SENHA DO BANCO AQUI>"/>
-</bean>
+  <bean id="mysqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+      <property name="url" value="jdbc:mysql://localhost/fj21"/>
+      <property name="username" value="root"/>
+      <property name="password" value="<SENHA DO BANCO AQUI>"/>
+  </bean>
 ```
 
 Definimos um **bean** no XML. Um _bean_ é apenas um sinônimo para _componente_.
@@ -286,22 +281,22 @@ Com a `mysqlDataSource` definida, podemos injetar ela na `JdbcTarefaDao` para re
 
 
 ``` java
-@Repository
-public class JdbcTarefaDao {
+  @Repository
+  public class JdbcTarefaDao {
 
-	private final Connection connection;
+      private final Connection connection;
 
-	@Autowired
-	public JdbcTarefaDao(DataSource dataSource) {
-		try {
-			this.connection = dataSource.getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+      @Autowired
+      public JdbcTarefaDao(DataSource dataSource) {
+          try {
+              this.connection = dataSource.getConnection();
+          } catch (SQLException e) {
+              throw new RuntimeException(e);
+          }
+      }
 
-    //métodos omitidos
-}
+      //métodos omitidos
+  }
 ```
 
 Pronto! Repare que no nosso projeto o _controlador -- depende do --> dao que -- depende do --> datasource_.
@@ -332,32 +327,32 @@ no atributo. Assim o construtor não é mais necessário, por exemplo podemos in
 classe `TarefasController`:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	@Autowired
-	private JdbcTarefaDao dao;
+      @Autowired
+      private JdbcTarefaDao dao;
 
-    //sem construtor
-}
+      //sem construtor
+  }
 ```
 
 Outra forma é criar um método dedicado para dependência, normalmente é usado um _setter_
 aplicando a anotação em cima do método:
 
 ``` java
-@Controller
-public class TarefasController {
+  @Controller
+  public class TarefasController {
 
-	private JdbcTarefaDao dao;
+      private JdbcTarefaDao dao;
 
-    //sem construtor
+      //sem construtor
 
-	@Autowired
-    public void setTarefaDao(JdbcTarefaDao dao) {
-    	this.dao = dao;
-    }
-}
+      @Autowired
+      public void setTarefaDao(JdbcTarefaDao dao) {
+          this.dao = dao;
+      }
+  }
 ```
 
 Há vantagens e desvantagens de cada forma, mas em geral devemos favorecer o construtor já que isso é o
@@ -395,88 +390,90 @@ Como veremos no apêndice até mesmo o Spring precisa em alguns casos o construt
 
 ## Exercícios: Inversão de controle com o Spring Container
 1. Para configurar a `Datasource` é preciso copiar dois JARs.
-	* Primeiro, vá ao Desktop, e entre no diretório `21/jars-datasource`.
+  * Primeiro, vá ao Desktop, e entre no diretório **21/projeto-tarefas/datasource**.
 
-	* Haverá dois JARs, `commons-dbcp-x.x.jar` e `commons-pool-x.x.jar`.
+  * Haverá dois JARs: 
+    * `commons-dbcp2-2.7.x.jar`
+    * `commons-pool2-2.8.x.jar`.
 
-	* Copie-os (CTRL+C) e cole-os (CTRL+V) dentro de `workspace/fj21-tarefas/WebContent/WEB-INF/lib`
+  * Copie-os (CTRL+C) e cole-os (CTRL+V) dentro de `workspace/fj21-tarefas/WebContent/WEB-INF/lib`
 
-1. No arquivo `spring-context.xml` adicione a configuração da `Datasource`:
+2. No arquivo `spring-context.xml` adicione a configuração da `Datasource`:
 
-	(Dica: um exemplo dessa configuração encontra-se na pasta `21/jars-datasource`)
-	``` xml
-			<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-			    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-			    <property name="url" value="jdbc:mysql://localhost/fj21"/>
-			    <property name="username" value="root"/>
-			    <property name="password" value="<SENHA DO BANCO AQUI>"/>
-			</bean>
-	```
+  (Dica: um exemplo dessa configuração encontra-se na pasta `21/jars-datasource`)
+``` xml
+  <bean id="mysqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+      <property name="url" value="jdbc:mysql://localhost/fj21"/>
+      <property name="username" value="root"/>
+      <property name="password" value=""/>
+  </bean>
+```
 
-	Repare que definimos as propriedades da conexão, igual a antiga classe `ConnectionFactory`.
+  Repare que definimos as propriedades da conexão, igual a antiga classe `ConnectionFactory` e lembre-se que o usuário **root**  está configurado com a senha `""` (aspas vazias).
 1. Vamos configurar a classe `JdbcTarefaDao` como componente (_Bean_) do Spring. Para isso, adicione
-	a anotação `@Repository` em cima da classe:
+  a anotação `@Repository` em cima da classe:
 
-	``` java
-		@Repository
-		public class JdbcTarefaDao {
-			...
-		}
-	```
+``` java
+  @Repository
+  public class JdbcTarefaDao {
+      ...
+  }
+```
 
-	Use `Ctrl+Shift+O` para importar a anotação.
+  Use `Ctrl+Shift+O` para importar a anotação.
 1. Além disso, altere o construtor da classe `JdbcTarefaDao`. Use a anotação `@Autowired`
-	em cima do construtor e coloque a `DataSource` no construtor. Através dela
-	obteremos uma nova conexão. A classe `DataSource` vem do package `javax.sql`.
+  em cima do construtor e coloque a `DataSource` no construtor. Através dela
+  obteremos uma nova conexão. A classe `DataSource` vem do package `javax.sql`.
 
-	Altere o construtor da classe `JdbcTarefaDao`:
-	``` java
-		@Autowired
-		public JdbcTarefaDao(DataSource dataSource) {
-			try {
-				this.connection = dataSource.getConnection();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	```
+  Altere o construtor da classe `JdbcTarefaDao`:
+``` java
+  @Autowired
+  public JdbcTarefaDao(DataSource dataSource) {
+      try {
+          this.connection = dataSource.getConnection();
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
 
-	Ao alterar o construtor vão aparecer erros de compilação na classe `TarefasController`.
+  Ao alterar o construtor vão aparecer erros de compilação na classe `TarefasController`.
 1. Abra a classe `TarefaController`. Nela vamos criar um atributo para a `JdbcTarefaDao`
-	e gerar o construtor que recebe o DAO, novamente usando a anotação `@Autowired`:
-	``` java
-		@Controller
-		public class TarefasController {
+  e gerar o construtor que recebe o DAO, novamente usando a anotação `@Autowired`:
+``` java
+  @Controller
+  public class TarefasController {
 
-			private final JdbcTarefaDao dao;
+      private final JdbcTarefaDao dao;
 
-			@Autowired
-			public TarefasController(JdbcTarefaDao dao) {
-		        this.dao = dao;  
-		    }
-		}  
-	```
+      @Autowired
+      public TarefasController(JdbcTarefaDao dao) {
+          this.dao = dao;  
+      }
+  }  
+```
 
 1. Altere todos os métodos que criam uma instância da classe `JdbcTarefaDao`. São justamente esse
-	métodos que possuem erros de compilação.
+  métodos que possuem erros de compilação.
 
-	Remova todas as linhas como:
+  Remova todas as linhas como:
 
-	``` java
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-	```
+``` java
+  JdbcTarefaDao dao = new JdbcTarefaDao();
+```
 
-	Por exemplo, o método para listar as tarefas fica como:
+  Por exemplo, o método para listar as tarefas fica como:
 
-	``` java
-		@RequestMapping("listaTarefas")
-		public String lista(Model model) {
-			model.addAttribute("tarefas", dao.lista());
-			return "tarefa/lista";
-		}
-	```
+``` java
+  @RequestMapping("listaTarefas")
+  public String lista(Model model) {
+      model.addAttribute("tarefas", dao.lista());
+      return "tarefa/lista";
+  }
+```
 
-	Arrume os outros erros de compilação, apague todas as linhas que instanciam a classe `JdbcTarefaDao`.
+  Arrume os outros erros de compilação, apague todas as linhas que instanciam a classe `JdbcTarefaDao`.
 1. Reinicie o Tomcat e acesse a aplicação. Tudo deve continuar funcionando.
 1. (opcional) A classe `ConnectionFactory` ainda é necessária?
 
@@ -506,8 +503,8 @@ um sinal de dois pontos(:), e cada propriedade é separada por um sinal de ponto
 da seguinte maneira:
 
 ``` css
-background-color: yellow;
-color: blue;
+  background-color: yellow;
+  color: blue;
 ```
 
 Como estamos declarando as propriedades visuais de um elemento em outro lugar do nosso documento,
@@ -517,10 +514,10 @@ um **seletor CSS**.
 No exemplo a seguir, usaremos o seletor `p`, que alterará todos os parágrafos do documento:
 
 ```
-p {
-	color: blue;
-	background-color: yellow;
-}
+  p {
+    color: blue;
+    background-color: yellow;
+  }
 ```
 
 ### Declaração no arquivo externo
@@ -533,27 +530,27 @@ A indicação de uso de uma folha de estilos externa deve ser feita dentro da ta
 do nosso documento HTML:
 
 ``` html
-<!DOCTYPE html>
-<html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="tarefas.css">
-  </head>
-  <body>
-    <p>
-      O conteúdo desta tag será exibido em azul com fundo amarelo!
-    </p>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <link type="text/css" rel="stylesheet" href="tarefas.css">
+    </head>
+    <body>
+      <p>
+        O conteúdo desta tag será exibido em azul com fundo amarelo!
+      </p>
 
-  </body>
-</html>
+    </body>
+  </html>
 ```
 
 E dentro do arquivo `tarefas.css`:
 
 ``` css
-p {
-	color: blue;
-	background-color: yellow;
-}
+  p {
+    color: blue;
+    background-color: yellow;
+  }
 ```
 
 > **Programação Front-end**
@@ -575,35 +572,35 @@ p {
 ## Exercícios opcionais: Aplicando CSS nas páginas
 1. No seu projeto, crie uma nova pasta **css** dentro da pasta `WebContent/resources`.
 
-1. Vá ao Desktop e entre no diretório `21/css`. Copie o arquivo **tarefas.css** (`CTRL+C`)
-	para a pasta `WebContent/resources/css` (`CTRL+V`).
+1. Vá ao Desktop e entre no diretório **21/projeto-tarefas/css**. Copie o arquivo **tarefas.css** (`CTRL+C`)
+  para a pasta `WebContent/resources/css` (`CTRL+V`).
 
 1. Abra a página `formulario-login.jsp` que está dentro da pasta `WebContent/WEB-INF/views`.
 
 1. Na página JSP, adicione um cabeçalho(`<head></head>`) com o link para o arquivo CSS. Adicione o cabeçalho
-	entre da tag `<html>` e `<body>`:
+  entre da tag `<html>` e `<body>`:
 
-	``` html
-			<head>
-				<link type="text/css" href="resources/css/tarefas.css" rel="stylesheet" />
-			</head>
-	```
-	Através do link definimos o caminho para o arquivo CSS.
+``` html
+  <head>
+    <link type="text/css" href="resources/css/tarefas.css" rel="stylesheet" />
+  </head>
+```
+  Através do link definimos o caminho para o arquivo CSS.
 
-	Cuidado: _Na página deve existir apenas um cabeçalho_ (`<head></head>`).
+  Cuidado: _Na página deve existir apenas um cabeçalho_ (`<head></head>`).
 
 1. Reinicie o Tomcat e chama a página de login:
 
-	http://localhost:8080/fj21-tarefas/loginForm
+  http://localhost:8080/fj21-tarefas/loginForm
 
-	A página já deve aparecer com um visual novo.
+  A página já deve aparecer com um visual novo.
 
 1. Aplique o mesmo arquivo CSS em todas as outras páginas. Tenha cuidado para não repetir o cabeçalho, algumas
-	páginas já possuem a tag `<head>`, outras não.
+  páginas já possuem a tag `<head>`, outras não.
 
-	Verifique o resultado na aplicação.
+  Verifique o resultado na aplicação.
 
-	![](imagens/springmvc/lista-css.png)
+  ![](imagens/springmvc/lista-css.png)
 
 
 ## Deploy do projeto em outros ambientes
@@ -639,32 +636,36 @@ Ao colocarmos o `war` no Tomcat, podemos acessar nossa aplicação pelo navegado
 ## Exercícios: Deploy com war
 
 1. Vamos praticar criando um `war` e utilizando-o, mas, antes de começarmos, certifique-se
-	de que o Tomcat esteja no ar.
+  de que o Tomcat esteja no ar.
 
-	* Clique com o botão direito no projeto e vá em Export -> WAR file
-	![ {w=85%}](assets/imagens/springmvc/export-war.png)
+  * Clique com o botão direito no projeto e vá em Export
+  ![ {w=85%}](assets/imagens/springmvc/export-war.png)
 
-	* Clique no botão Browse e escolha a pasta do seu usuário e o nome **tarefas.war**.
-	![ {w=60%}](assets/imagens/springmvc/export-browse.png)
+  * Digite na busca **war file**
 
-	* Clique em Finish
+  * Clique no botão Browse e escolha a pasta do seu usuário e o nome **tarefas.war**.
+  ![ {w=60%}](assets/imagens/springmvc/export-browse.png)
 
-	Pronto, nosso war está criado!
-1. Vamos instalar nosso war!
+  * Clique em Finish
 
-	* Abra o File Browser
+  Pronto, nosso war está criado!
+2. Vamos instalar nosso war!
 
-	* Clique da direita no arquivo `tarefas.war` e escolha **Cut**(Recortar).
+  * Abra o File Browser
 
-	* Vá para o diretório **apache-tomcat**, **webapps**. Certifique-se de que seu Tomcat esteja rodando.
-	![ {w=65%}](assets/imagens/springmvc/webapps-dir.png)
+  * Clique da direita no arquivo `tarefas.war` e escolha **Cut**(Recortar).
 
-	* Cole o seu arquivo aqui: (**Edit** -> **Paste**). Repare que o diretório `tarefas` foi
-	criado.
-	![ {w=65%}](assets/imagens/springmvc/war-paste.png)
+  * Vá para o diretório **apache-tomcat**, Certifique-se de que seu Tomcat esteja rodando, para isso acesse o diretório **bin/** do tomcat via terminal e execute o script `startup.sh`.
+  
+  * Acesse o diretório **webapps**.
+  ![ {w=65%}](assets/imagens/springmvc/webapps-dir.png)
 
-	* Podemos acessar o projeto através da URL:
-	http://localhost:8080/tarefas/loginForm
+  * Cole o seu arquivo aqui: (**Edit** -> **Paste**). Repare que o diretório `tarefas` foi
+  criado.
+  ![ {w=65%}](assets/imagens/springmvc/war-paste.png)
+
+  * Podemos acessar o projeto através da URL:
+  http://localhost:8080/tarefas/loginForm
 
 
 

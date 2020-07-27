@@ -65,9 +65,9 @@ Para configurar 3 minutos como o padrão de tempo para o usuário perder a sess�
 seguinte código no arquivo `web.xml`:
 
 ``` xml
-	<session-config>
-		<session-timeout>3</session-timeout>
-	</session-config>
+  <session-config>
+    <session-timeout>3</session-timeout>
+  </session-config>
 ```
 
 ## Registrando o usuário logado na sessão
@@ -79,11 +79,13 @@ O Spring MVC nos possibilita receber a sessão em qualquer método, só é preci
 `HttpSession` como parâmetro. Por exemplo:
 
 ``` java
-@Controller
-public class LoginController {
+  @Controller
+  public class LoginController {
 
-	public String efetuaLogin(HttpSession session) {
-		//....
+      public String efetuaLogin(HttpSession session) {
+          //....
+      }
+  }
 ```
 
 A sessão é parecida com um objeto do tipo `Map<String, Object>`, podemos guardar nela qualquer
@@ -92,104 +94,105 @@ poderíamos criar uma ação que recebe os dados do formulário de login e a ses
 logado dentro da mesma:
 
 ``` java
-@RequestMapping("efetuaLogin")
-public String efetuaLogin(Usuario usuario, HttpSession session) {
-	if(new JdbcUsuarioDao().existeUsuario(usuario)) {
-		session.setAttribute("usuarioLogado", usuario);
-		return "menu";
-	} else {
-		//....
+  @RequestMapping("efetuaLogin")
+  public String efetuaLogin(Usuario usuario, HttpSession session) {
+      if(new JdbcUsuarioDao().existeUsuario(usuario)) {
+          session.setAttribute("usuarioLogado", usuario);
+          return "menu";
+      } else {
+          //....
+      }
+  }
 ```
 
 ## Exercício: Fazendo o login na aplicação
 1. Vamos criar o formulário de Login, uma ação para chamar este formulário e uma outra que
-	realmente autentica o usuário.
+  realmente autentica o usuário.
 
-	* Crie a página `formulario-login.jsp` dentro de `WebContent/WEB-INF/views` com o conteúdo:
-	``` xml
-			<html>
-				<body>
-					<h2>Página de Login das Tarefas</h2>
-					<form action="efetuaLogin" method="post">
-						Login: <input type="text" name="login" /> <br /> 
-						Senha: <input type="password" name="senha" /> <br />
-						<input type="submit" value="Entrar nas tarefas" /> 
-					</form>
-				</body>
-			</html>
-	```
+  * Crie a página `formulario-login.jsp` dentro de `WebContent/WEB-INF/views` com o conteúdo:
+``` xml
+  <html>
+    <body>
+      <h2>Página de Login das Tarefas</h2>
+      <form action="efetuaLogin" method="post">
+        Login: <input type="text" name="login" /> <br /> 
+        Senha: <input type="password" name="senha" /> <br />
+        <input type="submit" value="Entrar nas tarefas" /> 
+      </form>
+    </body>
+  </html>
+```
 
-	* Crie uma nova classe chamada `LoginController` no pacote
-	`br.com.caelum.tarefas.controller`. Crie um método para exibir o `formulario-login.jsp`:
-	``` java
-			@Controller
-			public class LoginController{
+  * Crie uma nova classe chamada `LoginController` no pacote
+  `br.com.caelum.tarefas.controller`. Crie um método para exibir o `formulario-login.jsp`:
+``` java
+  @Controller
+  public class LoginController{
 
-				@RequestMapping("loginForm")
-				public String loginForm() {
-					return "formulario-login";
-				}
-			}
-	```
+      @RequestMapping("loginForm")
+      public String loginForm() {
+          return "formulario-login";
+      }
+  }
+```
 
-	* Na mesma classe `LoginController` coloque o método que verifica o existência do
-	usuario. Acrescente o método `efetuaLogin`:
+  * Na mesma classe `LoginController` coloque o método que verifica o existência do
+  usuario. Acrescente o método `efetuaLogin`:
 
-	``` java
-			@RequestMapping("efetuaLogin")
-			public String efetuaLogin(Usuario usuario, HttpSession session) {
-				if(new JdbcUsuarioDao().existeUsuario(usuario)) {
-					session.setAttribute("usuarioLogado", usuario);
-					return "menu";
-				}
-				return "redirect:loginForm";
-			}
-	```
+``` java
+  @RequestMapping("efetuaLogin")
+  public String efetuaLogin(Usuario usuario, HttpSession session) {
+      if(new JdbcUsuarioDao().existeUsuario(usuario)) {
+          session.setAttribute("usuarioLogado", usuario);
+          return "menu";
+      }
+      return "redirect:loginForm";
+  }
+```
 
-	* Após o usuário se logar, ele será redirecionado para uma página que conterá
-	links para as outras páginas do sistema e uma mensagem de boas vindas.
+  * Após o usuário se logar, ele será redirecionado para uma página que conterá
+  links para as outras páginas do sistema e uma mensagem de boas vindas.
 
-	Crie a página `menu.jsp` em `WebContent/WEB-INF/views` com o código:
-	``` xml
-			<html>
-				<body>
-					<h2>Página inicial da Lista de Tarefas</h2>
-					<p>Bem vindo, ${usuarioLogado.login}</p> 
-					<a href="listaTarefas">Clique aqui</a> para acessar a 
-					lista de tarefas
-				</body>
-			</html>			
-	```
+  Crie a página `menu.jsp` em `WebContent/WEB-INF/views` com o código:
+``` xml
+    <html>
+      <body>
+        <h2>Página inicial da Lista de Tarefas</h2>
+        <p>Bem vindo, ${usuarioLogado.login}</p> 
+        <a href="listaTarefas">Clique aqui</a> para acessar a 
+        lista de tarefas
+      </body>
+    </html>			
+```
 
-	* Acesse a página de login em http://localhost:8080/fj21-tarefas/loginForm e
-	se logue na aplicação.
+  * Acesse a página de login em http://localhost:8080/fj21-tarefas/loginForm e
+  se logue na aplicação.
 
-	* Verifique o banco de dados para ter um login e senha válidos. Para isso, no
-	terminal faça:
-	``` sql
-		mysql -u root
-		use fj21;
-		select * from usuarios;
-	```
+  * Verifique o banco de dados para ter um login e senha válidos. Para isso, no
+  terminal faça:
+``` sql
+  mysql -u root
+  use fj21;
+  select * from usuarios;
+```
 
-	Se houver senha no banco, troque o primeiro comando por
-	`mysql -u root -p`, usando a senha correta pro banco.
-	Se a tabela não existir, você pode criá-la executando o comando:
+  Se houver senha no banco, troque o primeiro comando por
+  `mysql -u root -p`, usando a senha correta pro banco.
+  Se a tabela não existir, você pode criá-la executando o comando:
 
-	``` sql
-		create table usuarios (
-			login VARCHAR(255),
-			senha VARCHAR(255)
-		);
-	```
-	(Dica: esse código encontra-se no arquivo `usuarios.txt` na
-	pasta `21/criacao-tabelas`)
+``` sql
+  create table usuarios (
+    login VARCHAR(255),
+    senha VARCHAR(255)
+  );
+```
+  (Dica: o código para criar essa tabela pode ser encontrado no arquivo  `criacao-tabela.sql` na pasta **21/projeto-tarefas/mysql**)
 
-	* Caso não exista usuários cadastrados, cadastre algum utilizando o mesmo terminal
-	aberto antes da seguinte maneira:
-	```
-		insert into usuarios(login, senha) values('seu_usuario', 'sua_senha');
-	```
+  * Caso não exista usuários cadastrados, cadastre algum utilizando o mesmo terminal
+  aberto antes da seguinte maneira:
+``` sql
+  insert into usuarios(login, senha) values('seu_usuario', 'sua_senha');
+```
 
 
 
@@ -219,17 +222,17 @@ da interface. Então para facilitar o trabalho vamos estender essa classe e sobr
 apenas o método que é do nosso interesse:
 
 ``` java
-public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
+  public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
-	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response,
-			Object controller) throws Exception {
-		//....
-		response.sendRedirect("loginForm");
-		return false;	
-	}
-}
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+            HttpServletResponse response,
+            Object controller) throws Exception {
+        //....
+        response.sendRedirect("loginForm");
+        return false;	
+    }
+  }
 ```
 
 O método `preHandle` recebe a requisição e a resposta, além do controlador que está sendo
@@ -241,27 +244,27 @@ Para pegar o usuário logado é preciso acessar a sessão HTTP. O objeto `reques
 que devolve a sessão do usuário atual:
 
 ``` java
-HttpSession session = request.getSession();
+  HttpSession session = request.getSession();
 ```
 
 Dessa maneira podemos verificar no Interceptador a existência do atributo `usuarioLogado`:
 
 ``` java
-public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
+  public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
-	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response,
-			Object controller) throws Exception {
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+            HttpServletResponse response,
+            Object controller) throws Exception {
 
-			if(request.getSession().getAttribute("usuarioLogado") != null) {
-				return true;
-			}
-			
-			response.sendRedirect("loginForm");
-			return false;
-	}
-}
+        if(request.getSession().getAttribute("usuarioLogado") != null) {
+            return true;
+        }
+        
+        response.sendRedirect("loginForm");
+        return false;
+    }
+  }
 ```
 
 Falta só mais uma verificação. Existem duas ações na nossa aplicação que não necessitam de
@@ -270,28 +273,28 @@ Além disso, vamos garantir também que a pasta de `resources` pode ser acessada
 possui as imagens, css e arquivos JavaScript. No entanto a classe `AutorizadorInterceptor` fica:
 
 ``` java
-public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
+  public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, 
-			HttpServletResponse response,
-			Object controller) throws Exception {
+      @Override
+      public boolean preHandle(HttpServletRequest request, 
+              HttpServletResponse response,
+              Object controller) throws Exception {
 
-			String uri = request.getRequestURI();
-			if(uri.endsWith("loginForm") || 
-					uri.endsWith("efetuaLogin") || 
-							uri.contains("resources")){
-				return true;
-			}
-			
-			if(request.getSession().getAttribute("usuarioLogado") != null) {
-				return true;
-			}
-			
-			response.sendRedirect("loginForm");
-			return false;
-	}
-}
+          String uri = request.getRequestURI();
+          if( uri.endsWith("loginForm")   || 
+              uri.endsWith("efetuaLogin") || 
+              uri.contains("resources")) {
+              return true;
+          }
+          
+          if(request.getSession().getAttribute("usuarioLogado") != null) {
+              return true;
+          }
+          
+          response.sendRedirect("loginForm");
+          return false;
+      }
+  }
 ```
 
 
@@ -302,10 +305,10 @@ isso via anotações, então usaremos a configuração via XML nesse caso. Já v
 `AutorizadorInterceptor`:
 
 ``` xml
-<mvc:interceptors>
-	<bean class=
-		"br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
-</mvc:interceptors>
+  <mvc:interceptors>
+    <bean class=
+      "br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
+  </mvc:interceptors>
 ```
 
 Caso seja necessário alguma ordem na execução de diversos interceptors, basta registrá-los na sequência desejada
@@ -313,76 +316,76 @@ dentro da tag `mvc:interceptors`.
 
 ## Exercícios: Interceptando as requisições
 1. Vamos criar um `Interceptor` que não permitirá que o usuário acesse as ações
-	sem antes ter logado na aplicação.
+  sem antes ter logado na aplicação.
 
-	* Crie a classe `AutorizadorInterceptor` no pacote
-	`br.com.caelum.tarefas.interceptor`
-	* Estenda a classe `HandlerInterceptorAdapter`
-	do package `org.springframework.web.servlet.handler`
-	* Sobrescreve o método `preHandle`. O usuário só pode acessar os métodos do
-	`LoginController` SEM ter feito o login. Caso outra lógica seja chamada é preciso verificar
-	se o usuário existe na sessão. Existindo na sessão, seguiremos o fluxo normalmente, caso contrário
-	indicaremos que o usuário não está logado e que deverá ser redirecionado para o formulário
-	de login.
-	O código completo do interceptador fica:
-	``` java
-			public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
+  * Crie a classe `AutorizadorInterceptor` no pacote
+  `br.com.caelum.tarefas.interceptor`
+  * Estenda a classe `HandlerInterceptorAdapter`
+  do package `org.springframework.web.servlet.handler`
+  * Sobrescreve o método `preHandle`. O usuário só pode acessar os métodos do
+  `LoginController` SEM ter feito o login. Caso outra lógica seja chamada é preciso verificar
+  se o usuário existe na sessão. Existindo na sessão, seguiremos o fluxo normalmente, caso contrário
+  indicaremos que o usuário não está logado e que deverá ser redirecionado para o formulário
+  de login.
+  O código completo do interceptador fica:
+``` java
+  public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
-				@Override
-				public boolean preHandle(HttpServletRequest request, 
-						HttpServletResponse response,
-						Object controller) throws Exception {
+      @Override
+      public boolean preHandle(HttpServletRequest request, 
+              HttpServletResponse response,
+              Object controller) throws Exception {
 
-						String uri = request.getRequestURI();
-						if(uri.endsWith("loginForm") ||
-								uri.endsWith("efetuaLogin") || 
-								         uri.contains("resources")){
-							return true;
-						}
+          String uri = request.getRequestURI();
+          if( uri.endsWith("loginForm")   ||
+              uri.endsWith("efetuaLogin") || 
+              uri.contains("resources")) {
+              return true;
+          }
 
-						if(request.getSession()
-								.getAttribute("usuarioLogado") != null) {
-							return true;
-						}
+          if(request.getSession()
+                .getAttribute("usuarioLogado") != null) {
+            return true;
+          }
 
-						response.sendRedirect("loginForm");
-						return false;
-				}
-			}
-	```
+          response.sendRedirect("loginForm");
+          return false;
+      }
+  }
+```
 
-	* Temos que registrar o nosso novo interceptador no XML do spring. Abra o arquivo
-	`spring-context.xml`. Dentro da tag `<beans>` adicione:
-	``` xml
-			<mvc:interceptors>
-			    <bean 
-			    class=
-			    "br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
-			</mvc:interceptors>
-	```
+  * Temos que registrar o nosso novo interceptador no XML do spring. Abra o arquivo
+  `spring-context.xml`. Dentro da tag `<beans>` adicione:
+``` xml
+  <mvc:interceptors>
+      <bean 
+      class=
+      "br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
+  </mvc:interceptors>
+```
 1. Reinicie o servidor e tente acessar a lista de tarefas em
-	http://localhost:8080/fj21-tarefas/listaTarefas. Você deverá ser redirecionado para o formulário de login.
+  http://localhost:8080/fj21-tarefas/listaTarefas. Você deverá ser redirecionado para o formulário de login.
 
 
 ## Exercícios opcionais: Logout
 1. Faça o logout da aplicação. Crie um link no `menu.jsp` que invocará um método que removerá o
-	usuário da sessão e redirecione a navegação para a action do formulário de login (`loginForm`).
+  usuário da sessão e redirecione a navegação para a action do formulário de login (`loginForm`).
 
-	No `menu.jsp` acrescente:
+  No `menu.jsp` acrescente:
 
-	``` xml
-		<a href="logout">Sair do sistema</a>
-	```
+``` xml
+  <a href="logout">Sair do sistema</a>
+```
 
-	Na classe `LoginController` adicione o método para o logout e invalide a sessão do usuário:
+  Na classe `LoginController` adicione o método para o logout e invalide a sessão do usuário:
 
-	``` java
-		@RequestMapping("logout")
-		public String logout(HttpSession session) {
-			session.invalidate();
-			return "redirect:loginForm";
-		}
-	```
+``` java
+  @RequestMapping("logout")
+  public String logout(HttpSession session) {
+      session.invalidate();
+      return "redirect:loginForm";
+  }
+```
 
 
 

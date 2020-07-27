@@ -191,7 +191,7 @@ o Jetty, que nós da Caelum usamos muito em projetos e o Google usa em seu cloud
 
 ## Exercícios: Preparando o Tomcat
 Para preparar o Tomcat na Caelum, siga os seguintes passos:
-1. Entre na pasta **21** do Desktop e selecione o arquivo do **apache-tomcat-7.x**;
+1. Entre na pasta **21/projeto-agenda/tomcat-9** do Desktop e selecione o arquivo do **apache-tomcat-9.x**;
 	![ {w=20}](assets/imagens/servlet-container/pasta-caelum.png)
 1. Dê dois cliques para abrir o Archive Manager do Linux;
 	![ {w=60}](assets/imagens/servlet-container/archive-manager.png)
@@ -204,25 +204,29 @@ Para preparar o Tomcat na Caelum, siga os seguintes passos:
 
 ## Preparando o Tomcat em casa
 
-Baixe o Tomcat 7 em `http://tomcat.apache.org/` na página de downloads da versão que escolher,
-você precisa de  uma "Binary Distribution". Mesmo no windows, dê preferência a versão
-**.zip**, para você entender melhor o processo de inicialização do servidor. A versão executável
-é apenas um _wrapper_ para executar a JVM, já que o Tomcat é 100% Java.
+Baixe o Tomcat 9 em `http://tomcat.apache.org/` na página de downloads da versão que escolher, você precisará de  uma "Binary Distribution". Mesmo no windows, dê preferência a versão **.zip**, para você entender melhor o processo de inicialização do servidor. A versão executável é apenas um _wrapper_ para executar a JVM, já que o Tomcat é 100% Java.
 
-O Tomcat foi por muito tempo considerado implementação padrão e referência das novas
+O Tomcat foi por muito tempo considerado a implementação padrão e referência das novas
 versões da API de servlets. Ele também é o servlet container padrão utilizado pelo JBoss.
 Ele continua em primeira posição no mercado, mas hoje tem esse lugar disputado pelo Jetty
 e pelo Grizzly (esse último é o servlet container que faz parte do servidor de aplicação
 da Oracle/Sun, o Glassfish).
 
-Entre no diretório de instalação e execute o script `startup.sh`:
+Entre no diretório de instalação, de permissão de execução a todos os scripts dessa pasta e por fim execute o `startup.sh` para o servidor inicializar:
 
-```
+``` bash
 	cd apache-tomcat<TAB>/bin
+	sudo chmod +x *startup*.sh
 	./startup.sh
+
+	Using CATALINA_BASE:   /home/fsouto/Área de Trabalho/apache-tomcat-9.0.34
+	Using CATALINA_HOME:   /home/fsouto/Área de Trabalho/apache-tomcat-9.0.34
+	...
+	Tomcat started.
+
 ```
 
-Entre no diretório de instalação do tomcat e rode o programa `shutdown.sh`:
+Para para parar o servidor utilize o script `shutdown.sh`:
 
 ```
 	cd apache-tomcat<TAB>/bin
@@ -297,16 +301,16 @@ Vamos primeiro configurar no WTP o servidor Tomcat que acabamos de descompactar.
 	![ {w=55}](assets/imagens/wtp/view-servers.png)
 1. Clique com o botão direito dentro da aba Servers e vá em **New** > **Server**:
 	![ {w=90}](assets/imagens/wtp/new-server.png)
-1. Selecione o **Apache Tomcat 7.0** e clique em **Next**:
-	![ {w=60}](assets/imagens/wtp/apache-tomcat-7.png)
+1. Selecione o **Apache Tomcat 9.0** e clique em **Next**:
+	![ {w=60}](assets/imagens/wtp/apache-tomcat-9.png)
 1. Na próxima tela, selecione o diretório onde você descompactou o Tomcat e clique em **Finish**:
-	![ {w=60}](assets/imagens/wtp/tomcat7-folder.png)
+	![ {w=60}](assets/imagens/wtp/tomcat9-folder.png)
 1. Por padrão, o WTP gerencia todo o Tomcat para nós e não permite que configurações sejam feitas por fora
 	do Eclipse. Para simplificar, vamos desabilitar isso e deixar o Tomcat no modo padrão do próprio Tomcat. Na
 	aba Servers, dê dois cliques no servidor Tomcat que uma tela de configuração se abrirá. Localize a seção
-	**Server Locations**. Repare que a opção _ use workspace metadata_ está marcada. Marque a opção **Use Tomcat installation**:
-	![ {w=65}](assets/imagens/wtp/tomcat7-config.png)
-	Salve e feche essa tela.
+	**Server Locations**. Repare que a opção _use workspace metadata_ está marcada. Marque a opção **Use Tomcat installation**:
+	![ {w=65}](assets/imagens/wtp/tomcat9-config.png)
+	Perceba que apareceu um asterisco na aba, salve e feche essa tela.
 1. Selecione o servidor que acabamos de adicionar e clique em **Start** (ícone play verde na view servers):
 	![ {w=80}](assets/imagens/wtp/start-server.png)
 1. Abra o navegador e acesse a URL `http://localhost:8080/`

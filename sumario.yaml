@@ -597,6 +597,9 @@ capitulos:
       -
         titulo: "Exercícios: Integrando JPA com Spring"
         codigo: "exercicios-integrando-jpa-com-spring"
+      -
+        titulo: "Exercícios Opcionais: Integrando a entidade User com o JPA"
+        codigo: "exercicios-opcionais-integrando-a-entidade-user-com-o-jpa"
   -
     titulo: "Apêndice - Tópicos da Servlet API"
     arquivo: 17-apendice-topicos-da-servlet-api.md

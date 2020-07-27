@@ -71,11 +71,11 @@ sobrescreva um método chamado `service`. Esse método será o responsável por 
 e gerar as respostas adequadas. Sua assinatura:
 
 ``` java
-    protected void service (HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
-        ...
-    }
+  protected void service (HttpServletRequest request,
+          HttpServletResponse response)
+          throws ServletException, IOException {
+      ...
+  }
 ```
 
 Repare que o método recebe dois objetos que representam, respectivamente, a requisição feita
@@ -91,20 +91,21 @@ da variável `response`. E, a partir disso, utilizar um `PrintWriter` para impri
 resposta do cliente:
 
 ``` java
-public class OiMundo extends HttpServlet {
-    protected void service (HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+  public class OiMundo extends HttpServlet {
+      protected void service (HttpServletRequest request,
+              HttpServletResponse response)
+              throws ServletException, IOException {
 
-        // escreve o texto
-        out.println("<html>");
-        out.println("<body>");
-        out.println("Primeira servlet");
-        out.println("</body>");
-        out.println("</html>");
-    }
-}
+          PrintWriter out = response.getWriter();
+
+          // escreve o texto
+          out.println("<html>");
+          out.println("<body>");
+          out.println("Primeira servlet");
+          out.println("</body>");
+          out.println("</html>");
+      }
+  }
 ```
 
 O único objetivo da servlet acima é exibir uma mensagem HTML simples para os usuários que
@@ -148,10 +149,10 @@ Uma vez que chamar a servlet pelo pacote e nome da classe acabaria criando URLs 
 
 Começamos com a definição da servlet em si, dentro da tag `<servlet>`:
 ``` xml
-	<servlet>
-		<servlet-name>primeiraServlet</servlet-name>
-		<servlet-class>br.com.caelum.servlet.OiMundo</servlet-class>
-	</servlet>
+  <servlet>
+    <servlet-name>primeiraServlet</servlet-name>
+    <servlet-class>br.com.caelum.servlet.OiMundo</servlet-class>
+  </servlet>
 ```
 
 Em seguida, mapeie nossa servlet para a URL `/oi`. Perceba que isso acontece dentro da tag
@@ -159,10 +160,10 @@ Em seguida, mapeie nossa servlet para a URL `/oi`. Perceba que isso acontece den
 servlet que definimos logo acima: passamos o mesmo `servlet-name` para o mapeamento.
 
 ``` xml
-	<servlet-mapping>
-		<servlet-name>primeiraServlet</servlet-name>
-		<url-pattern>/oi</url-pattern>
-	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>primeiraServlet</servlet-name>
+    <url-pattern>/oi</url-pattern>
+  </servlet-mapping>
 ```
 
 
@@ -188,19 +189,19 @@ várias URLs de um caminho, por exemplo o código abaixo fará com que qualquer 
 dentro de `/oi` seja interpretado pela sua servlet:
 
 ``` xml
-	<servlet-mapping>
-		<servlet-name>primeiraServlet</servlet-name>
-		<url-pattern>/oi/*</url-pattern>
-	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>primeiraServlet</servlet-name>
+    <url-pattern>/oi/*</url-pattern>
+  </servlet-mapping>
 ```
 
 Você ainda pode configurar "extensões" para as suas servlets, por exemplo, o mapeamento abaixo
 fará com que sua servlet seja chamada por qualquer requisição que termine com `.php`:
 ``` xml
-	<servlet-mapping>
-		<servlet-name>primeiraServlet</servlet-name>
-		<url-pattern>*.php</url-pattern>
-	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>primeiraServlet</servlet-name>
+    <url-pattern>*.php</url-pattern>
+  </servlet-mapping>
 ```
 
 
@@ -213,88 +214,97 @@ mapeamento é apenas um nome atribuído, virtual, que é utilizado para acessarm
 
 
 ## Exercícios: Primeira Servlet
-1. Crie a servlet `OiMundo` no pacote `br.com.caelum.servlet`. Escolha o menu **File**,
-	**New**, **Class** (mais uma vez, aproveite para aprender teclas de atalho).
+1. Para criar nossas Servlets precisamos usar as classes e interfaces que pertencem a API de Servlet, ou seja, precisamos adicionar o jar dessa especificação ao Classpath. Se o projeto foi criado corretamente o Tomcat 9 faz parte do nosso Classpath e como consequência todas as suas dependências também. Dessa forma podemos usar o jar que vem junto dele:
 
-	![ {w=85%}](assets/imagens/servlets/new-oimundo.png)
+  ![ {w=85%}](assets/imagens/servlets/classpath-servlet1.png)
 
-	* Estenda `HttpServlet`:
+Caso o Tomcat 9 não faça parte do nosso Classpath podemos adicionar manualmente a dependência ao nosso projeto. Acesse a pasta **21/projeto-agenda/servlet** e copie o arquivo **jakarta.servlet-api-4.X.X.jar** e cole dentro do nosso projeto, no diretório **WebContent/WEB-INF/lib**:
 
-	``` java
-				public class OiMundo extends HttpServlet {
-				}
-	```
+  ![ {w=85%}](assets/imagens/servlets/classpath-servlet2.png)
 
-	* Utilize o CTRL+SHIFT+O para importar `HttpServlet`.
 
-	* Para escrever a estrutura do método `service`, dentro da classe, escreva
-	apenas **service** e dê **Ctrl+espaço**: o Eclipse gera pra você o método.
+2. Crie a servlet `OiMundo` no pacote `br.com.caelum.servlet`. Escolha o menu **File**,
+  **New**, **Class** (mais uma vez, aproveite para aprender teclas de atalho).
 
-	![ {w=80%}](assets/imagens/servlets/gera-service.png)
+  ![ {w=85%}](assets/imagens/servlets/new-oimundo.png)
 
-	**ATENÇÃO: Cuidado para escolher corretamente a versão de service que recebe
-	`HttpServletRequest/Response`**.
+  * Estenda `HttpServlet`:
 
-	A anotação `@Override` serve para notificar o compilador que estamos sobrescrevendo o
-	método `service` da classe mãe. Se, por acaso, errarmos o nome do método ou trocarmos
-	a ordem dos	parâmetros, o compilador vai reclamar e você vai perceber o erro ainda em
-	tempo de compilação.
+``` java
+  public class OiMundo extends HttpServlet {
+  }
+```
 
-	O método gerado deve ser esse. **Troque os nomes dos parâmetros `arg0` e
-	`arg1` como abaixo:**
+  * Utilize o CTRL+SHIFT+O para importar `HttpServlet`.
 
-	``` java
-                @Override
-                protected void service(HttpServletRequest request,
-                                    HttpServletResponse response)
-                                    throws ServletException, IOException {
+  * Para escrever a estrutura do método `service`, dentro da classe, escreva
+  apenas **service** e dê **Ctrl+espaço**: o Eclipse gera pra você o método.
 
-                }
-	```
+  ![ {w=80%}](assets/imagens/servlets/gera-service.png)
 
-	* Escreva dentro do método `service` sua implementação. Por enquanto, queremos apenas
-	que nossa Servlet monte uma página HTML simples para testarmos.
+  **ATENÇÃO: Cuidado para escolher corretamente a versão de service que recebe
+  `HttpServletRequest/Response`**.
 
-	Cuidado em tirar a chamada ao `super.service` antes e repare que a declaração do
-	método já foi feita no passo anterior.
+  A anotação `@Override` serve para notificar o compilador que estamos sobrescrevendo o
+  método `service` da classe mãe. Se, por acaso, errarmos o nome do método ou trocarmos
+  a ordem dos	parâmetros, o compilador vai reclamar e você vai perceber o erro ainda em
+  tempo de compilação.
 
-	``` java
-                protected void service(HttpServletRequest request,
-                        HttpServletResponse response)
-                        throws ServletException, IOException {
+  O método gerado deve ser esse. **Troque os nomes dos parâmetros `arg0` e
+  `arg1` como abaixo:**
 
-                    PrintWriter out = response.getWriter();
+``` java
+  @Override
+  protected void service(HttpServletRequest request,
+          HttpServletResponse response)
+          throws ServletException, IOException {
+  }
+```
 
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Primeira Servlet</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>Oi mundo Servlet!</h1>");
-                    out.println("</body>");
-                    out.println("</html>");
-                }
-	```
+  * Escreva dentro do método `service` sua implementação. Por enquanto, queremos apenas
+  que nossa Servlet monte uma página HTML simples para testarmos.
+
+  Cuidado em tirar a chamada ao `super.service` antes e repare que a declaração do
+  método já foi feita no passo anterior.
+
+``` java
+  protected void service(HttpServletRequest request,
+          HttpServletResponse response)
+          throws ServletException, IOException {
+
+      PrintWriter out = response.getWriter();
+
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<title>Primeira Servlet</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>Oi mundo Servlet!</h1>");
+      out.println("</body>");
+      out.println("</html>");
+  }
+```
 1. Abra o arquivo **web.xml** e clique na aba **Source** na parte inferior do editor de código. Dentro da tag `<web-app>`, mapeie a URL **/oi** para a servlet `OiMundo`.
-	Aproveite o autocompletar do Eclipse e cuidado ao escrever o nome da classe e do pacote.
+  Aproveite o autocompletar do Eclipse e cuidado ao escrever o nome da classe e do pacote.
 
-	``` xml
-            <servlet>
-                <servlet-name>servletOiMundo</servlet-name>
-                <servlet-class>
-                    br.com.caelum.servlet.OiMundo
-                </servlet-class>
-            </servlet>
+``` xml
+  <servlet>
+      <servlet-name>servletOiMundo</servlet-name>
+      <servlet-class>
+          br.com.caelum.servlet.OiMundo
+      </servlet-class>
+  </servlet>
 
-            <servlet-mapping>
-                <servlet-name>servletOiMundo</servlet-name>
-                <url-pattern>/oi</url-pattern>
-            </servlet-mapping>
-	```
+  <servlet-mapping>
+      <servlet-name>servletOiMundo</servlet-name>
+      <url-pattern>/oi</url-pattern>
+  </servlet-mapping>
+```
+
 1. Reinicie o Tomcat clicando no botão verde na aba Servers.
-	![ {w=80}](assets/imagens/servlets/restart-tomcat.png)
+  ![ {w=80}](assets/imagens/servlets/restart-tomcat.png)
 1. Teste a url http://localhost:8080/fj21-agenda/oi
-	![ {w=60}](assets/imagens/servlets/oimundo-chrome.png)
+  ![ {w=60}](assets/imagens/servlets/oimundo-chrome.png)
 
 
 
@@ -306,7 +316,7 @@ Existem diversos erros comuns nos exercícios anteriores. Aqui vão alguns deles
 
 * Esquecer da barra inicial no URL pattern:
 ``` xml
-		<url-pattern>oi</url-pattern>
+    <url-pattern>oi</url-pattern>
 ```
 ![ {w=60%}](assets/imagens/servlets/pagina-404.png)
 
@@ -316,13 +326,13 @@ Nesse caso, uma exceção acontecerá no momento em que o tomcat for inicializad
 
 * Digitar errado o nome do pacote da sua servlet:
 ``` xml
-		<servlet-class>br.caelum.servlet.OiMundo</servlet-class>
+    <servlet-class>br.caelum.servlet.OiMundo</servlet-class>
 ```
 ![ {w=80%}](assets/imagens/servlets/pacote-errado.png)
 
 * Esquecer de colocar o nome da classe no mapeamento da servlet:
 ``` xml
-		<servlet-class>br.com.caelum.servlet</servlet-class>
+    <servlet-class>br.com.caelum.servlet</servlet-class>
 ```
 
 
@@ -342,10 +352,10 @@ De modo geral, não é mais preciso configurar as nossas Servlets no web.xml, se
 suficiente usar a anotação `@WebServlet` apenas:
 
 ``` java
-		@WebServlet("/oi")
-		public class OiServlet3 extends HttpServlet {
-			...
-		}
+  @WebServlet("/oi")
+  public class OiServlet3 extends HttpServlet {
+    ...
+  }
 ```
 
 Isso é equivalente a configurar a Servlet acima com a **url-pattern** configurada
@@ -362,10 +372,10 @@ acima. Mas se precisarmos definir mais de uma URL para acessar a Servlet,
 podemos utilizar o atributo `urlPatterns` e passar um vetor de URLs:
 
 ``` java
-		@WebServlet(name = "MinhaServlet3", urlPatterns = {"/oi", "/ola"})
-		public class OiServlet3 extends HttpServlet{
-			...
-		}
+  @WebServlet(name = "MinhaServlet3", urlPatterns = {"/oi", "/ola"})
+  public class OiServlet3 extends HttpServlet{
+    ...
+  }
 ```
 
 É bom reforçar que, mesmo a Servlet estando anotado com `@WebServlet()`, ele
@@ -396,16 +406,16 @@ para declarar cada parâmetro no padrão chave/valor e depois passá-los dentro 
 um vetor para a propriedade `initParams` da anotação `@WebServlet()`:
 
 ``` java
-		@WebServlet(
-			name = "OiServlet3",
-			urlPatterns = {"/oi"},
-			initParams = {
-				@WebInitParam(name = "param1", value = "value1"),
-				@WebInitParam(name = "param2", value = "value2")}
-			)
-		public class OiServlet3 {
-			...
-		}
+  @WebServlet(
+      name = "OiServlet3",
+      urlPatterns = {"/oi"},
+      initParams = {
+          @WebInitParam(name = "param1", value = "value1"),
+          @WebInitParam(name = "param2", value = "value2")}
+  )
+  public class OiServlet3 {
+    ...
+  }
 ```
 
 Para recuperá-los dentro da Servlet temos três estratégias:
@@ -413,47 +423,47 @@ Para recuperá-los dentro da Servlet temos três estratégias:
 * Usando a sobrecarga do método `init()` das Servlets:
 
 ``` java
-			// código omitido
-			private String parametro1;
-			private String parametro2;
+  // código omitido
+  private String parametro1;
+  private String parametro2;
 
-			@Override
-			public void init(ServletConfig config) throws ServletException {
-				super.init(config);
-				this.parametro1 = config.getInitParameter("param1");
-				this.parametro2 = config.getInitParameter("param2");
-			}
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+      super.init(config);
+      this.parametro1 = config.getInitParameter("param1");
+      this.parametro2 = config.getInitParameter("param2");
+  }
 ```
 
 * Em qualquer outro método da Servlet por meio de um objeto da classe `ServletConfig`:
 
 ``` java
-			public void service(HttpServletRequest request,
-					HttpServletResponse response) throws ServletException, IOException {
+  public void service(HttpServletRequest request,
+          HttpServletResponse response) throws ServletException, IOException {
 
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
+      response.setContentType("text/html");
+      PrintWriter out = response.getWriter();
 
-				out.println("<h2>Exemplo com InitParam Servlet</h2>");
+      out.println("<h2>Exemplo com InitParam Servlet</h2>");
 
-				ServletConfig config = getServletConfig();
+      ServletConfig config = getServletConfig();
 
-				String parametro1= config.getInitParameter("param1");
-				out.println("Valor do parâmetro 1: " + parametro1);
+      String parametro1= config.getInitParameter("param1");
+      out.println("Valor do parâmetro 1: " + parametro1);
 
-				String parametro2 = config.getInitParameter("param2");
-				out.println("<br>Valor do parâmetro 1: " + parametro2);
+      String parametro2 = config.getInitParameter("param2");
+      out.println("<br>Valor do parâmetro 1: " + parametro2);
 
-				out.close();
-			}
+      out.close();
+  }
 ```
 
 * Ou usando o método `getServletConfig()` com `getInitParameter()` direto na
 opção de saída:
 
 ``` java
-			out.println("Valor do parâmetro 1: "
-				+ getServletConfig().getInitParameter("param1"));
+  out.println("Valor do parâmetro 1: "
+    + getServletConfig().getInitParameter("param1"));
 ```
 
 
@@ -474,18 +484,18 @@ Para isso, vamos criar uma página HTML, chamada `adiciona-contato.html`,
 contendo um formulário para preenchermos os dados dos contatos:
 
 ``` html
-		<html>
-			<body>
-				<form action="adicionaContato">
-					Nome: <input type="text" name="nome" /><br />
-					E-mail: <input type="text" name="email" /><br />
-					Endereço: <input type="text" name="endereco" /><br />
-					Data Nascimento: <input type="text" name="dataNascimento" /><br />
+  <html>
+    <body>
+      <form action="adicionaContato">
+        Nome: <input type="text" name="nome" /><br />
+        E-mail: <input type="text" name="email" /><br />
+        Endereço: <input type="text" name="endereco" /><br />
+        Data Nascimento: <input type="text" name="dataNascimento" /><br />
 
-					<input type="submit" value="Gravar" />
-				</form>
-			</body>
-		</html>
+        <input type="submit" value="Gravar" />
+      </form>
+    </body>
+  </html>
 ```
 
 Esse código possui um formulário, determinado pela tag `<form>`. O atributo
@@ -513,7 +523,7 @@ utilizar o parâmetro `request` do método `service` chamando o método
 valor do parâmetro. Caso não exista o parâmetro, será retornado `null`:
 
 ``` java
-		String valorDoParametro = request.getParameter("nomeDoParametro");
+  String valorDoParametro = request.getParameter("nomeDoParametro");
 ```
 
 
@@ -525,8 +535,8 @@ Teremos que converter antes a `String` em um objeto do tipo `java.util.Date` com
 auxílio da classe `SimpleDateFormat`, utilizando o método `parse`, da seguinte forma:
 
 ``` java
-		String dataEmTexto = request.getParameter("dataNascimento");
-		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataEmTexto);
+  String dataEmTexto = request.getParameter("dataNascimento");
+  Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataEmTexto);
 ```
 
 Repare que indicamos também o _pattern_ (formato) com que essa data deveria chegar
@@ -538,60 +548,60 @@ data não pôde ser convertido ao pattern especificado. Com o objeto do tipo
 vamos usar o método `setTime` da classe `Calendar`, que recebe um `Date`.
 
 ``` java
-		dataNascimento = Calendar.getInstance();
-		dataNascimento.setTime(date);
+  dataNascimento = Calendar.getInstance();
+  dataNascimento.setTime(date);
 ```
 
 Vamos utilizar também o nosso DAO para gravar os contatos no banco de dados. No
 final, a nossa `Servlet` ficará da seguinte forma:
 
 ``` java
-		@WebServlet("/adicionaContato")
-		public class AdicionaContatoServlet extends HttpServlet {
-		    protected void service(HttpServletRequest request,
-		            HttpServletResponse response)
-		            throws IOException, ServletException {
+  @WebServlet("/adicionaContato")
+  public class AdicionaContatoServlet extends HttpServlet {
+      protected void service(HttpServletRequest request,
+              HttpServletResponse response)
+              throws IOException, ServletException {
 
-		        PrintWriter out = response.getWriter();
+          PrintWriter out = response.getWriter();
 
-		        // pegando os parâmetros do request
-		        String nome = request.getParameter("nome");
-		        String endereco = request.getParameter("endereco");
-		        String email = request.getParameter("email");
-		        String dataEmTexto = request.getParameter("dataNascimento");
-		        Calendar dataNascimento = null;
+          // pegando os parâmetros do request
+          String nome = request.getParameter("nome");
+          String endereco = request.getParameter("endereco");
+          String email = request.getParameter("email");
+          String dataEmTexto = request.getParameter("dataNascimento");
+          Calendar dataNascimento = null;
 
-		        // fazendo a conversão da data
-		        try {
-		            Date date = new SimpleDateFormat("dd/MM/yyyy")
-		                    .parse(dataEmTexto);
-		            dataNascimento = Calendar.getInstance();
-		            dataNascimento.setTime(date);
-		        } catch (ParseException e) {
-		            out.println("Erro de conversão da data");
-		            return; //para a execução do método
-		        }
+          // fazendo a conversão da data
+          try {
+              Date date = new SimpleDateFormat("dd/MM/yyyy")
+                      .parse(dataEmTexto);
+              dataNascimento = Calendar.getInstance();
+              dataNascimento.setTime(date);
+          } catch (ParseException e) {
+              out.println("Erro de conversão da data");
+              return; //para a execução do método
+          }
 
-		        // monta um objeto contato
-		        Contato contato = new Contato();
-		        contato.setNome(nome);
-		        contato.setEndereco(endereco);
-		        contato.setEmail(email);
-		        contato.setDataNascimento(dataNascimento);
+          // monta um objeto contato
+          Contato contato = new Contato();
+          contato.setNome(nome);
+          contato.setEndereco(endereco);
+          contato.setEmail(email);
+          contato.setDataNascimento(dataNascimento);
 
-		        // salva o contato
-		        ContatoDao dao = new ContatoDao();
-		        dao.adiciona(contato);
+          // salva o contato
+          ContatoDao dao = new ContatoDao();
+          dao.adiciona(contato);
 
-		        // imprime o nome do contato que foi adicionado
-		        out.println("<html>");
-		        out.println("<body>");
-		        out.println("Contato " + contato.getNome() +
-		                " adicionado com sucesso");		
-		        out.println("</body>");
-		        out.println("</html>");
-		    }
-		}
+          // imprime o nome do contato que foi adicionado
+          out.println("<html>");
+          out.println("<body>");
+          out.println("Contato " + contato.getNome() +
+                  " adicionado com sucesso");		
+          out.println("</body>");
+          out.println("</html>");
+      }
+  }
 ```
 
 
@@ -599,154 +609,153 @@ final, a nossa `Servlet` ficará da seguinte forma:
 ## Exercícios: Criando funcionalidade para gravar contatos
 
 1. Como vamos precisar gravar contatos, precisaremos das classes para trabalhar com
-	banco de dados que criamos no capítulo de JDBC. Para isso, deixamos disponível um
-	arquivo zip contendo as classes necessárias que criamos anteriormente.
+  banco de dados que criamos no capítulo de JDBC. Para isso, deixamos disponível um
+  arquivo zip contendo as classes necessárias que criamos anteriormente.
 
-	* No Eclipse, selecione o projeto **fj21-agenda** e vá no menu **File -> Import**
+  * No Eclipse, selecione o projeto **fj21-agenda** e vá no menu **File -> Import**
 
-	* Dentro da janela de Import, escolha **General -> Archive File** e clique em **Next**:
+  * Dentro da janela de Import, escolha **General -> Archive File** e clique em **Next**:
 
-	* No campo **From archive file** clique em **Browse**, selecione o arquivo
-	**Desktop/21/dao-modelo.zip** e clique em **Finish**
+  * No campo **From archive file** clique em **Browse**, selecione o arquivo
+  **/21/projeto-agenda/dao-modelo.zip** e clique em **Finish**
 
-	> **Em casa**
-	>
-	> Caso você esteja fazendo em casa, você pode usar exatamente as mesmas classes
-	> criadas durante os exercícios do capítulo de JDBC, mas terá que fazer uma mudança
-	> na classe ConnectionFactory (volte ao capítulo 2, no box sobre o Class.forName.
-	> Não esqueça de copiar também o Driver do MySQL.
+  > **Em casa**
+  >
+  > Caso você esteja fazendo em casa, você pode usar exatamente as mesmas classes
+  > criadas durante os exercícios do capítulo de JDBC, mas terá que fazer uma mudança
+  > na classe ConnectionFactory (volte ao capítulo 2, no box sobre o Class.forName.
+  > Não esqueça de copiar também o Driver do MySQL.
 
-	
-1. Temos que criar a página que permitirá aos usuários cadastrar os contatos
+  
+2. Temos que criar a página que permitirá aos usuários cadastrar os contatos
 
-	* Vá no menu **File -> New -> Other**.
+  * Vá no menu **File -> New -> Other**.
 
-	* Escolha **Web -> HTML Page ou HTML File** e clique **Next**:
-	![ {w=60%}](assets/imagens/servlets/new-htmlpage.png)
+  * Escolha **Web -> HTML Page ou HTML File** e clique **Next**:
+  ![ {w=60%}](assets/imagens/servlets/new-htmlpage.png)
 
-	* Chame o arquivo de **adiciona-contato.html** e clique em **Finish**
-	(garanta que o arquivo esteja dentro do diretório _WebContent_):
+  * Chame o arquivo de **adiciona-contato.html** e clique em **Finish**
+  (garanta que o arquivo esteja dentro do diretório _WebContent_):
 
-	![ {w=60%}](assets/imagens/servlets/html-filename.png)
+  ![ {w=60%}](assets/imagens/servlets/html-filename.png)
 
-	* Esse arquivo HTML deverá ter o seguinte conteúdo (**cuidado com o nome dos
-	inputs**):
+  * Esse arquivo HTML deverá ter o seguinte conteúdo (**cuidado com o nome dos
+  inputs**):
 
-	``` html
-				<html>
-					<body>
-						<h1>Adiciona Contatos</h1>
-						<hr />
-						<form action="adicionaContato">
-							Nome: <input type="text" name="nome" /><br />
-							E-mail: <input type="text" name="email" /><br />
-							Endereço: <input type="text" name="endereco" /><br />
-							Data Nascimento:
-								<input type="text" name="dataNascimento" /><br />
+``` html
+  <html>
+    <body>
+      <h1>Adiciona Contatos</h1>
+      <hr />
+      <form action="adicionaContato">
+        Nome: <input type="text" name="nome" /><br />
+        E-mail: <input type="text" name="email" /><br />
+        Endereço: <input type="text" name="endereco" /><br />
+        Data Nascimento:
+          <input type="text" name="dataNascimento" /><br />
 
-							<input type="submit" value="Gravar" />
-						</form>
-					</body>
-				</html>
-	```
+        <input type="submit" value="Gravar" />
+      </form>
+    </body>
+  </html>
+```
 
-	* Acesse no navegador o endereço:
+  * Acesse no navegador o endereço:
 
-	http://localhost:8080/fj21-agenda/adiciona-contato.html
+  http://localhost:8080/fj21-agenda/adiciona-contato.html
 
-	![ {w=80%}](assets/imagens/servlets/formulario-html.png)
+  ![ {w=80%}](assets/imagens/servlets/formulario-html.png)
 1. Precisamos criar a `Servlet` que gravará o contato no banco de dados:
 
-	* Crie uma nova `Servlet` no pacote `br.com.caelum.agenda.servlet` chamado
-	`AdicionaContatoServlet` com o seguinte código.
+  * Crie uma nova `Servlet` no pacote `br.com.caelum.agenda.servlet` chamado
+  `AdicionaContatoServlet` com o seguinte código.
 
-	**Cuidado ao implementar essa classe, que é grande e complicada.**
+  **Cuidado ao implementar essa classe, que é grande e complicada.**
 
-	Use o `Ctrl+Shift+O` para ajudar nos imports. A classe `Date` deve ser de `java.util`
-	e a classe `ParseException`, de `java.text`.
+  Use o `Ctrl+Shift+O` para ajudar nos imports. A classe `Date` deve ser de `java.util`
+  e a classe `ParseException`, de `java.text`.
 
-	``` java
-				@WebServlet("/adicionaContato")
-                public class AdicionaContatoServlet extends HttpServlet {
-                    protected void service(HttpServletRequest request,
-                                        HttpServletResponse response)
-                                        throws IOException, ServletException {
-                        // busca o writer
-                        PrintWriter out = response.getWriter();
+``` java
+  @WebServlet("/adicionaContato")
+  public class AdicionaContatoServlet extends HttpServlet {
+      protected void service(HttpServletRequest request,
+              HttpServletResponse response)
+              throws IOException, ServletException {
+          // busca o writer
+          PrintWriter out = response.getWriter();
 
-                        // buscando os parâmetros no request
-                        String nome = request.getParameter("nome");
-                        String endereco = request.getParameter("endereco");
-                        String email = request.getParameter("email");
-                        String dataEmTexto = request
-                                .getParameter("dataNascimento");
-                        Calendar dataNascimento = null;
+          // buscando os parâmetros no request
+          String nome = request.getParameter("nome");
+          String endereco = request.getParameter("endereco");
+          String email = request.getParameter("email");
+          String dataEmTexto = request
+                  .getParameter("dataNascimento");
+          Calendar dataNascimento = null;
 
-                        // fazendo a conversão da data
-                        try {
-                            Date date =
-                                    new SimpleDateFormat("dd/MM/yyyy")
-                                    .parse(dataEmTexto);
-                            dataNascimento = Calendar.getInstance();
-                            dataNascimento.setTime(date);
-                        } catch (ParseException e) {
-                            out.println("Erro de conversão da data");
-                            return; //para a execução do método
-                        }
+          // fazendo a conversão da data
+          try {
+              Date date = new SimpleDateFormat("dd/MM/yyyy")
+                    .parse(dataEmTexto);
+              dataNascimento = Calendar.getInstance();
+              dataNascimento.setTime(date);
+          } catch (ParseException e) {
+              out.println("Erro de conversão da data");
+              return; //para a execução do método
+          }
 
-                        // monta um objeto contato
-                        Contato contato = new Contato();
-                        contato.setNome(nome);
-                        contato.setEndereco(endereco);
-                        contato.setEmail(email);
-                        contato.setDataNascimento(dataNascimento);
+          // monta um objeto contato
+          Contato contato = new Contato();
+          contato.setNome(nome);
+          contato.setEndereco(endereco);
+          contato.setEmail(email);
+          contato.setDataNascimento(dataNascimento);
 
-                        // salva o contato
-                        ContatoDao dao = new ContatoDao();
-                        dao.adiciona(contato);
+          // salva o contato
+          ContatoDao dao = new ContatoDao();
+          dao.adiciona(contato);
 
-                        // imprime o nome do contato que foi adicionado
-                        out.println("<html>");
-                        out.println("<body>");
-                        out.println("Contato " + contato.getNome() +
-                                " adicionado com sucesso");
-                        out.println("</body>");
-                        out.println("</html>");
-                    }
-                }
-	```
+          // imprime o nome do contato que foi adicionado
+          out.println("<html>");
+          out.println("<body>");
+          out.println("Contato " + contato.getNome() +
+                  " adicionado com sucesso");
+          out.println("</body>");
+          out.println("</html>");
+      }
+  }
+```
 
-	> **Utilizando a Servlet v2.5**
-	>
-	> Se ainda estivéssemos utilizando a versão 2.5 da Servlet, precisaríamos
-	> fazer o seguinte mapeamento no **web.xml**:
-	>
-	> ``` xml
-	> 					<servlet>
-	> 						<servlet-name>AdicionaContato</servlet-name>
-	> 						<servlet-class>
-	> 	                        br.com.caelum.agenda.servlet.AdicionaContatoServlet
-	> 	                    </servlet-class>
-	> 					</servlet>
-	>
-	> 					<servlet-mapping>
-	> 						<servlet-name>AdicionaContato</servlet-name>
-	> 						<url-pattern>/adicionaContato</url-pattern>
-	> 					</servlet-mapping>
-	> ```
+  > **Utilizando a Servlet v2.5**
+  >
+  > Se ainda estivéssemos utilizando a versão 2.5 da Servlet, precisaríamos
+  > fazer o seguinte mapeamento no **web.xml**:
+  >
+  > ``` xml
+  >     <servlet>
+  >       <servlet-name>AdicionaContato</servlet-name>
+  >       <servlet-class>
+  >           br.com.caelum.agenda.servlet.AdicionaContatoServlet
+  >       </servlet-class>
+  >     </servlet>
+  >
+  >     <servlet-mapping>
+  >       <servlet-name>AdicionaContato</servlet-name>
+  >       <url-pattern>/adicionaContato</url-pattern>
+  >     </servlet-mapping>
+  > ```
 
-	
+  
 
-	* Reinicie o servidor, para que a nova Servlet seja reconhecido
+  * Reinicie o servidor, para que a nova Servlet seja reconhecido
 
-	* Acesse novamente no navegador a URL
-	`http://localhost:8080/fj21-agenda/adiciona-contato.html`
+  * Acesse novamente no navegador a URL
+  `http://localhost:8080/fj21-agenda/adiciona-contato.html`
 
-	* Preencha o formulário e clique em Gravar. O resultado deve ser semelhante
-	à imagem a seguir:
-	![ {w=75%}](assets/imagens/servlets/contato-adicionado.png)
+  * Preencha o formulário e clique em Gravar. O resultado deve ser semelhante
+  à imagem a seguir:
+  ![ {w=75%}](assets/imagens/servlets/contato-adicionado.png)
 
-	* Verifique no banco de dados se o dado realmente foi adicionado com sucesso.
+  * Verifique no banco de dados se o dado realmente foi adicionado com sucesso.
 
 
 
@@ -758,7 +767,7 @@ a forma com que os dados são enviados para o servidor, através do atributo `me
 da seguinte forma:
 
 ``` html
-	<form action="adicionaContato" method="POST">
+  <form action="adicionaContato" method="POST">
 ```
 
 Como não tínhamos definido, por padrão então é usado o método GET, que indica que os valores dos
@@ -777,10 +786,10 @@ O método `service` aceita todos os métodos HTTP, portanto, tanto o método GET
 especificarmos como trataremos cada método, temos que escrever os métodos `doGet` e/ou `doPost`
 na nossa servlet:
 
-```
-	void doGet(HttpServletRequest req, HttpServletResponse res);
+``` java
+  void doGet(HttpServletRequest req, HttpServletResponse res);
 
-	void doPost(HttpServletRequest req, HttpServletResponse res);
+  void doPost(HttpServletRequest req, HttpServletResponse res);
 ```
 
 > **Outros métodos HTTP**
@@ -810,20 +819,20 @@ Para fazermos isso, basta configurarmos nossa aplicação dizendo que, caso acon
 página de erro deverá ser exibida. Essa configuração é feita no **web.xml**, com a seguinte declaração:
 
 ``` xml
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/erro.html</location>
-	</error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/erro.html</location>
+  </error-page>
 ```
 
 Além de tratarmos as exceções que podem acontecer na nossa aplicação, podemos também tratar os códigos
 de erro HTTP, como por exemplo, 404, que é o erro dado quando se acessa uma página inexistente. Para
 isso basta fazermos a declaração no web.xml:
 ``` xml
-	<error-page>
-		<error-code>404</error-code>
-		<location>/404.html</location>
-	</error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.html</location>
+  </error-page>
 ```
 
 
@@ -838,11 +847,11 @@ isso basta fazermos a declaração no web.xml:
 > como a seguir:
 >
 > ``` java
-> 		try {
-> 			// código que pode lançar SQLException
-> 		} catch (SQLException e) {
-> 			throw new ServletException(e);
-> 		}
+>   try {
+>    // código que pode lançar SQLException
+>   } catch (SQLException e) {
+>     throw new ServletException(e);
+>   }
 > ```
 >
 > Essa técnica é conhecida como _wrapping de exceptions_. O container, ao receber a
@@ -856,60 +865,60 @@ isso basta fazermos a declaração no web.xml:
 ## Exercício: Tratando exceções e códigos HTTP
 1. Vamos criar uma página para mostrar a mensagem genérica de tratamento:
 
-	* Crie um novo HTML chamado **erro.html** com o seguinte conteúdo:
-	``` xml
-				<html>
-					<body>
-						Um erro ocorreu!
-					</body>
-				</html>
-	```
+  * Crie um novo HTML chamado **erro.html** com o seguinte conteúdo:
+``` html
+  <html>
+    <body>
+      Um erro ocorreu!
+    </body>
+  </html>
+```
 
-	* **Adicione** a declaração da página de erro no web.xml:
+  * **Adicione** a declaração da página de erro no web.xml:
 
-	``` xml
-			<error-page>
-				<exception-type>java.lang.Exception</exception-type>
-				<location>/erro.html</location>
-			</error-page>
-	```
+``` xml
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/erro.html</location>
+  </error-page>
+```
 
-	* **Altere** o usuário de acesso ao banco na classe `ConnectionFactory` de `root` para
-	algum outro usuário que não exista, por exemplo, `toor`.
+  * **Altere** o usuário de acesso ao banco na classe `ConnectionFactory` de `root` para
+  algum outro usuário que não exista, por exemplo, `toor`.
 
-	* Reinicie o servidor, para que as alterações tenham efeito
+  * Reinicie o servidor, para que as alterações tenham efeito
 
-	* Acesse no navegador a URL http://localhost:8080/fj21-agenda/adiciona-contato.html
+  * Acesse no navegador a URL http://localhost:8080/fj21-agenda/adiciona-contato.html
 
-	* Preencha o formulário e clique em Gravar, o resultado deve ser semelhante  à imagem a seguir:
-	![ {w=60%}](assets/imagens/servlets/error-page-exception.png)
+  * Preencha o formulário e clique em Gravar, o resultado deve ser semelhante  à imagem a seguir:
+  ![ {w=60%}](assets/imagens/servlets/error-page-exception.png)
 
-	**Altere novamente o usuário de acesso ao banco na classe ConnectionFactory para `root`**.
+  **Altere novamente o usuário de acesso ao banco na classe ConnectionFactory para `root`**.
 1. Vamos criar uma página para ser exibida quando o usuário acessar algo inexistente:
 
-	* Crie um novo HTML chamado **404.html** com o seguinte conteúdo:
-	``` xml
-				<html>
-					<body>
-						A página acessada não existe.
-					</body>
-				</html>
-	```
+  * Crie um novo HTML chamado **404.html** com o seguinte conteúdo:
+``` xml
+  <html>
+    <body>
+      A página acessada não existe.
+    </body>
+  </html>
+```
 
-	* **Adicione** a declaração da página no `web.xml`:
+  * **Adicione** a declaração da página no `web.xml`:
 
-	``` xml
-			<error-page>
-				<error-code>404</error-code>
-				<location>/404.html</location>
-			</error-page>
-	```
+``` xml
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.html</location>
+  </error-page>
+```
 
-	* Reinicie novamente o servidor;
+  * Reinicie novamente o servidor;
 
-	* Acesse no navegador uma URL inexistente no projeto, por exemplo,
-	http://localhost:8080/fj21-agenda/naoexiste.html:
-	![ {w=60%}](assets/imagens/servlets/error-page-404.png)
+  * Acesse no navegador uma URL inexistente no projeto, por exemplo,
+  http://localhost:8080/fj21-agenda/naoexiste.html:
+  ![ {w=60%}](assets/imagens/servlets/error-page-404.png)
 
 
 
@@ -931,14 +940,14 @@ de configurações da aplicação:
 
 
 ``` java
-	void init (ServletConfig config);
+  void init (ServletConfig config);
 ```
 
 Na finalização, devemos liberar possíveis recursos que estejamos segurando:
 
 
 ``` java
-	void destroy();
+  void destroy();
 ```
 
 Os métodos `init` e `destroy`, quando reescritos, são obrigados a chamar o `super.init()` e
@@ -956,25 +965,25 @@ O exemplo a seguir mostra uma Servlet implementando os métodos de inicializaç�
 Os métodos `init` e `destroy` podem ser bem simples (lembre-se que são opcionais):
 
 ``` java
-	@WebServlet("/minhaServlet")
-    public class MinhaServlet extends HttpServlet {
+  @WebServlet("/minhaServlet")
+  public class MinhaServlet extends HttpServlet {
 
-        public void init(ServletConfig config) throws ServletException {
-            super.init(config);
-            log("Iniciando a servlet");
-        }
+      public void init(ServletConfig config) throws ServletException {
+          super.init(config);
+          log("Iniciando a servlet");
+      }
 
-        public void destroy() {
-            super.destroy();
-            log("Destruindo a servlet");
-        }
+      public void destroy() {
+          super.destroy();
+          log("Destruindo a servlet");
+      }
 
-        protected void service(HttpServletRequest request,
-                            HttpServletResponse response)
-                            throws IOException, ServletException {
-            //código do seu método service
-        }
-    }
+      protected void service(HttpServletRequest request,
+              HttpServletResponse response)
+              throws IOException, ServletException {
+          //código do seu método service
+      }
+  }
 ```
 
 ## Uma única instância de cada Servlet
@@ -993,26 +1002,26 @@ Um exemplo simples para nos auxiliar enxergar isso é uma Servlet com uma variá
 a quantidade de requisições:
 
 ``` java
-@WebServlet("/contador")
-public class Contador extends HttpServlet {
-    private int contador = 0; //variavel de instância
+  @WebServlet("/contador")
+  public class Contador extends HttpServlet {
+      private int contador = 0; //variavel de instância
 
-    protected void service(HttpServletRequest request,
-                        HttpServletResponse response)
-                        throws ServletException, IOException {
-        contador++; // a cada requisição a mesma variável é incrementada
+      protected void service(HttpServletRequest request,
+              HttpServletResponse response)
+              throws ServletException, IOException {
+          contador++; // a cada requisição a mesma variável é incrementada
 
-        // recebe o writer
-        PrintWriter out = response.getWriter();
+          // recebe o writer
+          PrintWriter out = response.getWriter();
 
-        // escreve o texto
-        out.println("<html>");
-        out.println("<body>");
-        out.println("Contador agora é: " + contador);
-        out.println("</body>");
-        out.println("</html>");
-    }
-}
+          // escreve o texto
+          out.println("<html>");
+          out.println("<body>");
+          out.println("Contador agora é: " + contador);
+          out.println("</body>");
+          out.println("</html>");
+      }
+  }
 ```
 
 Quando a Servlet for inicializada, o valor do contador é definido para 0 (zero). Após isso, a cada
@@ -1037,8 +1046,8 @@ Quando se fala de Servlets, a boa prática diz para **evitar usar atributos comp
 
 ## Exercícios opcionais
 1. Implemente os códigos das seções anteriores sobre ciclo de vida e concorrência em Servlets.
-	Faça a classe `Contador` e use também os métodos `init` e `destroy`. O objetivo é ver
-	na prática os conceitos discutidos.
+  Faça a classe `Contador` e use também os métodos `init` e `destroy`. O objetivo é ver
+  na prática os conceitos discutidos.
 
 
 ## Discussão: Criando páginas dentro de uma servlet

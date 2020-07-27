@@ -4,62 +4,60 @@ _"Measuring programming progress by lines of code is like measuring aircraft bui
 
 
 
-Este capítulo aborda vários outros pequenos assuntos da Servlet API ainda não tratados,
-muitos deles importantes para a certificação SCWCD.
+Este capítulo aborda vários outros pequenos assuntos da Servlet API ainda não tratados, muitos deles importantes para a certificação SCWCD.
 
 ## Init-params e context-params
 
 Podemos configurar no web.xml alguns parâmetros que depois vamos ler em nossa aplicação.
-Uma forma é passarmos parâmetros especificamente para uma Servlet ou um filtro usando a
-tag `<init-param>` como nos exemplos abaixo:
+Uma forma é passarmos parâmetros especificamente para uma Servlet ou um filtro usando a tag `<init-param>` como nos exemplos abaixo:
 
 ``` xml
 <!-- em servlet -->
-<servlet>
-	<servlet-name>MinhaServlet</servlet-name>
-	<servlet-class>pacote.MinhaServlet</servlet-class>
-	<init-param>
-	  <param-name>nome</param-name>
-	  <param-value>valor</param-value>
-	</init-param>
-</servlet>
+  <servlet>
+    <servlet-name>MinhaServlet</servlet-name>
+    <servlet-class>pacote.MinhaServlet</servlet-class>
+    <init-param>
+      <param-name>nome</param-name>
+      <param-value>valor</param-value>
+    </init-param>
+  </servlet>
 
-<!-- em filter -->
-<filter>
-	<filter-name>MeuFiltro</filter-name>
-	<filter-class>pacote.MeuFiltro</filter-class>
-	<init-param>
-	  <param-name>nome</param-name>
-	  <param-value>valor</param-value>
-	</init-param>
-</filter>
+  <!-- em filter -->
+  <filter>
+    <filter-name>MeuFiltro</filter-name>
+    <filter-class>pacote.MeuFiltro</filter-class>
+    <init-param>
+      <param-name>nome</param-name>
+      <param-value>valor</param-value>
+    </init-param>
+  </filter>
 ```
 
 Podemos, inclusive, ter vários parâmetros na mesma servlet ou filtro. Depois, no código Java da Servlet ou
 do filtro específico, podemos recuperar esses parâmetros usando:
 
 ``` java
-// em servlet
-String valor = getServletConfig().getInitParameter("nome");
+  // em servlet
+  String valor = getServletConfig().getInitParameter("nome");
 
-// em filtro, no init
-String valor = filterConfig.getInitParameter("nome")
+  // em filtro, no init
+  String valor = filterConfig.getInitParameter("nome")
 ```
 
 Outra possibilidade é configurar parâmetros para o contexto inteiro e não apenas uma servlet específica.
 Podemos fazer isso com a tag `<context-param>`, como abaixo:
 
 ``` xml
-<context-param>
-  <param-name>nome</param-name>
-  <param-value>param</param-value>
-</context-param>
+  <context-param>
+    <param-name>nome</param-name>
+    <param-value>param</param-value>
+  </context-param>
 ```
 
 E, no código Java de uma Servlet, por exemplo:
 
 ``` java
-String valor = getServletContext().getInitParameter("nome");
+  String valor = getServletContext().getInitParameter("nome");
 ```
 
 Muitos frameworks usam parâmetros no web.xml para configurar. O VRaptor e o Spring
@@ -72,8 +70,8 @@ do código Java certas configurações parametrizáveis.
 raiz no servidor, como por exemplo:
 
 ```
-	http://localhost:8080/fj-21-agenda/
-	http://localhost:8080/fj-21-agenda/uma-pasta/
+  http://localhost:8080/fj-21-agenda/
+  http://localhost:8080/fj-21-agenda/uma-pasta/
 ```
 
 São os arquivos index que normalmente usamos em outras plataformas. Mas no Java EE podemos
@@ -81,12 +79,12 @@ listar os nomes de arquivos que desejamos que sejam os _welcome files_. Basta de
 no XML e o servidor vai tentá-los na ordem de declaração:
 
 ``` xml
-<welcome-file-list>
+  <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.jsp</welcome-file>
-</welcome-file-list>
+  </welcome-file-list>
 ```
 
 ## Propriedades de páginas JSP
@@ -103,19 +101,19 @@ Por exemplo, para desativar _scripting_ (os scriptlets):
 
 
 ``` xml
-	<scripting-invalid>true</scripting-invalid>
+  <scripting-invalid>true</scripting-invalid>
 ```
 
 Ativar _expression language_ (que já vem ativado):
 
 ``` xml
-	<el-ignored>false</el-ignored>
+  <el-ignored>false</el-ignored>
 ```
 
 Determinar o encoding dos arquivos de uma maneira genérica:
 
 ``` xml
-	<page-encoding>UTF-8</page-encoding>
+  <page-encoding>UTF-8</page-encoding>
 ```
 
 Incluir arquivos estaticamente antes e depois de seus JSPs:
@@ -123,26 +121,26 @@ Incluir arquivos estaticamente antes e depois de seus JSPs:
 
 
 ``` xml
-	<include-prelude>/antes.jspf</include-prelude>
-	<include-coda>/depois.jspf</include-coda>
+  <include-prelude>/antes.jspf</include-prelude>
+  <include-coda>/depois.jspf</include-coda>
 ```
 
 O código a seguir mostra como aplicar tais características para todos os JSPs, repare que a tag
 `url-pattern` determina o grupo de arquivos cujos atributos serão alterados:
 
 ``` xml
-	<jsp-config>
-		<jsp-property-group>
-			<display-name>todos os jsps</display-name>
-			<description>configuracoes de todos os jsps</description>
-			<url-pattern>*.jsp</url-pattern>
-			<page-encoding>UTF-8</page-encoding>
-			<scripting-invalid>true</scripting-invalid>
-			<el-ignored>false</el-ignored>
-			<include-prelude>/antes.jspf</include-prelude>
-			<include-coda>/depois.jspf</include-coda>
-		</jsp-property-group>
-	</jsp-config>
+  <jsp-config>
+    <jsp-property-group>
+      <display-name>todos os jsps</display-name>
+      <description>configuracoes de todos os jsps</description>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+      <scripting-invalid>true</scripting-invalid>
+      <el-ignored>false</el-ignored>
+      <include-prelude>/antes.jspf</include-prelude>
+      <include-coda>/depois.jspf</include-coda>
+    </jsp-property-group>
+  </jsp-config>
 ```
 
 ## Inclusão estática de arquivos
@@ -155,7 +153,7 @@ A vantagem é que como a inclusão é feita uma única vez antes do arquivo ser 
 é extremamente rápida, porém vale lembrar que o arquivo incluído pode ou não funcionar separadamente.
 
 ```
-	<%@ include file="outra_pagina.jsp" %>
+  <%@ include file="outra_pagina.jsp" %>
 ```
 
 ## Tratamento de erro em JSP
@@ -168,63 +166,55 @@ Se nosso JSP é um imenso scriptlet de código Java, o tratamento é o mesmo de 
 `try catch`:
 
 ``` xml
-<html>
-	<%
-	try {
-		ContatoDao dao = new ContatoDao();
-		// ... etc ...
-	} catch(Exception ex) {
-	%>
-		Ocorreu algum erro ao acessar o banco de dados.
-	<%
-	}
-	%>
-</html>
+  <html>
+    <%
+    try {
+      ContatoDao dao = new ContatoDao();
+      // ... etc ...
+    } catch(Exception ex) {
+    %>
+      Ocorreu algum erro ao acessar o banco de dados.
+    <%
+    }
+    %>
+  </html>
 ```
 
-Não parece muito elegante. Mas e quando usamos tags, há uma forma melhor? Poderíamos usar a tag
-`c:catch`, com o mesmo tipo de problema da solução anterior:
+Não parece muito elegante. Mas e quando usamos tags, há uma forma melhor? Poderíamos usar a tag `c:catch`, com o mesmo tipo de problema da solução anterior:
 
 ``` xml
-<c:catch var="error">
-	<jsp:useBean id="dao" class="br.com.caelum.jdbc.dao.ContatoDao"/>
-	<c:forEach var="contato" items="${dao.lista}">
-		....
-	</c:forEach>
-</c:catch>
-<c:if test="${not empty error}">
-	Ocorreu algum erro ao acessar o banco de dados.
-</c:if>
+  <c:catch var="error">
+    <jsp:useBean id="dao" class="br.com.caelum.jdbc.dao.ContatoDao"/>
+    <c:forEach var="contato" items="${dao.lista}">
+      ....
+    </c:forEach>
+  </c:catch>
+  <c:if test="${not empty error}">
+    Ocorreu algum erro ao acessar o banco de dados.
+  </c:if>
 ```
 
-Repare que a própria JSTL nos apresenta uma solução que não se mostra boa para esse tipo de erro que
-queremos tratar. É importante deixar claro que desejamos tratar o tipo de erro que não tem volta,
-devemos mostrar uma mensagem de erro para o cliente e pronto, por exemplo quando a conexão com o
-banco cai ou quando ocorre algum erro no servidor.
+Repare que a própria JSTL nos apresenta uma solução que não se mostra boa para esse tipo de erro que queremos tratar. É importante deixar claro que desejamos tratar o tipo de erro que não tem volta, devemos mostrar uma mensagem de erro para o cliente e pronto, por exemplo quando a conexão com o banco cai ou quando ocorre algum erro no servidor.
 
-Quando estávamos trabalhando com Servlets, havia uma solução simples e elegante: não tratar as exceções
-de forma espalhada mas sim criar uma página centralizada de tratamento de erros. Naquele caso, conseguimos
-isso com o `<error-page>`.
+Quando estávamos trabalhando com Servlets, havia uma solução simples e elegante: não tratar as exceções de forma espalhada mas sim criar uma página centralizada de tratamento de erros. Naquele caso, conseguimos isso com o `<error-page>`.
 
-Com JSPs, conseguimos o mesmo resultado mas sem XML. Usamos uma diretiva no topo do JSP que indica
-qual é a página central de tratamento de erro. E nesse caso não precisamos nem de `try/catch` nem
-de `<c:catch>`:
+Com JSPs, conseguimos o mesmo resultado mas sem XML. Usamos uma diretiva no topo do JSP que indica qual é a página central de tratamento de erro. E nesse caso não precisamos nem de `try/catch` nem de `<c:catch>`:
 
 ``` xml
-	<%@ page errorPage="/erro.html" %>
-	...
-	<jsp:useBean id="dao" class="br.com.caelum.jdbc.dao.ContatoDao"/>
-	...
+  <%@ page errorPage="/erro.html" %>
+  ...
+  <jsp:useBean id="dao" class="br.com.caelum.jdbc.dao.ContatoDao"/>
+  ...
 ```
 
 ## Descobrindo todos os parâmetros do request
 Para ler todos os parâmetros do `request` basta acessar o método `getParameterMap` do `request`.
 
 ``` java
-	Map<String,Object> parametros = request.getParameterMap();
-	for(String parametro:parametros.keySet()) {
-		// faca algo com o parametro
-	}
+  Map<String,Object> parametros = request.getParameterMap();
+  for(String parametro:parametros.keySet()) {
+    // faca algo com o parametro
+  }
 ```
 
 ## Trabalhando com links com a c:url
@@ -237,7 +227,7 @@ A JSTL resolve esse problema: supondo que a sua aplicação se chame `jspteste`,
 a string `/jspteste/imagem/banner.jpg`.
 
 ```
-	<c:url value="/imagem/banner.jpg"/>
+  <c:url value="/imagem/banner.jpg"/>
 ```
 
 É bastante útil ao montar menus únicos incluídos em várias páginas e que precisam lidar com
@@ -256,23 +246,23 @@ a interface `ServletContextListener` e usar a tag `<listener>` no web.xml para c
 Por exemplo:
 
 ``` java
-public class MeuListener implements ServletContextAttributeListener {
-    public void contextInitialized(ServletContextEvent event) {
-		System.out.println("Contexto iniciado...");
-	}
-	
-    public void contextDestroyed(ServletContextEvent event) {
-		System.out.println("Contexto desligado...");
+  public class MeuListener implements ServletContextAttributeListener {
+      public void contextInitialized(ServletContextEvent event) {
+      System.out.println("Contexto iniciado...");
     }
-}
+    
+      public void contextDestroyed(ServletContextEvent event) {
+      System.out.println("Contexto desligado...");
+      }
+  }
 ```
 
 E depois no XML:
 
 ``` xml
-<listener>
-    <listener-class>pacote.MeuListener</listener-class>
-</listener>
+  <listener>
+      <listener-class>pacote.MeuListener</listener-class>
+  </listener>
 ```
 
 ## O ServletContext e o escopo de aplicação
@@ -293,13 +283,13 @@ todos os usuários em todos os requests. É o chamado **escopo de aplicação**,
 Podemos, em uma Servlet, setar algum atributo usando:
 
 ``` java
-	getServletContext().setAttribute("nomeGlobal", "valor");
+  getServletContext().setAttribute("nomeGlobal", "valor");
 ```
 
 Depois, podemos recuperar esse valor com:
 
 ``` java
-	Object valor = getServletContext().getAttribute("nomeGlobal");
+  Object valor = getServletContext().getAttribute("nomeGlobal");
 ```
 
 Um bom uso é compartilhar configurações globais da aplicação, como por exemplo usuário e senha
@@ -311,20 +301,20 @@ E como fazemos para acessar o escopo de aplicação no nosso JSP? Simples, uma d
 já existe em um JSP se chama `application`, algo como:
 
 ``` java
-	ServletContext application = getServletContext();
+  ServletContext application = getServletContext();
 ```
 
 Portanto podemos utilizá-la através de scriptlet:
 
 ``` java
-	<%= application.getAttribute("nomeGlobal") %><br/>
+  <%= application.getAttribute("nomeGlobal") %><br/>
 ```
 
 Como já vimos anteriormente, o código do tipo scriptlet pode ser maléfico para nossa aplicação, sendo
 assim vamos utilizar Expression Language para acessar um atributo do escopo aplicação:
 
 ```
-	Acessando com EL: ${nomeGlobal}<br/>
+  Acessando com EL: ${nomeGlobal}<br/>
 ```
 
 Repare que a Expression Language procurará tal atributo não só no escopo do `application`, como

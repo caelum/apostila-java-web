@@ -51,11 +51,11 @@ conhecido por **datepicker**. Para utilizarmos o _datepicker_ do jQuery, precisa
 `input` de texto simples e associá-lo com uma função JavaScript, como no código seguinte:
 
 ``` html
-	<input id="dataNascimento" type="text">
+  <input id="dataNascimento" type="text">
 
-	<script>
-		$("#dataNascimento").datepicker();
-	</script>
+  <script>
+    $("#dataNascimento").datepicker();
+  </script>
 ```
 
 A função JavaScript faz com que o `input` cujo `id` é `dataNascimento` seja um calendário.
@@ -65,7 +65,7 @@ As chances de errarmos esse código é razoável, mas ainda assim, o pior ponto 
 escrevendo um código repetitivo, sendo que poderíamos obter o mesmo resultado apenas escrevendo:
 
 ``` html
-	<campoData id="dataNascimento" />
+  <campoData id="dataNascimento" />
 ```
 
 Qual abordagem é mais simples?
@@ -82,11 +82,11 @@ a nossa tag gere.
 Vamos criar um arquivo chamado **campoData.tag** com o código que queremos gerar.
 
 ``` html
-	<input id="dataNascimento" name="dataNascimento">
+  <input id="dataNascimento" name="dataNascimento">
 
-	<script>
-			$("#dataNascimento").datepicker();
-	</script>
+  <script>
+      $("#dataNascimento").datepicker();
+  </script>
 ```
 
 Mas essa nossa tag está totalmente inflexível, pois o `id` e o nome do
@@ -100,7 +100,7 @@ com os valores `true` ou `false`, indicando se o parâmetro é obrigatório
 ou não.
 
 ``` html
-	<%@ attribute name="id" required="true" %>
+  <%@ attribute name="id" required="true" %>
 ```
 
 Repare como é simples. Basta declarar essa diretiva de atributo no começo do nosso tagfile e
@@ -108,19 +108,19 @@ temos a capacidade de receber um valor quando formos usar a tag. Imagine usar es
 nova no nosso formulário:
 
 ``` html
-	<campoData id="dataNascimento" />
+  <campoData id="dataNascimento" />
 ```
 
 Já que nossa tag sabe receber parâmetros, basta usarmos esse parâmetro nos lugares adequados
 através de _expression language_, como no código abaixo:
 
 ``` html
-	<%@ attribute name="id" required="true" %>
+  <%@ attribute name="id" required="true" %>
 
-	<input id="${id}" name="${id}" type="text">
-	<script>
-		$("#${id}").datepicker();
-	</script>
+  <input id="${id}" name="${id}" type="text">
+  <script>
+    $("#${id}").datepicker();
+  </script>
 ```
 
 Para usar nossa tag, assim como nas outras taglibs, precisamos importar nossos tagfiles.
@@ -134,14 +134,14 @@ que, além de receber o **prefixo** da nova taglib, indicamos a pasta **WEB-INF/
 localização das tags:
 
 ``` html
-	<%@taglib tagdir="/WEB-INF/tags" prefix="caelum" %>
+  <%@taglib tagdir="/WEB-INF/tags" prefix="caelum" %>
 ```
 
 Aqui decidimos importar a nova taglib sob o prefixo **caelum**, mas poderia ser qualquer nome.
 Assim, podemos usar a tag como:
 
 ``` html
-	<caelum:campoData id="dataNascimento" />
+  <caelum:campoData id="dataNascimento" />
 ```
 
 Repare que o nome da nossa nova Tag, é o mesmo nome do arquivo que criamos,
@@ -156,9 +156,9 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 > _Javascript_, ou seja, na Tag `head`, declaremos o seguinte:
 >
 > ``` html
-> 		<head>
-> 			<script src="js/arquivo.js"></script>
-> 		</head>
+>   <head>
+>    <script src="js/arquivo.js"></script>
+>   </head>
 > ```
 >
 > Para saber mais sobre JavaScript, temos os cursos de Web da Caelum:
@@ -180,9 +180,9 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 > esses estilos. Como abaixo:
 >
 > ``` html
-> 		<head>
-> 			<link href="css/meuArquivo.css" rel="stylesheet">
-> 		</head>
+>   <head>
+>    <link href="css/meuArquivo.css" rel="stylesheet">
+>   </head>
 > ```
 >
 > A Caelum oferece os treinamentos WD-43 e WD-47 para quem quer dominar as melhores
@@ -197,116 +197,116 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 ## Exercícios: criando nossa própria tag para calendário
 
 1. Vamos criar nossa tag para o campo de calendário com **datepicker**. Para isso
-	vamos utilizar a biblioteca javascript jQuery.
+  vamos utilizar a biblioteca javascript jQuery.
 
-	* Vá ao Desktop, e entre na pasta `21`;
+  * Vá ao Desktop, e entre na pasta **21/projeto-agenda/**;
 
-	* Copie os diretórios `js` e `css` e cole-os dentro de `WebContent` no
-	seu projeto;
+  * Copie os diretórios `js` e `css` e cole-os dentro de `WebContent` no
+  seu projeto;
 
-	> **Em casa**
-	>
-	> Se você estiver fazendo de casa, pode achar esses dois arquivos no pacote do JQueryUI em:
-	> http://jqueryui.com/download
+  > **Em casa**
+  >
+  > Se você estiver fazendo de casa, pode achar esses dois arquivos no pacote do JQueryUI em:
+  > http://jqueryui.com/download
 
-	
-1. Queremos usar JSTL na página de adicionar contatos, a `adiciona-contato.html`.
-	Mas temos um problema. Não podemos utilizar as tags ou expression language
-	em uma página `HTML`. Para resolvermos isso, vamos trocar sua extensão para `.jsp`
+  
+2. Queremos usar JSTL na página de adicionar contatos, a `adiciona-contato.html`.
+  Mas temos um problema. Não podemos utilizar as tags ou expression language
+  em uma página `HTML`. Para resolvermos isso, vamos trocar sua extensão para `.jsp`
 
-	* Clique com o botão direito em cima do arquivo `adiciona-contato.html` e escolha a
-	opção _Rename_ e troque a extensão de `html` para `jsp`, dessa
-	forma o arquivo se chamará `adiciona-contato.jsp`.
+  * Clique com o botão direito em cima do arquivo `adiciona-contato.html` e escolha a
+  opção _Rename_ e troque a extensão de `html` para `jsp`, dessa
+  forma o arquivo se chamará `adiciona-contato.jsp`.
 
-	![](imagens/tagfiles/refactor-rename.png)
+  ![](imagens/tagfiles/refactor-rename.png)
 1. Também vamos importar o cabeçalho e o rodapé nessa página, portanto,
-	vamos usar o taglib JSTL `core`. 
+  vamos usar o taglib JSTL `core`. 
 
-	* Adicione no topo da página:
-	``` html
-				<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	```
+  * Adicione no topo da página:
+``` html
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+```
 
-	* Vamos importar o cabeçalho, depois da tag `<body>` adicione:
-	``` html
-				<c:import url="cabecalho.jsp" />
-	```
+  * Vamos importar o cabeçalho, depois da tag `<body>` adicione:
+``` html
+  <c:import url="cabecalho.jsp" />
+```
 
-	* Falta o rodapé. Antes de fechar o tag body (`</body>`) adicione:
-	``` html
-				<c:import url="rodape.jsp" />
-	```
+  * Falta o rodapé. Antes de fechar o tag body (`</body>`) adicione:
+``` html
+  <c:import url="rodape.jsp" />
+```
 
-	**Cuidado para não apagar o formulário, precisaremos dele mais para frente.**
+  **Cuidado para não apagar o formulário, precisaremos dele mais para frente.**
 
-	* Acesse http://localhost:8080/fj21-agenda/adiciona-contato.jsp e verifique
-	o resultado com o cabeçalho e rodapé.
+  * Acesse http://localhost:8080/fj21-agenda/adiciona-contato.jsp e verifique
+  o resultado com o cabeçalho e rodapé.
 1. Precisamos importar o jQuery na página `adiciona-contato.jsp`.
-	Para isso adicione depois da tag `<html>` e antes da tag `<body>`,
-	os estilos _CSS_ e os _Javascripts_
+  Para isso adicione depois da tag `<html>` e antes da tag `<body>`,
+  os estilos _CSS_ e os _Javascripts_
 
-	``` html
-				<html>
-					<head>
-						<link href="css/jquery.css" rel="stylesheet">
-						<script src="js/jquery.js"></script>
-						<script src="js/jquery-ui.js"></script>
-					</head>
+``` html
+  <html>
+    <head>
+      <link href="css/jquery.css" rel="stylesheet">
+      <script src="js/jquery.js"></script>
+      <script src="js/jquery-ui.js"></script>
+    </head>
 
-				<body>
+  <body>
 
-				<!-- Restante da página aqui -->
-	```
+  <!-- Restante da página aqui -->
+```
 1. Vamos criar a nossa tag para o calendário.
 
-	* Dentro de `WEB-INF` crie um diretório chamado **tags**.
+  * Dentro de `WEB-INF` crie um diretório chamado **tags**.
 
-	* Crie um arquivo chamado **campoData.tag** dentro de `WEB-INF/tags/`:
+  * Crie um arquivo chamado **campoData.tag** dentro de `WEB-INF/tags/`:
 
-	``` html
-				<%@ attribute name="id" required="true" %>
+``` html
+  <%@ attribute name="id" required="true" %>
 
-				<input type="text" id="${id}" name="${id}" />
-				<script>
-					$("#${id}").datepicker({dateFormat: 'dd/mm/yy'});
-				</script>
-	```
+  <input type="text" id="${id}" name="${id}" />
+  <script>
+    $("#${id}").datepicker({dateFormat: 'dd/mm/yy'});
+  </script>
+```
 
-	* Para utilizá-la, vamos voltar para o `adiciona-contato.jsp` e junto à
-	declaração da Taglib `core`, vamos importar nossa nova tag:
+  * Para utilizá-la, vamos voltar para o `adiciona-contato.jsp` e junto à
+  declaração da Taglib `core`, vamos importar nossa nova tag:
 
-	``` html
-				<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-				<%@taglib tagdir="/WEB-INF/tags" prefix="caelum" %>
-	```
+``` html
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@taglib tagdir="/WEB-INF/tags" prefix="caelum" %>
+```
 
-	* Basta trocarmos o `input` da data de nascimento pela nossa nova tag:
+  * Basta trocarmos o `input` da data de nascimento pela nossa nova tag:
 
-	``` html
-			<form action="adicionaContato">
-				Nome: <input type="text" name="nome" /><br />
-				E-mail: <input type="text" name="email" /><br />
-				Endereço: <input type="text" name="endereco" /><br />
-				Data Nascimento: <caelum:campoData id="dataNascimento" /><br />
+``` html
+  <form action="adicionaContato">
+    Nome: <input type="text" name="nome" /><br />
+    E-mail: <input type="text" name="email" /><br />
+    Endereço: <input type="text" name="endereco" /><br />
+    Data Nascimento: <caelum:campoData id="dataNascimento" /><br />
 
-				<input type="submit" value="Gravar"/>
-			</form>
-	```
+    <input type="submit" value="Gravar"/>
+  </form>
+```
 
-	* Recarregue a página `adiciona-contato.jsp` e clique no campo
-	da data de nascimento. O calendário deve ser aberto, escolha uma data e
-	faça a gravação do contato.
+  * Recarregue a página `adiciona-contato.jsp` e clique no campo
+  da data de nascimento. O calendário deve ser aberto, escolha uma data e
+  faça a gravação do contato.
 
-	![](imagens/tagfiles/calendario.png)
+  ![](imagens/tagfiles/calendario.png)
 
-	* Verifique o código fonte gerado, e repare que o _Javascript_ do calendário
-	e o input foram gerados para nós através de nossa Taglib.
+  * Verifique o código fonte gerado, e repare que o _Javascript_ do calendário
+  e o input foram gerados para nós através de nossa Taglib.
 1. (opcional) Consulte a documentação do componente **datepicker** do jQuery UI para
-	ver mais opções. Você pode acessá-la em:
-	http://jqueryui.com/demos/datepicker/
+  ver mais opções. Você pode acessá-la em:
+  http://jqueryui.com/demos/datepicker/
 
-	Consulte, por exemplo, as opções `changeYear` e `changeMonth` para mostrar menus
-	mais fáceis para escolher o ano e o mês. Há muitas outras opções também.
+  Consulte, por exemplo, as opções `changeYear` e `changeMonth` para mostrar menus
+  mais fáceis para escolher o ano e o mês. Há muitas outras opções também.
 
 
 ## Para saber mais: Outras taglibs no mercado

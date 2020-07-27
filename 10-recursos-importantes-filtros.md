@@ -22,25 +22,25 @@ na classe que possui a lógica. A classe seguinte mostra através de pseudocódi
 autorização:
 
 ``` java
-public class RemoveContatoLogic implements Logica {
-        
-   public void executa(HttpServletRequest request,
-        HttpServletResponse response) 
-        throws Exception {
+  public class RemoveContatoLogic implements Logica {
 
-        // auditoria
-        Logger.info("acessando remove contato logic");
+    public void executa(HttpServletRequest request,
+          HttpServletResponse response)
+          throws Exception {
 
-        // autorização
-        if(!usuario.ehCliente()) {
-            request.getRequestDispatcher("/acessoNegado.jsp")
-                    .forward(request,response);
-        }
+          // auditoria
+          Logger.info("acessando remove contato logic");
 
-        // toda lógica para remover o contato aqui
-        // ...
-    }
-}
+          // autorização
+          if(!usuario.ehCliente()) {
+              request.getRequestDispatcher("/acessoNegado.jsp")
+                      .forward(request,response);
+          }
+
+          // toda lógica para remover o contato aqui
+          // ...
+      }
+  }
 ```
 
 Podemos ver que além da lógica é preciso implementar os outros requisitos, mas não só apenas na lógica
@@ -76,15 +76,15 @@ quais URL's aquele filtro será aplicado.
 
 Configuração de um filtro no `web.xml`:
 ``` xml
-		<filter>
-			<filter-name>meuFiltro</filter-name>
-			<filter-class>br.com.caelum.filtro.MeuFiltro</filter-class>
-		</filter>
-	
-		<filter-mapping>
-			<filter-name>meuFiltro</filter-name>
-			<url-pattern>/*</url-pattern>
-		</filter-mapping>
+  <filter>
+    <filter-name>meuFiltro</filter-name>
+    <filter-class>br.com.caelum.filtro.MeuFiltro</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>meuFiltro</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 ```
 
 Mas para definirmos um filtro usando a nova API de Servlets do Java EE 6, basta apenas criarmos uma
@@ -92,13 +92,13 @@ classe que implementa a interface `javax.servlet.Filter` e anotarmos a classe co
 Podemos aproveitar e passar como parâmetro na anotação o padrão de requisições que serão filtradas:
 
 ``` java
-		@WebFilter("/oi") 
-		public class MeuFiltro implements Filter { 
-			public void doFilter(ServletRequest req,
-					ServletResponse res, FilterChain chain) { 
-				// ... 
-			} 
-		}
+  @WebFilter("/oi")
+  public class MeuFiltro implements Filter {
+    public void doFilter(ServletRequest req,
+        ServletResponse res, FilterChain chain) {
+      // ...
+    }
+  }
 ```
 
 Desta forma indicamos que todas as requisições vindas a partir de `/oi` serão filtradas e, portanto,
@@ -108,25 +108,25 @@ o filtro será aplicado em cada requisição.
 para paginas JSPs:
 
 ``` java
-	@WebFilter("/*.jsp")
-	public class MeuFiltro implements Filter { 
-		public void doFilter(ServletRequest req,
-				ServletResponse res, FilterChain chain) { 
-			// ... 
-		} 
-	}
+  @WebFilter("/*.jsp")
+  public class MeuFiltro implements Filter {
+    public void doFilter(ServletRequest req,
+        ServletResponse res, FilterChain chain) {
+      // ...
+    }
+  }
 ```
 
 Ou um filtro mais amplo, filtrando TODAS as requisições da aplicação:
 
 ``` java
-	@WebFilter("/*")
-	public class MeuFiltro implements Filter { 
-		public void doFilter(ServletRequest req,
-				ServletResponse res, FilterChain chain) { 
-			// ... 
-		} 
-	}
+  @WebFilter("/*")
+  public class MeuFiltro implements Filter {
+    public void doFilter(ServletRequest req,
+        ServletResponse res, FilterChain chain) {
+      // ...
+    }
+  }
 ```
 
 Ao implementar a interface `Filter`, temos que implementar 3 métodos: `init`, `destroy` e `doFilter`.
@@ -138,18 +138,18 @@ O método que fará todo o processamento que queremos executar é o `doFilter`, 
 três parâmetros: `ServletRequest`, `ServletResponse` e `FilterChain`.
 
 ``` java
-	@WebFilter("/*")
-	public class FiltroTempoDeExecucao implements Filter {
-	    
-	    // implementação do init e destroy
+  @WebFilter("/*")
+  public class FiltroTempoDeExecucao implements Filter {
 
-	    public void doFilter(ServletRequest request,
-	            ServletResponse response, FilterChain chain)
-	            throws IOException, ServletException {
-	        
-	        // todo o processamento vai aqui
-	    }
-	}
+      // implementação do init e destroy
+
+      public void doFilter(ServletRequest request,
+              ServletResponse response, FilterChain chain)
+              throws IOException, ServletException {
+
+          // todo o processamento vai aqui
+      }
+  }
 ```
 
 Perceba a semelhança desse método com o método `service` da classe `Servlet`. A ideia
@@ -160,13 +160,13 @@ que o request deve prosseguir seu processamento. Isso é feito com uma chamada d
 da classe `FilterChain`:
 
 ``` java
-	public void doFilter(ServletRequest request,
-	        ServletResponse response, FilterChain chain)
-	        throws IOException, ServletException {
-	    
-	    // passa pela porta
-	    chain.doFilter(request, response);
-	}
+  public void doFilter(ServletRequest request,
+          ServletResponse response, FilterChain chain)
+          throws IOException, ServletException {
+
+      // passa pela porta
+      chain.doFilter(request, response);
+  }
 ```
 
 Um filtro não serve para processar toda a requisição. A ideia é ele _interceptar_ vários _requests_
@@ -190,27 +190,27 @@ na anotação `@WebFilter` como foi feito no exemplo acima -`@WebFilter("/oi")`.
 quisermos definir que mais de uma URL será filtrada, podemos usar o atributo `urlPatterns`:
 
 ``` java
-		@WebFilter(filterName = "MeuFiltro", ulrPatterns = {"/oi", "/ola"}) 
-		public class MeuFiltro implements Filter { 
-			public void doFilter(ServletRequest req, 
-					ServletResponse res, FilterChain chain) { 
-				// ... 
-			} 
-		}
+  @WebFilter(filterName = "MeuFiltro", ulrPatterns = {"/oi", "/ola"})
+  public class MeuFiltro implements Filter {
+    public void doFilter(ServletRequest req,
+        ServletResponse res, FilterChain chain) {
+      // ...
+    }
+  }
 ```
 
 Podemos ainda configurar quais servlets serão filtrados por aquele filtro declarando seus nomes no
 atributo `servletNames`. Por exemplo:
 
 ``` java
-		@WebFilter(filterName = "MeuFiltro", 
-				servletNames = {"meuServlet", "outroServlet"}) 
-		public class MeuFiltro implements Filter { 
-			public void doFilter(ServletRequest req, 
-					ServletResponse res, FilterChain chain) { 
-				// ... 
-			} 
-		}
+  @WebFilter(filterName = "MeuFiltro",
+      servletNames = {"meuServlet", "outroServlet"})
+  public class MeuFiltro implements Filter {
+    public void doFilter(ServletRequest req,
+        ServletResponse res, FilterChain chain) {
+      // ...
+    }
+  }
 ```
 
 > **Outras anotações**
@@ -238,40 +238,40 @@ atributo `servletNames`. Por exemplo:
 
 1. Vamos criar o nosso filtro para medir o tempo de execução de uma requisição.
 
-	* Crie uma nova classe chamada `FiltroTempoDeExecucao` no pacote `br.com.caelum.agenda.filtro`
-	e faça ela implementar a interface `javax.servlet.Filter`
-	* Anote-a com `@WebFilter` e diga que TODAS as requisições para a nossa aplicação devem
-	ser filtradas (`@WebFilter("/*")`).
-	* Deixe os métodos `init` e `destroy` vazios e implemente o `doFilter`:
-	``` java
-		    @WebFilter("/*")
-            public class FiltroTempoDeExecucao implements Filter {
-                public void doFilter(ServletRequest request,
-                        ServletResponse response, FilterChain chain)
-                        throws IOException, ServletException {
+  * Crie uma nova classe chamada `FiltroTempoDeExecucao` no pacote `br.com.caelum.agenda.filtro`
+  e faça ela implementar a interface `javax.servlet.Filter`
+  * Anote-a com `@WebFilter` e diga que TODAS as requisições para a nossa aplicação devem
+  ser filtradas (`@WebFilter("/*")`).
+  * Deixe os métodos `init` e `destroy` vazios e implemente o `doFilter`:
+``` java
+  @WebFilter("/*")
+  public class FiltroTempoDeExecucao implements Filter {
+      public void doFilter(ServletRequest request,
+              ServletResponse response, FilterChain chain)
+              throws IOException, ServletException {
 
-                    long tempoInicial = System.currentTimeMillis();
+          long tempoInicial = System.currentTimeMillis();
 
-                    chain.doFilter(request, response);
+          chain.doFilter(request, response);
 
-                    long tempoFinal = System.currentTimeMillis();
-                    String uri = ((HttpServletRequest)request).getRequestURI();	
-					String parametros = ((HttpServletRequest) request)
-							.getParameter("logica");
-					System.out.println("Tempo da requisicao de " + uri 
-							+ "?logica="
-							+ parametros + " demorou (ms): " 
-							+ (tempoFinal - tempoInicial));
+          long tempoFinal = System.currentTimeMillis();
+          String uri = ((HttpServletRequest)request).getRequestURI();
+          String parametros = ((HttpServletRequest) request)
+              .getParameter("logica");
+          System.out.println("Tempo da requisicao de " + uri
+                + "?logica="
+                + parametros + " demorou (ms): "
+                + (tempoFinal - tempoInicial));
 
-                }
-                // métodos init e destroy omitidos
-            }
-	```
+      }
+          // métodos init e destroy omitidos
+  }
+```
 
-	* Reinicie o servidor e acesse
-	**http://localhost:8080/fj21-agenda/mvc?logica=ListaContatosLogic**
+  * Reinicie o servidor e acesse
+  **http://localhost:8080/fj21-agenda/mvc?logica=ListaContatosLogica**
 
-	Procure a saída no console.
+  Procure a saída no console.
 
 
 
@@ -285,16 +285,16 @@ o nosso `DAO` invoca em seu construtor a `ConnectionFactory` pedindo para a mesm
 em qual lugar ficará o fechamento da conexão?
 
 ``` java
-public class ContatoDao {
-	private Connection connection;
+  public class ContatoDao {
+      private Connection connection;
 
-	public ContatoDao() {
-		this.connection = new ConnectionFactory().getConnection();
-	}
-	
-	// métodos adiciona, remove, getLista etc
-	// onde fechamos a conexão?
-}
+      public ContatoDao() {
+        this.connection = new ConnectionFactory().getConnection();
+      }
+
+      // métodos adiciona, remove, getLista etc
+      // onde fechamos a conexão?
+  }
 ```
 
 Até o momento, não estamos nos preocupando com o fechamento das conexões com o banco de dados. Isso é uma
@@ -325,34 +325,34 @@ que receba `Connection`.
 Vejamos:
 
 ``` java
-	public class ContatoDao {
-		private Connection connection;
-		
-		public ContatoDao(Connection connection) {
-			this.connection = connection;
-		}
-		
-		// métodos adiciona, remove, getLista etc
-	}
+  public class ContatoDao {
+      private Connection connection;
+
+      public ContatoDao(Connection connection) {
+        this.connection = connection;
+      }
+
+      // métodos adiciona, remove, getLista etc
+  }
 ```
 ``` java
-    public class AdicionaContatoLogic implements Logica {
-        public String executa(HttpServletRequest request,
-                HttpServletResponse response) {
-            Contato contato = // contato montado com os dados do request
-            
-            Connection connection = new ConnectionFactory()
-                    .getConnection();
-            
-            // passa conexão pro construtor
-            ContatoDao dao = new ContatoDao(connection);
-            dao.adiciona(contato);
-            
-            connection.close();
+  public class AdicionaContatoLogic implements Logica {
+      public String executa(HttpServletRequest request,
+              HttpServletResponse response) {
+          Contato contato = // contato montado com os dados do request
 
-            // retorna para o JSP
-        }
-	}
+          Connection connection = new ConnectionFactory()
+                  .getConnection();
+
+          // passa conexão pro construtor
+          ContatoDao dao = new ContatoDao(connection);
+          dao.adiciona(contato);
+
+          connection.close();
+
+          // retorna para o JSP
+      }
+  }
 ```
 
 Isso já é uma grande evolução com relação ao que tínhamos no começo mas ainda não é uma solução muito boa.
@@ -392,25 +392,25 @@ resposta foi gerada. Ideal para abrir uma conexão antes e fechar na volta.
 Vamos então implementar um filtro com esse comportamento:
 
 ``` java
-	@WebFilter("/*")
-	public class FiltroConexao implements Filter {
-	    // implementação do init e destroy, se necessário
+  @WebFilter("/*")
+  public class FiltroConexao implements Filter {
+      // implementação do init e destroy, se necessário
 
-	    public void doFilter(ServletRequest request, 
-	            ServletResponse response, FilterChain chain)
-	            throws IOException, ServletException {
-	        
-	        // abre uma conexão 
-	        Connection connection = new ConnectionFactory()
-	                .getConnection();
+      public void doFilter(ServletRequest request,
+              ServletResponse response, FilterChain chain)
+              throws IOException, ServletException {
 
-	        // indica que o processamento do request deve prosseguir
-	        chain.doFilter(request, response);
+          // abre uma conexão
+          Connection connection = new ConnectionFactory()
+                  .getConnection();
 
-	        // fecha conexão 
-	        connection.close();		
-		}
-	}
+          // indica que o processamento do request deve prosseguir
+          chain.doFilter(request, response);
+
+          // fecha conexão
+          connection.close();
+      }
+  }
 ```
 
 
@@ -436,19 +436,19 @@ Passamos para esse método uma identificação para o objeto que estamos guardan
 também passamos o próprio objeto para ser guardado no `request`.
 
 ``` java
-    public void doFilter(ServletRequest request,
-            ServletResponse response, FilterChain chain) {
+  public void doFilter(ServletRequest request,
+          ServletResponse response, FilterChain chain) {
 
-        Connection connection = new ConnectionFactory()
-                .getConnection();
-        
-        // "pendura um objeto no Request"		
-        request.setAttribute("connection", connection);
-        
-        chain.doFilter(request, response);
+      Connection connection = new ConnectionFactory()
+              .getConnection();
 
-        connection.close();
-    }
+      // "pendura um objeto no Request"
+      request.setAttribute("connection", connection);
+
+      chain.doFilter(request, response);
+
+      connection.close();
+  }
 ```
 
 Ao invocarmos o `doFilter`, a requisição seguirá o seu fluxo normal levando o objeto _connection_ junto.
@@ -466,23 +466,24 @@ invocarmos o método `getAttribute` no `request`. Nossa lógica ficará da segui
 maneira:
 
 ``` java
-	public class AdicionaContatoLogic implements Logica {
-	    public String executa (HttpServletRequest request,
-	            HttpServletResponse response) 
-	            throws Exception {
+  public class AdicionaContatoLogic implements Logica {
 
-	        Contato contato = // contato montado com os dados do request
+      public String executa (HttpServletRequest request,
+              HttpServletResponse response)
+              throws Exception {
 
-	        // buscando a conexão do request
-	        Connection connection = (Connection) request
-	                .getAttribute("connection");
-	        
-	        ContatoDao dao = new ContatoDao(connection);
-	        dao.adiciona(contato);
+          Contato contato = // contato montado com os dados do request
 
-	        // faz o return do JSP como de costume
-	    }
-	}
+          // buscando a conexão do request
+          Connection connection = (Connection) request
+                  .getAttribute("connection");
+
+          ContatoDao dao = new ContatoDao(connection);
+          dao.adiciona(contato);
+
+          // faz o return do JSP como de costume
+      }
+  }
 ```
 
 Uma outra grande vantagem desse desacoplamento é que ele torna o nosso código mais fácil de se
@@ -491,74 +492,74 @@ testar unitariamente, assunto que aprendemos e praticamos bastante no curso **FJ
 ## Exercícios: Filtros
 1. Vamos criar o nosso filtro para abrir e fechar a conexão com o banco de dados
 
-	* Crie uma nova classe chamada `FiltroConexao` no pacote `br.com.caelum.agenda.filtro`
-	e faça ela implementar a interface `javax.servlet.Filter`
+  * Crie uma nova classe chamada `FiltroConexao` no pacote `br.com.caelum.agenda.filtro`
+  e faça ela implementar a interface `javax.servlet.Filter`
 
-	* Anote-a com `@WebFilter("/*")` para registrar o filtro no _container_ e fazer com
-	que todas as requisições passem por ele:
+  * Anote-a com `@WebFilter("/*")` para registrar o filtro no _container_ e fazer com
+  que todas as requisições passem por ele:
 
-	* Deixe os métodos `init` e `destroy` vazios e implemente o `doFilter`:
-	``` java
-		public void doFilter(ServletRequest request, 
-			ServletResponse response, FilterChain chain) 
-			throws IOException, ServletException {
+  * Deixe os métodos `init` e `destroy` vazios e implemente o `doFilter`:
+``` java
+  public void doFilter(ServletRequest request,
+          ServletResponse response, FilterChain chain)
+          throws IOException, ServletException {
 
-            try {
-                Connection connection = new ConnectionFactory()
-                        .getConnection();
+      try {
+          Connection connection = new ConnectionFactory()
+                  .getConnection();
 
-                // pendurando a connection na requisição			
-                request.setAttribute("conexao", connection);
+          // pendurando a connection na requisição
+          request.setAttribute("conexao", connection);
 
-                chain.doFilter(request, response);
+          chain.doFilter(request, response);
 
-                connection.close();
-            } catch (SQLException e) {
-                throw new ServletException(e);
-            }
-        }
-	```
+          connection.close();
+      } catch (SQLException e) {
+          throw new ServletException(e);
+      }
+  }
+```
 1. Crie um construtor no seu `ContatoDao` que receba `Connection` e armazene-a no atributo:
-	``` java
-		public class ContatoDao {
-			private Connection connection;
+``` java
+  public class ContatoDao {
+      private Connection connection;
 
-			public ContatoDao(Connection connection) {
-				this.connection = connection;
-			}
+      public ContatoDao(Connection connection) {
+        this.connection = connection;
+      }
 
-			// outro construtor e métodos do DAO				
-		}
-	```
-1. Na sua `RemoveContatoLogic`, criada no capítulo anterior, busque a conexão no `request`,
-	e repasse-a para o `DAO`. Procure na lógica a criação do `DAO` e faça as alterações:
+      // outro construtor e métodos do DAO
+  }
+```
+1. Na sua `RemoveContatoLogica`, criada no capítulo anterior, busque a conexão no `request`,
+  e repasse-a para o `DAO`. Procure na lógica a criação do `DAO` e faça as alterações:
 
-	``` java
-        public class RemoveContatoLogic implements Logica {
-            public String executa(HttpServletRequest request,
-                    HttpServletResponse response) 
-                    throws Exception {
+``` java
+  public class RemoveContatoLogica implements Logica {
+      public String executa(HttpServletRequest request,
+              HttpServletResponse response)
+              throws Exception {
 
-                // ...	
+          // ...
 
-                // (procure o ContatoDao no código existente) 
-                // busca a conexão pendurada na requisição
-                Connection connection = (Connection) request
-                        .getAttribute("conexao");
+          // (procure o ContatoDao no código existente)
+          // busca a conexão pendurada na requisição
+          Connection connection = (Connection) request
+                  .getAttribute("conexao");
 
-                // passe a conexão no construtor
-                ContatoDao dao = new ContatoDao(connection); 
+          // passe a conexão no construtor
+          ContatoDao dao = new ContatoDao(connection);
 
-                // ...
-            }
-        }
-	```
+          // ...
+      }
+  }
+```
 
-	Ou você pode fazer essa mesma modificação na nossa antiga `AdicionaContatoServlet`.
+  Ou você pode fazer essa mesma modificação na nossa antiga `AdicionaContatoServlet`.
 1. Remova um contato na sua aplicação e verifique que tudo continua funcionando
-	normalmente.
+  normalmente.
 
-	
+  
 
 
 

@@ -115,7 +115,7 @@ receber uma conexão para um banco MySQL, caso ele esteja rodando na mesma máqu
 public class JDBCExemplo {
     public static void main(String[] args) throws SQLException {
         Connection conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/fj21");
+          "jdbc:mysql://localhost/fj21");
         System.out.println("Conectado!");
         conexao.close();
     }
@@ -192,7 +192,7 @@ public class ConnectionFactory {
     public Connection getConnection() {
         try {
             return DriverManager.getConnection(
-					"jdbc:mysql://localhost/fj21", "root", "<SENHA DO BANCO AQUI>");
+          "jdbc:mysql://localhost/fj21", "root", "<SENHA DO BANCO AQUI>");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -262,118 +262,124 @@ construção (fabricação) de objetos complicados.
 
 
 1. Nos computadores da Caelum, clique no ícone do Eclipse no Desktop;
-	> **Baixando o Eclipse em casa**
-	>
-	> Estamos usando o Eclipse for Java EE Developers. Você pode obtê-lo direto no site do Eclipse em
-	> www.eclipse.org
+  > **Baixando o Eclipse em casa**
+  >
+  > Estamos usando o Eclipse for Java EE Developers. Você pode obtê-lo direto no site do Eclipse em
+  > www.eclipse.org
 
-	
+  
 
-	* Feche a tela de _Welcome_ caso ela apareça
+  * Feche a tela de _Welcome_ caso ela apareça
 
-	* Vamos criar um projeto no Eclipse chamado `fj21-jdbc`.
+  * Vamos criar um projeto no Eclipse chamado `fj21-jdbc`.
 
-	* Vá em **File -> New -> Project**:
+  * Vá em **File -> New -> Project**:
 
-	![ {w=60%}](assets/imagens/jdbc/newProject.png)
+  ![ {w=60%}](assets/imagens/jdbc/newProject.png)
 
-	* Selecione **Java Project** e clique em **Next**:
+  * Selecione **Java Project** e clique em **Next**:
 
-	![ {w=65%}](assets/imagens/jdbc/newProject2.png)
+  ![ {w=65%}](assets/imagens/jdbc/newProject2.png)
 
-	* Coloque o nome do projeto como **fj21-jdbc** e clique em **Finish**:
+  * Coloque o nome do projeto como **fj21-jdbc** e clique em **Finish**:
 
-	![ {w=65%}](assets/imagens/jdbc/newProject3.png)
+  ![ {w=65%}](assets/imagens/jdbc/newProject3.png)
 
-	* Aceite a mudança de perspectiva:
+  * Uma nova janela surgirá perguntando se você quer criar um novo **module-info.java**, clique em **Don't Create**
 
-	![ {w=70%}](assets/imagens/jdbc/newProject4.png)
-1. 
-	Copie o driver do `MySQL` para o seu projeto.
+  * Aceite a mudança de perspectiva:
 
-	* no seu Desktop, clique no atalho **Atalho para arquivos do cursos**;
-	* copie a pasta **21** para o seu Desktop;
-	* entre na pasta **21** do Desktop e clique da direita no driver do MySQL mais novo, escolha Copy;
-	* vá para sua pasta principal (`home`);
-	* entre no diretório workspace, `fj21-jdbc`;
-	* clique da direita e escolha Paste: você acaba de colocar o arquivo ".jar" no seu projeto.
-1. Vamos criar a classe que fabrica conexões:
+  ![ {w=70%}](assets/imagens/jdbc/newProject4.png)
+2. 
+  Copie o driver do `MySQL` para o seu projeto.
 
-	* Clique em **File -> New -> Class**.
+  * no seu Desktop, clique no atalho **Atalho para arquivos do cursos**;
+  * copie a pasta **21** para o seu Desktop;
+  * entre na pasta **21/projeto-jdbc/mysql** do Desktop, clique com o botão direito do mouse no driver do MySQL e copie;
+  * vá para sua pasta principal (`home`);
+  * entre no diretório workspace, `fj21-jdbc`;
+  * clique com o botão direito do mouse e cole o driver aqui: você acaba de colocar o arquivo ".jar" no seu projeto.
+3. Vamos criar a classe que fabrica conexões:
 
-	* Crie-a no pacote `br.com.caelum.jdbc` e nomeie-a como `ConnectionFactory`.
+  * Clique em **File -> New -> Class**.
 
-	![ {w=65%}](assets/imagens/jdbc/connection-factory.png)
+  * Crie-a no pacote `br.com.caelum.jdbc` e nomeie-a como `ConnectionFactory`.
 
-	* Clique em **Finish**
+  ![ {w=65%}](assets/imagens/jdbc/connection-factory.png)
 
-	* No código, crie o método `getConnection`, que retorna uma nova conexão. Quando perguntado,
-	importe as classes do pacote `java.sql` (__cuidado__ para não importar NADA de `com.mysql`).
+  * Clique em **Finish**
 
-	``` java
-                public Connection getConnection() {
-                    try {
-                        return DriverManager.getConnection(
-								"jdbc:mysql://localhost/fj21", "root", "<SENHA DO BANCO AQUI>");
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-	```
+  * No código, crie o método `getConnection`, que retorna uma nova conexão. Quando perguntado,
+  importe as classes do pacote `java.sql` (__cuidado__ para não importar NADA de `com.mysql`).
+  * Preste atenção aos parâmetros do método `getConnection`, o último é a senha do usuário que estamos usando, no caso o **root**. Esse usuário está configurado com a senha `""` (aspas vazias).
+
+``` java
+  public Connection getConnection() {
+      try {
+          return DriverManager.getConnection(
+  "jdbc:mysql://localhost/fj21", "root", "");
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
 1. Crie uma classe chamada `TestaConexao` no pacote `br.com.caelum.jdbc.teste`.
-	Todas as nossas classes de teste deverão ficar nesse pacote.
+  Todas as nossas classes de teste deverão ficar nesse pacote.
 
-	* Crie um método `main` dentro da classe. Use o atalho do Eclipse para ajudar.
+  * Crie um método `main` dentro da classe. Use o atalho do Eclipse para ajudar.
 
-	* Dentro do `main`, fabrique uma conexão usando a `ConnectionFactory` que criamos.
-	Vamos apenas testar a abertura da conexão e depois fechá-la com o método `close`:
+  * Dentro do `main`, fabrique uma conexão usando a `ConnectionFactory` que criamos.
+  Vamos apenas testar a abertura da conexão e depois fechá-la com o método `close`:
 
-	``` java
-				Connection connection = new ConnectionFactory().getConnection();
-				System.out.println("Conexão aberta!");
-				connection.close();
-	```
+``` java
+      Connection connection = new ConnectionFactory().getConnection();
+      System.out.println("Conexão aberta!");
+      connection.close();
+```
 
-	* Trate os erros com throws. ( Use: Ctrl + 1 e escolha "`add throws declaration`").
+  * Trate os erros com throws. ( Use: Ctrl + 1 e escolha "`add throws declaration`").
 
 1. Antes de testar a conexão com o banco de dados através da classe `TestaConexao`, verifique se o banco de dados `fj21` existe.
 
    * Abra o terminal e digite:
-	```
-		mysql -u root
-	```
 
-	Lembrando que, se houver senha para logar com o banco, é preciso escrever
-	`mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
+``` bash
+  mysql -u root
+```
+
+  Lembrando que, se houver senha para logar com o banco, é preciso escrever
+  `mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
 
    * Dentro do MySQL, procure pelo banco de dados `fj21` com o comando:
-	``` sql
-		show databases;
-	```
-	
-	Se ele não existir, crie com o comando:
-	``` sql
-		create database fj21;
-	```
 
-1. Rode a sua classe `TestaConexao` pelo Eclipse.
+``` sql
+  show databases;
+```
+  
+  Se ele não existir, crie com o comando:
 
-	* Clique da direita na sua classe `TestaConexao`
+``` sql
+  create database fj21;
+```
 
-	* Escolha **Run as**, **Java Application** (caso prefira, aprenda a tecla de atalho para
-	agilizar nas próximas execuções)
+2. Rode a sua classe `TestaConexao` pelo Eclipse.
 
-	![ {w=65%}](assets/imagens/jdbc/run-as-java-app.png)
+  * Clique da direita na sua classe `TestaConexao`
+
+  * Escolha **Run as**, **Java Application** (caso prefira, aprenda a tecla de atalho para
+  agilizar nas próximas execuções)
+
+  ![ {w=65%}](assets/imagens/jdbc/run-as-java-app.png)
 1. A aplicação não funciona pois o driver não foi encontrado? Esquecemos de
-	colocar o JAR no __classpath__! (_Build Path_ no Eclipse)
+  colocar o JAR no __classpath__! (_Build Path_ no Eclipse)
 
-	* Clique no seu projeto com o botão da direita e escolha _Refresh_ (ou pressione **F5**).
-	* Selecione o seu driver do MySQL, clique da direita e escolha **Build Path**,
-	**Add to Build Path**:
+  * Clique no seu projeto com o botão da direita e escolha _Refresh_ (ou pressione **F5**).
+  * Selecione o seu driver do MySQL, clique da direita e escolha **Build Path**,
+  **Add to Build Path**:
 
-	![ {w=65%}](assets/imagens/jdbc/add-to-buildpath.png)
+  ![ {w=65%}](assets/imagens/jdbc/add-to-buildpath.png)
 
-	* Rode novamente sua aplicação `TestaConexao` agora que colocamos o driver no classpath.
+  * Rode novamente sua aplicação `TestaConexao` agora que colocamos o driver no classpath.
 
 
 
@@ -385,13 +391,13 @@ Para criar uma tabela nova, primeiro devemos acessar o terminal e fazer o comand
 logarmos no mysql:
 
 ``` bash
-	mysql -u root
+  mysql -u root
 ```
 
 se não houver senha, ou
 
 ``` bash
-	mysql -u root -p
+  mysql -u root -p
 ```
 
 se houver, digitando em seguida a senha, que o instrutor dirá qual é.
@@ -399,20 +405,20 @@ se houver, digitando em seguida a senha, que o instrutor dirá qual é.
 Nos preparamos para usar o banco de dados **fj21**:
 
 ``` sql
-	use fj21;
+  use fj21;
 ```
 
 A seguinte tabela será usada nos exemplos desse capítulo:
 
 ``` sql
-	create table contatos (
-		id BIGINT NOT NULL AUTO_INCREMENT,
-		nome VARCHAR(255),
-		email VARCHAR(255),
-		endereco VARCHAR(255),
-		dataNascimento DATE,
-		primary key (id)
-	);
+  create table contatos (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255),
+    email VARCHAR(255),
+    endereco VARCHAR(255),
+    dataNascimento DATE,
+    primary key (id)
+  );
 ```
 
 No banco de dados relacional, é comum representar um contato (entidade) em uma tabela de contatos.
@@ -436,53 +442,53 @@ A seguir, você vê um exemplo de uma classe JavaBean que seria equivalente ao n
 do banco de dados:
 
 ``` java
-	package br.com.caelum.jdbc.modelo;
+  package br.com.caelum.jdbc.modelo;
 
-	public class Contato {
+  public class Contato {
 
-		private Long id;
-		private String nome;
-		private String email;
-		private String endereco;
-		private Calendar dataNascimento;
+      private Long id;
+      private String nome;
+      private String email;
+      private String endereco;
+      private Calendar dataNascimento;
 
-		// métodos get e set para id, nome, email, endereço e dataNascimento
+    // métodos get e set para id, nome, email, endereço e dataNascimento
 
-		public String getNome() {
-			return this.nome;
-		}
-		public void setNome(String novo) {
-			this.nome = novo;
-		}
+    public String getNome() {
+      return this.nome;
+    }
+    public void setNome(String novo) {
+      this.nome = novo;
+    }
 
-		public String getEmail() {
-			return this.email;
-		}
-		public void setEmail(String novo) {
-			this.email = novo;
-		}
+    public String getEmail() {
+      return this.email;
+    }
+    public void setEmail(String novo) {
+      this.email = novo;
+    }
 
-		public String getEndereco() {
-			return this.endereco;
-		}
-		public void setEndereco(String novo) {
-			this.endereco = novo;
-		}
+    public String getEndereco() {
+      return this.endereco;
+    }
+    public void setEndereco(String novo) {
+      this.endereco = novo;
+    }
 
-		public Long getId() {
-			return this.id;
-		}
-		public void setId(Long novo) {
-			this.id = novo;
-		}
+    public Long getId() {
+      return this.id;
+    }
+    public void setId(Long novo) {
+      this.id = novo;
+    }
 
-		public Calendar getDataNascimento() {
-			return this.dataNascimento;
-		}
-		public void setDataNascimento(Calendar dataNascimento) {
-			this.dataNascimento = dataNascimento;
-		}
-	}
+    public Calendar getDataNascimento() {
+      return this.dataNascimento;
+    }
+    public void setDataNascimento(Calendar dataNascimento) {
+      this.dataNascimento = dataNascimento;
+    }
+  }
 ```
 
 A especificação JavaBeans é muito grande e mais informações sobre essa vasta área que é a base dos
@@ -517,10 +523,10 @@ Para inserir dados em uma tabela de um banco de dados entidade-relacional, basta
 Primeiro o código SQL:
 
 ``` java
-    String sql = "insert into contatos " +
-            "(nome,email,endereco, dataNascimento)" +
-            " values ('" + nome + "', '" + email + "', '" + 
-            endereco + "', '"+ dataNascimento +"')";
+  String sql = "insert into contatos " +
+          "(nome,email,endereco, dataNascimento)" +
+          " values ('" + nome + "', '" + email + "', '" + 
+          endereco + "', '"+ dataNascimento +"')";
 ```
 
 O exemplo acima possui três pontos negativos que são importantíssimos. O primeiro é que o programador
@@ -543,9 +549,9 @@ Por esses três motivos não usaremos código SQL como mostrado anteriormente. V
 genérico e um pouco mais interessante:
 
 ``` java
-    String sql = "insert into contatos " +
-                "(nome,email,endereco,dataNascimento) " +
-                "values (?,?,?,?)";
+  String sql = "insert into contatos " +
+              "(nome,email,endereco,dataNascimento) " +
+              "values (?,?,?,?)";
 ```
 
 Existe uma maneira em Java de escrever o código SQL como no primeiro exemplo dessa seção (com
@@ -562,10 +568,10 @@ um `PreparedStatement` relativo à conexão, basta chamar o método `prepareStat
 argumento o comando SQL com os valores vindos de variáveis preenchidos com uma interrogação.
 
 ``` java
-    String sql = "insert into contatos " +
-                    "(nome,email,endereco,dataNascimento) " +
-                    "values (?,?,?,?)";
-    PreparedStatement stmt = connection.prepareStatement(sql);
+  String sql = "insert into contatos " +
+                  "(nome,email,endereco,dataNascimento) " +
+                  "values (?,?,?,?)";
+  PreparedStatement stmt = connection.prepareStatement(sql);
 ```
 
 Logo em seguida, chamamos o método `setString` do `PreparedStatement` para preencher os valores que
@@ -573,10 +579,10 @@ são do tipo `String`, passando a posição (começando em 1) da interrogação 
 ser colocado:
 
 ``` java
-    // preenche os valores
-    stmt.setString(1, "Caelum");
-    stmt.setString(2, "contato@caelum.com.br");
-    stmt.setString(3, "R. Vergueiro 3185 cj57");
+  // preenche os valores
+  stmt.setString(1, "Caelum");
+  stmt.setString(2, "contato@caelum.com.br");
+  stmt.setString(3, "R. Vergueiro 3185 cj57");
 ```
 
 Precisamos definir também a data de nascimento do nosso contato, para isso, precisaremos de um objeto
@@ -586,15 +592,15 @@ dentro de um `java.sql.Date`, que é o tipo suportado pela API JDBC. Vamos utili
 `Calendar` para conseguirmos esses milissegundos:
 
 ``` java
-    java.sql.Date dataParaGravar = new java.sql.Date(
-            Calendar.getInstance().getTimeInMillis());
-    stmt.setDate(4, dataParaGravar);
+  java.sql.Date dataParaGravar = new java.sql.Date(
+          Calendar.getInstance().getTimeInMillis());
+  stmt.setDate(4, dataParaGravar);
 ```
 
 Por fim, uma chamada a `execute()` executa o comando SQL:
 
 ``` java
-	stmt.execute();
+  stmt.execute();
 ```
 
 Imagine todo esse processo sendo escrito toda vez que desejar inserir algo no banco? Ainda não
@@ -603,35 +609,35 @@ consegue visualizar o quão destrutivo isso pode ser?
 Veja o exemplo abaixo, que abre uma conexão e insere um contato no banco:
 
 ``` java
-    public class JDBCInsere {
+  public class JDBCInsere {
 
-        public static void main(String[] args) throws SQLException {
+      public static void main(String[] args) throws SQLException {
 
-            // conectando
-            Connection con = new ConnectionFactory().getConnection();
+          // conectando
+          Connection con = new ConnectionFactory().getConnection();
 
-            // cria um preparedStatement
-            String sql = "insert into contatos" +
-                    " (nome,email,endereco,dataNascimento)" +
-                    " values (?,?,?,?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
+          // cria um preparedStatement
+          String sql = "insert into contatos" +
+                  " (nome,email,endereco,dataNascimento)" +
+                  " values (?,?,?,?)";
+          PreparedStatement stmt = con.prepareStatement(sql);
 
-            // preenche os valores
-            stmt.setString(1, "Caelum");
-            stmt.setString(2, "contato@caelum.com.br");
-            stmt.setString(3, "R. Vergueiro 3185 cj57");
-            stmt.setDate(4, new java.sql.Date(
-                    Calendar.getInstance().getTimeInMillis()));
+          // preenche os valores
+          stmt.setString(1, "Caelum");
+          stmt.setString(2, "contato@caelum.com.br");
+          stmt.setString(3, "R. Vergueiro 3185 cj57");
+          stmt.setDate(4, new java.sql.Date(
+                  Calendar.getInstance().getTimeInMillis()));
 
-            // executa
-            stmt.execute();
-            stmt.close();
+          // executa
+          stmt.execute();
+          stmt.close();
 
-            System.out.println("Gravado!");
+          System.out.println("Gravado!");
 
-            con.close();
-        }
-    }
+          con.close();
+      }
+  }
 ```
 
 ### Para saber mais: Fechando a conexão propriamente
@@ -643,18 +649,18 @@ O exemplo dado acima não a fecha caso algum erro ocorra no momento de inserir u
 dados. O comum é fechar a conexão em um bloco `finally`:
 
 ``` java
-	 public class JDBCInsere {
+   public class JDBCInsere {
         public static void main(String[] args) throws SQLException {
-        	Connection con = null;
-			try {
-	            con = new ConnectionFactory().getConnection();
-	
-				// faz um monte de operações.
-				// que podem lançar exceptions runtime e SQLException
-			} catch(SQLException e) {
-				System.out.println(e);
-			} finally {
-            	con.close();
+          Connection con = null;
+      try {
+              con = new ConnectionFactory().getConnection();
+  
+        // faz um monte de operações.
+        // que podem lançar exceptions runtime e SQLException
+      } catch(SQLException e) {
+        System.out.println(e);
+      } finally {
+              con.close();
             }
         }
     }
@@ -679,12 +685,12 @@ por causa dessa invocação. Nosso código ficaria mais reduzido e organizado, a
 escopo de `con` só valer dentro do `try`:
 
 ``` java
-	try(Connection con = new ConnectionFactory().getConnection()) {
-		// faz um monte de operações.
-		// que podem lançar exceptions runtime e SQLException
-	} catch(SQLException e) {
-		System.out.println(e);
-	}
+  try(Connection con = new ConnectionFactory().getConnection()) {
+    // faz um monte de operações.
+    // que podem lançar exceptions runtime e SQLException
+  } catch(SQLException e) {
+    System.out.println(e);
+  }
 ```
 
 
@@ -694,9 +700,9 @@ Em vez de usar o `PreparedStatement`, você pode usar uma interface mais simples
 `Statement`, que simplesmente executa uma cláusula SQL no método `execute`:
 
 ``` java
-		Statement stmt = con.createStatement();
-		stmt.execute("INSERT INTO ...");
-		stmt.close();
+    Statement stmt = con.createStatement();
+    stmt.execute("INSERT INTO ...");
+    stmt.close();
 ```
 
 Mas prefira a classe `PreparedStatement` que é mais rápida que `Statement` e deixa seu código
@@ -749,26 +755,26 @@ Tentaremos chegar ao código anterior: seria muito melhor e mais elegante poder 
 responsável pela inclusão, certo?
 
 ``` java
-	public class TestaInsere {
+  public class TestaInsere {
 
-	  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-	      // pronto para gravar
-	      Contato contato = new Contato();
-	      contato.setNome("Caelum");
-	      contato.setEmail("contato@caelum.com.br");
-	      contato.setEndereco("R. Vergueiro 3185 cj87");
-	      contato.setDataNascimento(Calendar.getInstance());
+        // pronto para gravar
+        Contato contato = new Contato();
+        contato.setNome("Caelum");
+        contato.setEmail("contato@caelum.com.br");
+        contato.setEndereco("R. Vergueiro 3185 cj87");
+        contato.setDataNascimento(Calendar.getInstance());
 
-	      // grave nessa conexão!!!
-	      Misterio bd = new Misterio();
+        // grave nessa conexão!!!
+        Misterio bd = new Misterio();
 
-	      // método elegante
-	      bd.adiciona(contato);
+        // método elegante
+        bd.adiciona(contato);
 
-	      System.out.println("Gravado!");
-	  }
-	}
+        System.out.println("Gravado!");
+    }
+  }
 ```
 
 O código anterior já mostra o poder que alcançaremos: através de uma única classe seremos capazes de
@@ -785,15 +791,15 @@ O que falta para o código acima funcionar é uma classe chamada `ContatoDao` co
 `adiciona`. Vamos criar uma que se conecta ao banco ao construirmos uma instância dela:
 
 ``` java
-	public class ContatoDao {
+  public class ContatoDao {
 
-		// a conexão com o banco de dados
-		private Connection connection;
+    // a conexão com o banco de dados
+    private Connection connection;
 
-		public ContatoDao() {
-			this.connection = new ConnectionFactory().getConnection();
-		}
-	}
+    public ContatoDao() {
+      this.connection = new ConnectionFactory().getConnection();
+    }
+  }
 ```
 
 
@@ -802,30 +808,30 @@ Agora que todo `ContatoDao` possui uma conexão com o banco, podemos focar no m�
 recebe um `Contato` como argumento e é responsável por adicioná-lo através de código SQL:
 
 ``` java
-    public void adiciona(Contato contato) {
-        String sql = "insert into contatos " +
-                "(nome,email,endereco,dataNascimento)" +
-                " values (?,?,?,?)";
+  public void adiciona(Contato contato) {
+      String sql = "insert into contatos " +
+              "(nome,email,endereco,dataNascimento)" +
+              " values (?,?,?,?)";
 
-        try {
-            // prepared statement para inserção
-            PreparedStatement stmt = con.prepareStatement(sql);
+      try {
+          // prepared statement para inserção
+          PreparedStatement stmt = con.prepareStatement(sql);
 
-            // seta os valores
+          // seta os valores
 
-            stmt.setString(1,contato.getNome());
-            stmt.setString(2,contato.getEmail());
-            stmt.setString(3,contato.getEndereco());
-            stmt.setDate(4, new Date(
-                    contato.getDataNascimento().getTimeInMillis()));
+          stmt.setString(1,contato.getNome());
+          stmt.setString(2,contato.getEmail());
+          stmt.setString(3,contato.getEndereco());
+          stmt.setDate(4, new Date(
+                  contato.getDataNascimento().getTimeInMillis()));
 
-            // executa
-            stmt.execute();
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+          // executa
+          stmt.execute();
+          stmt.close();
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
 ```
 
 Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterior da
@@ -833,144 +839,148 @@ Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterio
 
 ## Exercícios: Javabeans e ContatoDao
 1. Crie a classe de `Contato` no pacote `br.com.caelum.jdbc.modelo`. Ela será nosso
-	JavaBean para representar a entidade do banco. Deverá ter id, nome, email, endereço e
-	uma data de nascimento.
+  JavaBean para representar a entidade do banco. Deverá ter id, nome, email, endereço e
+  uma data de nascimento.
 
-	Coloque os atributos na classe e gere os getters e setters para cada atributo:
+  Coloque os atributos na classe e gere os getters e setters para cada atributo:
 
-	``` java
-			public class Contato {
-				private Long id;
-				private String nome;
-				private String email;
-				private String endereco;
-				private Calendar dataNascimento;
-			}
-	```
+``` java
+  public class Contato {
+    private Long id;
+    private String nome;
+    private String email;
+    private String endereco;
+    private Calendar dataNascimento;
+  }
+```
 
-	**Dica:** use o atalho do Eclipse para gerar os getters e setters. Aperte `Ctrl + 3`,
-	digite `ggas` que é a abreviação de `Generate getters and setters` e selecione todos os
-	getters e setters.
+  **Dica:** use o atalho do Eclipse para gerar os getters e setters. Aperte `Ctrl + 3`,
+  digite `ggas` que é a abreviação de `Generate getters and setters` e selecione todos os
+  getters e setters.
 
-	![ {w=40%}](assets/imagens/jdbc/ggas.png)
-	![ {w=65%}](assets/imagens/jdbc/generate-getters-setters.png)
+  ![ {w=40%}](assets/imagens/jdbc/ggas.png)
+  ![ {w=65%}](assets/imagens/jdbc/generate-getters-setters.png)
 1. Vamos desenvolver nossa classe de DAO. Crie a classe `ContatoDao` no pacote
-	`br.com.caelum.jdbc.dao`. Seu papel será gerenciar a conexão e inserir Contatos no
-	banco de dados.
+  `br.com.caelum.jdbc.dao`. Seu papel será gerenciar a conexão e inserir Contatos no
+  banco de dados.
 
-	Para a conexão, vamos criá-la no construtor e salvar em um atributo:
+  Para a conexão, vamos criá-la no construtor e salvar em um atributo:
 
-	``` java
-		public class ContatoDao {
+``` java
+  public class ContatoDao {
 
-			// a conexão com o banco de dados
-			private Connection connection;
+    // a conexão com o banco de dados
+    private Connection connection;
 
-			public ContatoDao() {
-				this.connection = new ConnectionFactory().getConnection();
-			}
-
-		}
-	```
-
-	Use o Eclipse para ajudar com os imports! (atalho _Ctrl + Shift + O_)
-
-	O próximo passo é criar o método de adição de contatos. Ele deve receber um objeto do
-	tipo `Contato` como argumento e encapsular totalmente o trabalho com o banco de dados.
-	Internamente, use um `PreparedStatement` como vimos na aula para executar o SQL:
-
-	``` java
-    public void adiciona(Contato contato) {
-        String sql = "insert into contatos " +
-                "(nome,email,endereco,dataNascimento)" +
-                " values (?,?,?,?)";
-
-        try {
-            // prepared statement para inserção
-            PreparedStatement stmt = connection.prepareStatement(sql);
-
-            // seta os valores
-            stmt.setString(1,contato.getNome());
-            stmt.setString(2,contato.getEmail());
-            stmt.setString(3,contato.getEndereco());
-            stmt.setDate(4, new Date(
-                    contato.getDataNascimento().getTimeInMillis()));
-
-            // executa
-            stmt.execute();
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public ContatoDao() {
+      this.connection = new ConnectionFactory().getConnection();
     }
-	```
 
-	**ATENÇÃO: Lembre-se de importar as classes de SQL do pacote `java.sql`, inclusive a classe Date!**
+  }
+```
+
+  Use o Eclipse para ajudar com os imports! (atalho _Ctrl + Shift + O_)
+
+  O próximo passo é criar o método de adição de contatos. Ele deve receber um objeto do
+  tipo `Contato` como argumento e encapsular totalmente o trabalho com o banco de dados.
+  Internamente, use um `PreparedStatement` como vimos na aula para executar o SQL:
+
+``` java
+  public void adiciona(Contato contato) {
+      String sql = "insert into contatos " +
+              "(nome,email,endereco,dataNascimento)" +
+              " values (?,?,?,?)";
+
+      try {
+          // prepared statement para inserção
+          PreparedStatement stmt = connection.prepareStatement(sql);
+
+          // seta os valores
+          stmt.setString(1,contato.getNome());
+          stmt.setString(2,contato.getEmail());
+          stmt.setString(3,contato.getEndereco());
+          stmt.setDate(4, new Date(
+                  contato.getDataNascimento().getTimeInMillis()));
+
+          // executa
+          stmt.execute();
+          stmt.close();
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
+
+  **ATENÇÃO: Lembre-se de importar as classes de SQL do pacote `java.sql`, inclusive a classe Date!**
 
 1. Antes de testar a inserção de um contato no banco de dados, verifique se a tabela `contatos` existe.
 
    * Abra o terminal e digite:
-	```
-		mysql -u root
-	```
 
-	Lembrando que, se houver senha para logar com o banco, é preciso escrever
-	`mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
+``` bash
+  mysql -u root
+```
+
+  Lembrando que, se houver senha para logar com o banco, é preciso escrever
+  `mysql -u root -p` e, em seguida, digitar a senha do banco de dados.
 
    * Dentro do MySQL, liste todas as tabelas já criadas com o comando:
-	``` sql
-		show tables;
-	```
 
-	Procure pela tabela `contatos`. Se ela não existir, crie com o comando:
-	``` sql
-		create table contatos (
-			id BIGINT NOT NULL AUTO_INCREMENT,
-			nome VARCHAR(255),
-			email VARCHAR(255),
-			endereco VARCHAR(255),
-			dataNascimento DATE,
-			primary key (id)
-		);
-	```
+``` sql
+  show tables;
+```
 
-	(Dica: esse código encontra-se no arquivo `contatos.txt` na
-	pasta `21/criacao-tabelas`)
+  Procure pela tabela `contatos`. Se ela não existir, crie com o comando:
 
-2. Para testar nosso DAO, desenvolva uma classe de testes com o método `main`. Por exemplo,
-	uma chamada `TestaInsere` no pacote `br.com.caelum.jdbc.teste`. Gere o `main` pelo
-	Eclipse.
+``` sql
+  create table contatos (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255),
+    email VARCHAR(255),
+    endereco VARCHAR(255),
+    dataNascimento DATE,
+    primary key (id)
+  );
+```
 
-	O nosso programa de testes deve, dentro do `main`, criar um novo objeto `Contato` com
-	dados de teste e chamar a nova classe `ContatoDao` para adicioná-lo ao banco de dados:
+  (Dica: esse código encontra-se no arquivo `contatos.sql` na
+  pasta `21/projeto-jdbc`)
 
-	``` java
-	      // pronto para gravar
-	      Contato contato = new Contato();
-	      contato.setNome("Caelum");
-	      contato.setEmail("contato@caelum.com.br");
-	      contato.setEndereco("R. Vergueiro 3185 cj57");
-	      contato.setDataNascimento(Calendar.getInstance());
+1. Para testar nosso DAO, desenvolva uma classe de testes com o método `main`. Por exemplo,
+  uma chamada `TestaInsere` no pacote `br.com.caelum.jdbc.teste`. Gere o `main` pelo
+  Eclipse.
 
-	      // grave nessa conexão!!!
-	      ContatoDao dao = new ContatoDao();
+  O nosso programa de testes deve, dentro do `main`, criar um novo objeto `Contato` com
+  dados de teste e chamar a nova classe `ContatoDao` para adicioná-lo ao banco de dados:
 
-	      // método elegante
-	      dao.adiciona(contato);
+``` java
+  // pronto para gravar
+  Contato contato = new Contato();
+  contato.setNome("Caelum");
+  contato.setEmail("contato@caelum.com.br");
+  contato.setEndereco("R. Vergueiro 3185 cj57");
+  contato.setDataNascimento(Calendar.getInstance());
 
-	      System.out.println("Gravado!");
-	```
+  // grave nessa conexão!!!
+  ContatoDao dao = new ContatoDao();
 
-	Execute seu programa e veja se tudo correu bem.
+  // método elegante
+  dao.adiciona(contato);
+
+  System.out.println("Gravado!");
+```
+
+  Execute seu programa e veja se tudo correu bem.
 1. Verifique se o contato foi adicionado. Abra o terminal e digite:
-	```
-			mysql -u root
-			use fj21;
-			select * from contatos;
-	```
 
-	Lembrando que se houver senha para o usuário `root`, o primeiro comando deve ser: `mysql -u root -p`.
-	Digite `exit` para sair do console do MySQL.
+``` sql
+    mysql -u root
+    use fj21;
+    select * from contatos;
+```
+
+  Lembrando que se houver senha para o usuário `root`, o primeiro comando deve ser: `mysql -u root -p`.
+  Digite `exit` para sair do console do MySQL.
 
 
 ## Fazendo pesquisas no banco de dados
@@ -987,43 +997,43 @@ do método  `next`. Esse método retornará `false` quando chegar ao fim da pesq
 normalmente utilizado para fazer um laço nos registros:
 
 ``` java
-	// pega a conexão e o Statement
-	Connection con = new ConnectionFactory().getConnection();
-	PreparedStatement stmt = con.prepareStatement("select * from contatos");
+  // pega a conexão e o Statement
+  Connection con = new ConnectionFactory().getConnection();
+  PreparedStatement stmt = con.prepareStatement("select * from contatos");
 
-	// executa um select
-	ResultSet rs = stmt.executeQuery();
+  // executa um select
+  ResultSet rs = stmt.executeQuery();
 
-	// itera no ResultSet
-	while (rs.next()) {
-	}
+  // itera no ResultSet
+  while (rs.next()) {
+  }
 
-	rs.close();
-	stmt.close();
-	con.close();
+  rs.close();
+  stmt.close();
+  con.close();
 ```
 
 Para retornar o valor de uma coluna no banco de dados, basta chamar um dos métodos `get` do
 `ResultSet`, dentre os quais, o mais comum: `getString`.
 
 ``` java
-	// pega a conexão e o Statement
-	Connection con = new ConnectionFactory().getConnection();
-	PreparedStatement stmt = con.prepareStatement("select * from contatos");
+  // pega a conexão e o Statement
+  Connection con = new ConnectionFactory().getConnection();
+  PreparedStatement stmt = con.prepareStatement("select * from contatos");
 
-	// executa um select
-	ResultSet rs = stmt.executeQuery();
+  // executa um select
+  ResultSet rs = stmt.executeQuery();
 
-	// itera no ResultSet
-	while (rs.next()) {
-		String nome = rs.getString("nome");
-		String email = rs.getString("email")
+  // itera no ResultSet
+  while (rs.next()) {
+    String nome = rs.getString("nome");
+    String email = rs.getString("email")
 
-		System.out.println(nome + " _ " + email);
-	}
+    System.out.println(nome + " _ " + email);
+  }
 
-	stmt.close();
-	con.close();
+  stmt.close();
+  con.close();
 ```
 
 > **Recurso Avançado: O cursor**
@@ -1041,92 +1051,98 @@ de `ResultSet` espalhado por todo o código? Vamos fazer nosso `getLista()` devo
 interessante, uma lista de `Contato`:
 
 ``` java
-    PreparedStatement stmt = this.connection
-            .prepareStatement("select * from contatos");
-    ResultSet rs = stmt.executeQuery();
+  PreparedStatement stmt = this.connection
+          .prepareStatement("select * from contatos");
+  ResultSet rs = stmt.executeQuery();
 
-    List<Contato> contatos = new ArrayList<Contato>();
+  List<Contato> contatos = new ArrayList<Contato>();
 
-    while (rs.next()) {
+  while (rs.next()) {
 
-        // criando o objeto Contato
-        Contato contato = new Contato();
-        contato.setNome(rs.getString("nome"));
-        contato.setEmail(rs.getString("email"));
-        contato.setEndereco(rs.getString("endereco"));
+      // criando o objeto Contato
+      Contato contato = new Contato();
+      contato.setNome(rs.getString("nome"));
+      contato.setEmail(rs.getString("email"));
+      contato.setEndereco(rs.getString("endereco"));
 
-        // montando a data através do Calendar
-        Calendar data = Calendar.getInstance();
-        data.setTime(rs.getDate("dataNascimento"));
-        contato.setDataNascimento(data);
+      // montando a data através do Calendar
+      Calendar data = Calendar.getInstance();
+      data.setTime(rs.getDate("dataNascimento"));
+      contato.setDataNascimento(data);
 
-        // adicionando o objeto à lista
-        contatos.add(contato);
-    }
+      // adicionando o objeto à lista
+      contatos.add(contato);
+  }
 
-    rs.close();
-    stmt.close();
+  rs.close();
+  stmt.close();
 
-    return contatos;
+  return contatos;
 ```
 
 ## Exercícios: Listagem
 1. Crie o método `getLista` na classe `ContatoDao`. Importe `List` de `java.util`:
 
-	``` java
-            public List<Contato> getLista() {
-                try {
-                    List<Contato> contatos = new ArrayList<Contato>();
-                    PreparedStatement stmt = this.connection.
-                            prepareStatement("select * from contatos");
-                    ResultSet rs = stmt.executeQuery();
+``` java
+  public List<Contato> getLista() {
+      try {
+          List<Contato> contatos = new ArrayList<Contato>();
+          PreparedStatement stmt = this.connection.
+                  prepareStatement("select * from contatos");
+          ResultSet rs = stmt.executeQuery();
 
-                    while (rs.next()) {
-                        // criando o objeto Contato
-                        Contato contato = new Contato();
-                        contato.setId(rs.getLong("id"));
-                        contato.setNome(rs.getString("nome"));
-                        contato.setEmail(rs.getString("email"));
-                        contato.setEndereco(rs.getString("endereco"));
+          while (rs.next()) {
+              // criando o objeto Contato
+              Contato contato = new Contato();
+              contato.setId(rs.getLong("id"));
+              contato.setNome(rs.getString("nome"));
+              contato.setEmail(rs.getString("email"));
+              contato.setEndereco(rs.getString("endereco"));
 
-                        // montando a data através do Calendar
-                        Calendar data = Calendar.getInstance();
-                        data.setTime(rs.getDate("dataNascimento"));
-                        contato.setDataNascimento(data);
+              // montando a data através do Calendar
+              Calendar data = Calendar.getInstance();
+              data.setTime(rs.getDate("dataNascimento"));
+              contato.setDataNascimento(data);
 
-                        // adicionando o objeto à lista
-                        contatos.add(contato);
-                    }
-                    rs.close();
-                    stmt.close();
-                    return contatos;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-	```
+              // adicionando o objeto à lista
+              contatos.add(contato);
+          }
+          rs.close();
+          stmt.close();
+          return contatos;
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
+
 1. Vamos usar o método `getLista` para listar todos os contatos do nosso banco de dados.
 
-	Crie uma classe chamada `TestaLista` com um método `main`:
+  Crie uma classe chamada `TestaLista` com um método `main`:
 
-	* Crie um ContatoDao:
-	``` java
-				ContatoDao dao = new ContatoDao();
-	```
-	* Liste os contatos com o DAO:
-	``` java
-				List<Contato> contatos = dao.getLista();
-	```
-	* Itere nessa lista e imprima as informações dos contatos:
-	``` java
-			for (Contato contato : contatos) {
-				System.out.println("Nome: " + contato.getNome());
-				System.out.println("Email: " + contato.getEmail());
-				System.out.println("Endereço: " + contato.getEndereco());
-				System.out.println("Data de Nascimento: " + 
-                		contato.getDataNascimento().getTime() + "\n");
-			}
-	```
+  * Crie um ContatoDao:
+
+``` java
+  ContatoDao dao = new ContatoDao();
+```
+  * Liste os contatos com o DAO:
+
+``` java
+  List<Contato> contatos = dao.getLista();
+```
+
+  * Itere nessa lista e imprima as informações dos contatos:
+
+``` java
+  for (Contato contato : contatos) {
+      System.out.println("Nome: " + contato.getNome());
+      System.out.println("Email: " + contato.getEmail());
+      System.out.println("Endereço: " + contato.getEndereco());
+      System.out.println("Data de Nascimento: " + 
+                  contato.getDataNascimento().getTime() + "\n");
+  }
+```
+
 1. Rode o programa anterior clicando em **Run** > **Run as** > **Java Application** (aproveite para aprender a tecla de atalho para executar a aplicação).
 
 
@@ -1146,11 +1162,11 @@ o mínimo a ser feito é seguir o DAO.
 
 ## Exercícios opcionais
 1. A impressão da data de nascimento ficou um pouco estranha. Para formatá-la, pesquise sobre a classe
-	`SimpleDateFormat`.
+  `SimpleDateFormat`.
 1. Crie uma classe chamada DAOException que estenda de `RuntimeException` e utilize-a no seu
-	`ContatoDao`.
+  `ContatoDao`.
 1. Use cláusulas `where` para refinar sua pesquisa no banco de dados. Por exemplo:
-	`where nome like 'C%'`
+  `where nome like 'C%'`
 1. Crie o método `pesquisar` que recebe um id (int) e retorna um objeto do tipo `Contato`.
 
 
@@ -1207,44 +1223,46 @@ public void remove(Contato contato) {
 ## Exercícios opcionais - Alterar e remover
 1. Adicione o método para alterar contato no seu `ContatoDao`.
 
-	``` java
-        public void altera(Contato contato) {
-            String sql = "update contatos set nome=?, email=?,"+
-                    "endereco=?, dataNascimento=? where id=?";
+``` java
+  public void altera(Contato contato) {
+      String sql = "update contatos set nome=?, email=?,"+
+              "endereco=?, dataNascimento=? where id=?";
 
-            try {
-                PreparedStatement stmt = connection
-                        .prepareStatement(sql);
-                stmt.setString(1, contato.getNome());
-                stmt.setString(2, contato.getEmail());
-                stmt.setString(3, contato.getEndereco());
-                stmt.setDate(4, new Date(contato.getDataNascimento()
-                        .getTimeInMillis()));
-                stmt.setLong(5, contato.getId());
-                stmt.execute();
-                stmt.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-	```
+      try {
+          PreparedStatement stmt = connection
+                  .prepareStatement(sql);
+          stmt.setString(1, contato.getNome());
+          stmt.setString(2, contato.getEmail());
+          stmt.setString(3, contato.getEndereco());
+          stmt.setDate(4, new Date(contato.getDataNascimento()
+                  .getTimeInMillis()));
+          stmt.setLong(5, contato.getId());
+          stmt.execute();
+          stmt.close();
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
+
 1. Adicione o método para remover contato no seu `ContatoDao`
 
-	``` java
-            public void remove(Contato contato) {
-                try {
-                    PreparedStatement stmt = connection
-                            .prepareStatement("delete from contatos where id=?");
-                    stmt.setLong(1, contato.getId());
-                    stmt.execute();
-                    stmt.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-	```
+``` java
+  public void remove(Contato contato) {
+      try {
+          PreparedStatement stmt = connection
+                  .prepareStatement("delete from contatos where id=?");
+          stmt.setLong(1, contato.getId());
+          stmt.execute();
+          stmt.close();
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+  }
+```
+
 1. Use os métodos criados anteriormente para fazer testes com o seu banco de dados: atualize e
-	remova um contato.
+  remova um contato.
 1. Crie uma classe chamada Funcionario com os campos id (Long), nome, usuario e senha (String).
 1. Crie uma tabela no banco de dados chamada funcionarios.
 1. Crie uma classe DAO para Funcionario.

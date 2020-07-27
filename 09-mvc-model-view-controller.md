@@ -33,30 +33,30 @@ apresente visualmente os resultados gerados pela Servlet. A Servlet ficaria ent�
 Imagine o código do método da servlet `AdicionaContatoServlet` que fizemos antes:
 
 ``` java
-    protected void service(HttpServletRequest request,
-            HttpServletResponse response) {
+  protected void service(HttpServletRequest request,
+          HttpServletResponse response) {
 
-        // log
-        System.out.println("Tentando criar um novo contato...");
+      // log
+      System.out.println("Tentando criar um novo contato...");
 
-        // acessa o bean
-        Contato contato = new Contato();
-        // chama os setters
-        ...
-        
-        // adiciona ao banco de dados
-        ContatoDao dao = new ContatoDao();
-        dao.adiciona(contato);
+      // acessa o bean
+      Contato contato = new Contato();
+      // chama os setters
+      ...
 
-        // ok.... visualização
-        out.println("<html>");
-        out.println("<body>");
-        out.println("Contato " + contato.getNome() + 
-            " adicionado com sucesso");
-        out.println("</body>");
-        out.println("</html>");
+      // adiciona ao banco de dados
+      ContatoDao dao = new ContatoDao();
+      dao.adiciona(contato);
 
-    }
+      // ok.... visualização
+      out.println("<html>");
+      out.println("<body>");
+      out.println("Contato " + contato.getNome() +
+          " adicionado com sucesso");
+      out.println("</body>");
+      out.println("</html>");
+
+  }
 ```
 
 Repare que, no final do nosso método, misturamos o código HTML com Java. O que queremos extrair do
@@ -66,11 +66,11 @@ Seria muito mais interessante para o programador e para o designer ter um arquiv
 `contato-adicionado.jsp` apenas com o HTML:
 
 ``` html
-	<html>
-		<body>
-			Contato ${param.nome} adicionado com sucesso
-		</body>
-	</html>
+  <html>
+    <body>
+      Contato ${param.nome} adicionado com sucesso
+    </body>
+  </html>
 ```
 
 Buscamos uma forma de redirecionar as requisições, capaz de encaminhar essa requisição para um
@@ -93,9 +93,9 @@ acessar e podemos usar um objeto `RequestDispatcher` para acessar outro recurso 
 uma página JSP ou uma servlet:
 
 ``` java
-    RequestDispatcher rd = request
-        .getRequestDispatcher("/contato-adicionado.jsp");
-    rd.forward(request,response);
+  RequestDispatcher rd = request
+      .getRequestDispatcher("/contato-adicionado.jsp");
+  rd.forward(request,response);
 ```
 
 Podemos facilmente executar a lógica de nossa aplicação Web em uma servlet e então redirecionar
@@ -122,32 +122,32 @@ pela servlet.
 Vamos evoluir nossa adição de contatos antes puramente usando Servlets para usar o
 `RequestDispatcher`.
 1. Seguindo a separação aprendida nesse capítulo, queremos deixar em um JSP separado a
-	responsabilidade de montar o HTML a ser devolvido para o usuário.
+  responsabilidade de montar o HTML a ser devolvido para o usuário.
 
-	Crie então um novo arquivo **contato-adicionado.jsp** na pasta _WebContent_:
-	``` html
-			<html>
-				<body>
-					Contato ${param.nome} adicionado com sucesso
-				</body>
-			</html>
-	```
+  Crie então um novo arquivo **contato-adicionado.jsp** na pasta _WebContent_:
+``` html
+  <html>
+    <body>
+      Contato ${param.nome} adicionado com sucesso
+    </body>
+  </html>
+```
 1. **Altere** sua servlet `AdicionaContatoServlet` para que, após a execução da lógica de negócios,
-	o fluxo da requisição seja redirecionado para nosso novo JSP.
+  o fluxo da requisição seja redirecionado para nosso novo JSP.
 
-	**Remova** no fim da classe o código que monta a saída HTML (as chamadas de `out.println`).
-	Vamos substituir por uma chamada ao `RequestDispatcher` e exibir o mesmo resultado usando
-	o JSP que criamos. A chamada fica no final de nossa servlet:
+  **Remova** no fim da classe o código que monta a saída HTML (as chamadas de `out.println`).
+  Vamos substituir por uma chamada ao `RequestDispatcher` e exibir o mesmo resultado usando
+  o JSP que criamos. A chamada fica no final de nossa servlet:
 
-	``` java
-            RequestDispatcher rd = request
-                    .getRequestDispatcher("/contato-adicionado.jsp");
-            rd.forward(request,response);
-	```
+``` java
+  RequestDispatcher rd = request
+          .getRequestDispatcher("/contato-adicionado.jsp");
+  rd.forward(request,response);
+```
 1. Teste a URL: http://localhost:8080/fj21-agenda/adiciona-contato.jsp
 
-	![ {w=80%}](assets/imagens/servlets/testa-adiciona.png)
-	![ {w=80%}](assets/imagens/servlets/testa-adiciona-2.png)
+  ![ {w=80%}](assets/imagens/servlets/testa-adiciona.png)
+  ![ {w=80%}](assets/imagens/servlets/testa-adiciona-2.png)
 
 
 ### Resultado
@@ -187,29 +187,29 @@ decidimos o que executar. Teríamos aí uma Servlet para controlar essa parte, c
 @WebServlet("/sistema")
 public class SistemaTodoServlet extends HttpServlet {
 
-    protected void service(HttpServletRequest request,
-            HttpServletResponse response) {
-        
-        String acao = request.getParameter("logica");
-        ContatoDao dao = new ContatoDao();
-        
-        if (acao.equals("AdicionaContato")) {
-            Contato contato = new Contato();
-            contato.setNome(request.getParameter("nome"));
-            contato.setEndereco(request.getParameter("endereco"));
-            contato.setEmail(request.getParameter("email"));
-            dao.adiciona(contato);
-            
-            RequestDispatcher rd = 
-                request.getRequestDispatcher("/contato-adicionado.jsp");
-            rd.forward(request, response);
-        } else if (acao.equals("ListaContatos")) {
-            // busca a lista no DAO
-            // despacha para um jsp
-        } else if (acao.equals("RemoveContato")) {
-            // faz a remoção e redireciona para a lista
-        } 
-    }
+  protected void service(HttpServletRequest request,
+          HttpServletResponse response) {
+      
+      String acao = request.getParameter("logica");
+      ContatoDao dao = new ContatoDao();
+      
+      if (acao.equals("AdicionaContato")) {
+          Contato contato = new Contato();
+          contato.setNome(request.getParameter("nome"));
+          contato.setEndereco(request.getParameter("endereco"));
+          contato.setEmail(request.getParameter("email"));
+          dao.adiciona(contato);
+          
+          RequestDispatcher rd = 
+              request.getRequestDispatcher("/contato-adicionado.jsp");
+          rd.forward(request, response);
+      } else if (acao.equals("ListaContatos")) {
+          // busca a lista no DAO
+          // despacha para um jsp
+      } else if (acao.equals("RemoveContato")) {
+          // faz a remoção e redireciona para a lista
+      } 
+  }
 }
 ```
 
@@ -231,11 +231,11 @@ Então vamos extrair a nossa lógica para diferentes classes, para que nossa Ser
 ter um código mais enxuto como esse:
 
 ``` java
-if (acao.equals("AdicionaContato")) {
-	new AdicionaContato().executa(request,response);
-} else if (acao.equals( "ListaContato")) {
-	new ListaContatos().executa(request,response);
-}
+  if (acao.equals("AdicionaContato")) {
+      new AdicionaContato().executa(request,response);
+  } else if (acao.equals( "ListaContato")) {
+      new ListaContatos().executa(request,response);
+  }
 ```
 
 E teríamos classes `AdicionaContato`, `ListaContatos`, etc com um método (digamos, `executa`)
@@ -251,8 +251,8 @@ seguir. Outra questão é que recebemos como parâmetro justamente o nome da cla
 Vamos tentar generalizar então, queremos executar o seguinte código:
 
 ``` java
-	String nomeDaClasse = request.getParameter("logica");
-	new nomeDaClasse().executa(request,response);
+  String nomeDaClasse = request.getParameter("logica");
+  new nomeDaClasse().executa(request,response);
 ```
 
 Queremos pegar o nome da classe a partir do parâmetro e instanciá-la. Entretanto não podemos, pois
@@ -267,9 +267,9 @@ queremos uma representação. Isso nos retornará um objeto do tipo `Class` repr
 Como abaixo:
 
 ``` java
-    String nomeDaClasse = "br.com.caelum.mvc.logica." +
-            request.getParameter("logica");
-    Class classe = Class.forName(nomeDaClasse);
+  String nomeDaClasse = "br.com.caelum.mvc.logica." +
+          request.getParameter("logica");
+  Class classe = Class.forName(nomeDaClasse);
 ```
 
 Ótimo, podemos ter uma representação de `AdicionaContato` ou de `ListaContato` e assim
@@ -279,7 +279,7 @@ Já que uma das informações guardadas pelo objeto do tipo `Class` é o constru
 invocá-lo para instanciar a classe através do método `newInstance`.
 
 ``` java
-	Object objeto = classe.newInstance();
+  Object objeto = classe.newInstance();
 ```
 
 E como chamar o método `executa`? Repare que o tipo declarado do nosso objeto é `Object`.
@@ -287,17 +287,17 @@ Dessa forma, não podemos chamar o método `executa`. Uma primeira alternativa s
 novamente `if/else` para sabermos qual é a lógica que está sendo invocada, como abaixo:
 
 ``` java
-    String nomeDaClasse = "br.com.caelum.mvc." + 
-            request.getParameter("logica");
-    Class classe = Class.forName(nomeDaClasse);
+  String nomeDaClasse = "br.com.caelum.mvc." + 
+          request.getParameter("logica");
+  Class classe = Class.forName(nomeDaClasse);
 
-    Object objeto = classe.newInstance();
+  Object objeto = classe.newInstance();
 
-    if (nomeDaClasse.equals("br.com.caelum.mvc.AdicionaContato")) {
-        ((AdicionaContato) objeto).executa(request, response);
-    } else if (nomeDaClasse.equals("br.com.caelum.mvc.ListaContatos")) {
-        ((ListaContatos) objeto).executa(request, response);
-	} //e assim por diante
+  if (nomeDaClasse.equals("br.com.caelum.mvc.AdicionaContato")) {
+      ((AdicionaContato) objeto).executa(request, response);
+  } else if (nomeDaClasse.equals("br.com.caelum.mvc.ListaContatos")) {
+      ((ListaContatos) objeto).executa(request, response);
+  } //e assim por diante
 ```
 
 Mas estamos voltando para o `if/else` que estávamos fugindo no começo. Isso não é bom.
@@ -311,10 +311,10 @@ o contrato de `Logica` implementando uma interface de mesmo nome que declare o m
 `executa`:
 
 ``` java
-public interface Logica {
-    void executa(HttpServletRequest req, 
-            HttpServletResponse res)
-            throws Exception;
+  public interface Logica {
+      void executa(HttpServletRequest req, 
+              HttpServletResponse res)
+              throws Exception;
 }
 ```
 
@@ -323,23 +323,23 @@ polimórfica e, tudo aquilo que fazíamos em aproximadamente 8 linhas de código
 podemos fazer em apenas 2:
 
 ``` java
-	Logica logica = (Logica) classe.newInstance();
-	logica.executa(request, response);
+  Logica logica = (Logica) classe.newInstance();
+  logica.executa(request, response);
 ```
 
 Dessa forma, uma lógica simples para logar algo no console poderia ser equivalente a:
 
 ``` java
-public class PrimeiraLogica implements Logica {
-    public void executa(HttpServletRequest req,
-            HttpServletResponse res)
-            throws Exception {
-        System.out.println("Executando a logica e redirecionando...");
-        RequestDispatcher rd = req
-                .getRequestDispatcher("primeira-logica.jsp");
-        rd.forward(req, res);
-    }
-}
+  public class PrimeiraLogica implements Logica {
+      public void executa(HttpServletRequest req,
+              HttpServletResponse res)
+              throws Exception {
+          System.out.println("Executando a logica e redirecionando...");
+          RequestDispatcher rd = req
+                  .getRequestDispatcher("primeira-logica.jsp");
+          rd.forward(req, res);
+      }
+  }
 ```
 
 Alguém precisa controlar então que ação será executada para cada requisição, e que JSP será utilizado.
@@ -355,57 +355,57 @@ Começaríamos alterando a assinatura do método `executa` da interface `Logica`
 era `void` e agora retornará `String`:
 
 ``` java
-	public interface Logica {
-		String executa(HttpServletRequest req, HttpServletResponse res) 
-				throws Exception;
+  public interface Logica {
+    String executa(HttpServletRequest req, HttpServletResponse res) 
+        throws Exception;
 
-	}
+  }
 ```
 
 Depois faríamos as lógicas retornarem um `String` com o nome do **.jsp** que deve ser chamado
 ao final das suas execuções.
 
 ``` java
-	public class PrimeiraLogica implements Logica {
-	    public String executa(HttpServletRequest req,
-	            HttpServletResponse res)
-	            throws Exception {
-	        System.out.println("Executando a logica e redirecionando...");
-	        return "primeira-logica.jsp";
-	    }
-	}
+  public class PrimeiraLogica implements Logica {
+      public String executa(HttpServletRequest req,
+              HttpServletResponse res)
+              throws Exception {
+          System.out.println("Executando a logica e redirecionando...");
+          return "primeira-logica.jsp";
+      }
+  }
 ```
 
 Por fim, a servlet controladora deve receber esse `String` e implementar o código de
 `RequestDispatcher`:
 
 ``` java
-	@WebServlet("/sistema")
-	public class ControllerServlet extends HttpServlet {
+  @WebServlet("/sistema")
+  public class ControllerServlet extends HttpServlet {
 
-		protected void service(HttpServletRequest request,
-				HttpServletResponse response) 
-					throws ServletException, IOException {
+    protected void service(HttpServletRequest request,
+        HttpServletResponse response) 
+          throws ServletException, IOException {
 
-			String parametro = request.getParameter("logica");
-			String nomeDaClasse = "br.com.caelum.mvc.logica." + parametro;
+      String parametro = request.getParameter("logica");
+      String nomeDaClasse = "br.com.caelum.mvc.logica." + parametro;
 
-			try {
-				Class<?> classe = Class.forName(nomeDaClasse);
-				Logica logica = (Logica) classe.newInstance();
+      try {
+        Class<?> classe = Class.forName(nomeDaClasse);
+        Logica logica = (Logica) classe.newInstance();
 
-				// Recebe o String após a execução da lógica
-				String pagina = logica.executa(request, response);
+        // Recebe o String após a execução da lógica
+        String pagina = logica.executa(request, response);
 
-				// Faz o forward para a página JSP
-				request.getRequestDispatcher(pagina).forward(request, response);
+        // Faz o forward para a página JSP
+        request.getRequestDispatcher(pagina).forward(request, response);
 
-			} catch (Exception e) {
-				throw new ServletException(
-						"A lógica de negócios causou uma exceção", e);
-			}
-		}
-	}
+      } catch (Exception e) {
+        throw new ServletException(
+            "A lógica de negócios causou uma exceção", e);
+      }
+    }
+  }
 ```
 
 ## Retomando o _design pattern_ Factory
@@ -427,120 +427,120 @@ através de algum recurso diferente do construtor é uma **factory**.
 ## Exercícios: Criando nossas lógicas e a servlet de controle
 1. Crie a sua interface no pacote `br.com.caelum.mvc.logica`:
 
-	``` java
-            public interface Logica {
-                String executa(HttpServletRequest req,
-                        HttpServletResponse res) throws Exception;
-            }
-	```
+``` java
+  public interface Logica {
+      String executa(HttpServletRequest req,
+              HttpServletResponse res) throws Exception;
+  }
+```
 1. Crie uma implementação da interface `Logica`, nossa classe `PrimeiraLogica`, também
-	no pacote `br.com.caelum.mvc.logica`:
+  no pacote `br.com.caelum.mvc.logica`:
 
-	``` java
-            public class PrimeiraLogica implements Logica {
-                public String executa(HttpServletRequest req,
-                        HttpServletResponse res) throws Exception {
+``` java
+  public class PrimeiraLogica implements Logica {
+      public String executa(HttpServletRequest req,
+              HttpServletResponse res) throws Exception {
 
-                    System.out.println("Executando a logica ...");
+          System.out.println("Executando a logica ...");
 
-                    System.out.println("Retornando o nome da página JSP ...");
-					return "primeira-logica.jsp";
+          System.out.println("Retornando o nome da página JSP ...");
+return "primeira-logica.jsp";
 
-                }
-            }
-	```
+      }
+  }
+```
 1. Faça um arquivo JSP chamado `primeira-logica.jsp` dentro do diretório `WebContent`:
-	``` html
-			<html>
-				<body>
-					<h1> Página da nossa primeira lógica </h1>
-				</body>
-			</html>
-	```
+``` html
+  <html>
+    <body>
+      <h1> Página da nossa primeira lógica </h1>
+    </body>
+  </html>
+```
 1. Vamos escrever nossa Servlet que coordenará o fluxo da nossa aplicação.
 
-	Crie sua servlet chamada `ControllerServlet` no pacote `br.com.caelum.mvc.servlet`:
+  Crie sua servlet chamada `ControllerServlet` no pacote `br.com.caelum.mvc.servlet`:
 
-	``` java
-		@WebServlet("/mvc")
-        public class ControllerServlet extends HttpServlet {
-            protected void service(HttpServletRequest request,
-                    HttpServletResponse response) 
-                    throws ServletException, IOException {
+``` java
+  @WebServlet("/mvc")
+  public class ControllerServlet extends HttpServlet {
+      protected void service(HttpServletRequest request,
+              HttpServletResponse response) 
+              throws ServletException, IOException {
 
-                String parametro = request.getParameter("logica");
-                String nomeDaClasse = "br.com.caelum.mvc.logica." + parametro;
+          String parametro = request.getParameter("logica");
+          String nomeDaClasse = "br.com.caelum.mvc.logica." + parametro;
 
-                try {
-                    Class classe = Class.forName(nomeDaClasse);
+          try {
+              Class classe = Class.forName(nomeDaClasse);
 
-                    Logica logica = (Logica) classe.newInstance();
-                    String pagina = logica.executa(request, response);
+              Logica logica = (Logica) classe.newInstance();
+              String pagina = logica.executa(request, response);
 
-					request.getRequestDispatcher(pagina).forward(request, response);
+              request.getRequestDispatcher(pagina).forward(request, response);
 
-                } catch (Exception e) {
-                    throw new ServletException(
-                    	"A lógica de negócios causou uma exceção", e);
-                }
-            }
-        }
-	```
+          } catch (Exception e) {
+              throw new ServletException(
+                "A lógica de negócios causou uma exceção", e);
+          }
+      }
+  }
+```
 1. Teste a url http://localhost:8080/fj21-agenda/mvc?logica=PrimeiraLogica
 
-	![ {w=70%}](assets/imagens/mvc/primeiralogica.png)
+  ![ {w=70%}](assets/imagens/mvc/primeiralogica.png)
 
 
 ## Exercícios: Criando uma lógica para remover contatos
-1. Crie uma nova classe chamada `RemoveContatoLogic` no mesmo pacote
-	`br.com.caelum.mvc.logica`. Devemos implementar a interface `Logica` e
-	durante sua execução receberemos um `id` pelo _request_ e removeremos o
-	contato no banco a partir deste `id`.
+1. Crie uma nova classe chamada `RemoveContatoLogica` no mesmo pacote
+  `br.com.caelum.mvc.logica`. Devemos implementar a interface `Logica` e
+  durante sua execução receberemos um `id` pelo _request_ e removeremos o
+  contato no banco a partir deste `id`.
 
-	``` java
-			public class RemoveContatoLogic implements Logica {
+``` java
+  public class RemoveContatoLogica implements Logica {
 
-				public String executa(HttpServletRequest req, HttpServletResponse res)
-						throws Exception {
+    public String executa(HttpServletRequest req, HttpServletResponse res)
+        throws Exception {
 
-					long id = Long.parseLong(req.getParameter("id"));
+      long id = Long.parseLong(req.getParameter("id"));
 
-					Contato contato = new Contato();
-					contato.setId(id);
+      Contato contato = new Contato();
+      contato.setId(id);
 
-					ContatoDao dao = new ContatoDao();
-					dao.exclui(contato);
+      ContatoDao dao = new ContatoDao();
+      dao.exclui(contato);
 
-					System.out.println("Excluindo contato... ");
+      System.out.println("Excluindo contato... ");
 
-					return "lista-contatos.jsp";
-				}
+      return "lista-contatos.jsp";
+    }
 
-			}
-	```
+  }
+```
 1. Na página `lista-contatos.jsp`, vamos acrescentar uma coluna na tabela
-	que lista os contatos com um link chamando a lógica de remoção e passando o `id`
-	do contato:
+  que lista os contatos com um link chamando a lógica de remoção e passando o `id`
+  do contato:
 
-	``` html
-      <!-- código omitido -->
+``` html
+  <!-- código omitido -->
 
-      <c:forEach var="contato" items="${dao.lista}">
-        <tr>
-
-          <!-- código omitido -->
-
-          <td>
-            <a href="mvc?logica=RemoveContatoLogic&id=${contato.id}">Remover</a>
-          </td>
-        </tr>
-      </c:forEach>
+  <c:forEach var="contato" items="${dao.lista}">
+    <tr>
 
       <!-- código omitido -->
-	```
+
+      <td>
+        <a href="mvc?logica=RemoveContatoLogica&id=${contato.id}">Remover</a>
+      </td>
+    </tr>
+  </c:forEach>
+
+  <!-- código omitido -->
+```
 1. Teste a logica de remoção acessando
-	`http://localhost:8080/fj21-agenda/lista-contatos.jsp` e clicando
-	em algum link **Remover**.
+  http://localhost:8080/fj21-agenda/lista-contatos.jsp e clicando
+  em algum link **Remover**.
 
 
 ## Fazendo a lógica para listar os contatos
@@ -553,23 +553,23 @@ dos contatos funcionar estamos criando uma instância da classe `ContatoDao` par
 utilizá-la depois no `<c:forEach>` recuperando uma lista de contatos.
 
 ``` html
-		<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao" />
+  <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao" />
 
-		<table>
-			<c:forEach var="contato" items="${dao.lista}">
-				<tr>
-					<td>${contato.nome}</td>
-					<!-- código omitido -->
-				</tr>
-			</c:forEach>
-		</table>
+  <table>
+    <c:forEach var="contato" items="${dao.lista}">
+      <tr>
+        <td>${contato.nome}</td>
+        <!-- código omitido -->
+      </tr>
+    </c:forEach>
+  </table>
 ```
 
 Instanciar objetos da camada _Model_ na camada _View_ não é considerada uma boa
 prática na arquitetura MVC (_antipattern_).
 
 Podemos resolver facilmente isso tranferindo essa responsabilidade de montar a lista
-de contatos para uma lógica `ListaContatosLogic` e depois passá-la pronta direto para o
+de contatos para uma lógica `ListaContatosLogica` e depois passá-la pronta direto para o
 JSP pelo _request_.
 
 Para guardarmos algo na requisição, precisamos invocar o método `.setAttribute()` no
@@ -577,20 +577,20 @@ _request_. Passamos para esse método uma identificação para o objeto que esta
 guardando na requisição e também passamos o próprio objeto para ser guardado no _request_.
 
 ``` java
-		public class ListaContatosLogic implements Logica {
+  public class ListaContatosLogica implements Logica {
 
-			public String executa(HttpServletRequest req, HttpServletResponse res)
-						throws Exception {
+    public String executa(HttpServletRequest req, HttpServletResponse res)
+          throws Exception {
 
-					// Monta a lista de contatos
-					List<Contato> contatos = new ContatoDao().getLista();
+        // Monta a lista de contatos
+        List<Contato> contatos = new ContatoDao().getLista();
 
-					// Guarda a lista no request
-					req.setAttribute("contatos", contatos);
-	
-					return "lista-contatos.jsp";
-			}
-		}
+        // Guarda a lista no request
+        req.setAttribute("contatos", contatos);
+
+        return "lista-contatos.jsp";
+    }
+  }
 ```
 
 Agora é só ajustar a página `lista-contatos.jsp` para não instanciar mais o
@@ -599,63 +599,65 @@ Agora é só ajustar a página `lista-contatos.jsp` para não instanciar mais o
 fazer com que o `<c:forEach>` use a lista de contatos que foi colocada no _request_:
 
 ``` html
-		<c:forEach var="contato" items="${contatos}">
+  <c:forEach var="contato" items="${contatos}">
 ```
 
 ## Exercícios: Lógica para listar contatos
-1. Crie uma nova classe chamada `ListaContatosLogic` no mesmo pacote
-	`br.com.caelum.mvc.logica`. Devemos implementar nela a interface `Logica` e,
-	durante sua execução vamos criar uma lista de contatos através de uma instância
-	da classe `ContatoDao`, guardá-la no _request_ e retornar para a servlet
-	controladora:
+1. Crie uma nova classe chamada `ListaContatosLogica` no mesmo pacote
+  `br.com.caelum.mvc.logica`. Devemos implementar nela a interface `Logica` e,
+  durante sua execução vamos criar uma lista de contatos através de uma instância
+  da classe `ContatoDao`, guardá-la no _request_ e retornar para a servlet
+  controladora:
 
-	``` java
-			public class ListaContatosLogic implements Logica {
+``` java
+    public class ListaContatosLogica implements Logica {
 
-				public String executa(HttpServletRequest req, HttpServletResponse res)
-						throws Exception {
+      public String executa(HttpServletRequest req, HttpServletResponse res)
+          throws Exception {
 
-					List<Contato> contatos = new ContatoDao().getLista();
+        List<Contato> contatos = new ContatoDao().getLista();
 
-					req.setAttribute("contatos", contatos);
+        req.setAttribute("contatos", contatos);
 
-					return "lista-contatos.jsp";
-				}
-			}
-	```
+        return "lista-contatos.jsp";
+      }
+    }
+```
+
 1. Agora, vamos modificar a página `lista-contatos.jsp` para não instanciar
-	mais `ContatoDao` na _View_, removendo a linha
-	`<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao" />`, e alterar
-	o `<c:forEach>` para usar a lista de contatos que foi colocada pela lógica no
-	_request_ ao invés de `${dao.lista}`:
+  mais `ContatoDao` na _View_, removendo a linha
+  `<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao" />`, e alterar
+  o `<c:forEach>` para usar a lista de contatos que foi colocada pela lógica no
+  _request_ ao invés de `${dao.lista}`:
 
-	``` java
-			<c:forEach var="contato" items="${contatos}">
-	```
+``` java
+  <c:forEach var="contato" items="${contatos}">
+```
+
 1. Agora podemos testar chamando:
-	`http://localhost:8080/fj21-agenda/mvc?logica=ListaContatosLogic`
+  `http://localhost:8080/fj21-agenda/mvc?logica=ListaContatosLogica`
 1. Depois dessas alterações, será necessário alterar o retorno da classe
-	`RemoveContatoLogic` pois agora a chamada direta do
-	`lista-contatos.jsp` não é mais possível. Devemos agora chamar
-	a lógica que lista os contatos:
+  `RemoveContatoLogica` pois agora a chamada direta do
+  `lista-contatos.jsp` não é mais possível. Devemos agora chamar
+  a lógica que lista os contatos:
 
-	``` java
-			public class RemoveContatoLogic implements Logica {
+``` java
+  public class RemoveContatoLogica implements Logica {
 
-				public String executa(HttpServletRequest req, HttpServletResponse res)
-						throws Exception {
+    public String executa(HttpServletRequest req, HttpServletResponse res)
+        throws Exception {
 
-					// código omitido
+      // código omitido
 
-					return "mvc?logica=ListaContatosLogic";
-				}
+      return "mvc?logica=ListaContatosLogica";
+    }
 
-			}
-	```
+  }
+```
 
 
 ## Escondendo nossas páginas
-Como alteramos nossa listagem para ser acessada pela lógica `ListaContatosLogic`,
+Como alteramos nossa listagem para ser acessada pela lógica `ListaContatosLogica`,
 se acessarmos a jsp `lista-contatos.jsp` diretamente pelo navegador, a página não
 mostrará nenhum contato. Precisamos então sempre passar pela lógica, que por sua vez
 disponibilizará a listagem para a página.
@@ -670,17 +672,17 @@ nossas páginas diretamente, e sim passando sempre por uma lógica.
 Nossa lógica de listagem ficará da seguinte forma:
 
 ``` java
-      public class ListaContatosLogic implements Logica {
+  public class ListaContatosLogica implements Logica {
 
-				public String executa(HttpServletRequest req, HttpServletResponse res)
-						throws Exception {
+    public String executa(HttpServletRequest req, HttpServletResponse res)
+        throws Exception {
 
-					List<Contato> contatos = new ContatoDao().getLista();
+      List<Contato> contatos = new ContatoDao().getLista();
 
-					req.setAttribute("contatos", contatos);
+      req.setAttribute("contatos", contatos);
 
-					return "/WEB-INF/jsp/lista-contatos.jsp";
-      }
+      return "/WEB-INF/jsp/lista-contatos.jsp";
+  }
 ```
 
 Além disso, se quisermos aplicar este mesmo conceito para as demais jsps,
@@ -688,20 +690,20 @@ precisaremos alterar as demais lógicas correspondentes acrescentando o diretór
 `WEB-INF/jsp` antes do nome da página.
 
 ## Exercícios opcionais
-1. Crie uma lógica chamada `AlteraContatoLogic` e teste a mesma através de um link na listagem
-	da `lista-contatos.jsp`. Lembre-se, antes de chamar essa lógica é preciso criar
-	uma outra lógica que mostre os dados do contato em uma nova página, permitindo assim a alteração
-	dos dados, e só depois, no clique de um botão, que a alteração será de fato efetivada.
-1. Crie a lógica de adicionar contatos (`AdicionaContatoLogic`). Repare que ela é bem parecida com a
-	`AlteraContatoLogic`. Crie um formulário de adição de novo contato.
-	Coloque um link para adicionar novos contatos dentro do `lista-contatos.jsp`.
+1. Crie uma lógica chamada `AlteraContatoLogica` e teste a mesma através de um link na listagem
+  da `lista-contatos.jsp`. Lembre-se, antes de chamar essa lógica é preciso criar
+  uma outra lógica que mostre os dados do contato em uma nova página, permitindo assim a alteração
+  dos dados, e só depois, no clique de um botão, que a alteração será de fato efetivada.
+1. Crie a lógica de adicionar contatos (`AdicionaContatoLogica`). Repare que ela é bem parecida com a
+  `AlteraContatoLogica`. Crie um formulário de adição de novo contato.
+  Coloque um link para adicionar novos contatos dentro do `lista-contatos.jsp`.
 1. **Desafio**: As lógicas de adição e de alteração ficaram muito parecidas. Tente criar uma versão de uma
-	dessas lógicas que faça as duas. Dica: A única diferença entre as duas é a presença ou não
-	do parâmetro Id.
+  dessas lógicas que faça as duas. Dica: A única diferença entre as duas é a presença ou não
+  do parâmetro Id.
 1. **Desafio**: Altere seu projeto para que nenhuma jsp seja acessível diretamente,
-	colocando-as no diretório **WEB-INF/jsp**. Modifique também suas lógicas de acordo.
-	OBS: Deverá ser criada uma nova lógica para a visualização do formulário de adição
-	de contatos.
+  colocando-as no diretório **WEB-INF/jsp**. Modifique também suas lógicas de acordo.
+  OBS: Deverá ser criada uma nova lógica para a visualização do formulário de adição
+  de contatos.
 
 
 ## Model View Controller

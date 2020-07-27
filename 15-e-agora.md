@@ -11,14 +11,8 @@ Mas e agora, para onde direcionar seus estudos e sua carreira?
 Os próximos capítulos da apostila são apêndices extras para expandir seu estudo em algumas
 áreas que podem ser de seu interesse:
 
-
 * **JPA e Spring** - Mostra como integrar JPA com Spring para utilizar JPA na camada de
 persistência no projeto fj21-tarefas.
-
-* **Servlets 3.0 e Java EE 6** - Mostra as últimas novidades do Java EE 6 na parte de Web
-lançadas em dezembro de 2009. É ainda uma versão muito recente que o mercado não adota
-e poucos servidores suportam. Mas é bom estar atualizado com as próximas novidades que
-se tornarão realidade no mercado em pouco tempo.
 
 * **Tópicos da Servlet API** - Aborda vários tópicos sobre Servlets e JSPs que não abordamos
 antes. São detalhes a mais e alguns recursos mais avançados. É interessante para expandir

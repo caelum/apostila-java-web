@@ -20,25 +20,25 @@ maneira bem mais simples do que sem ele
 
 
 1. Vá em **New** > **Project** e selecione **Dynamic Web Project** e clique **Next**:
-	![ {w=70%}](assets/imagens/novo-projeto/new-project-1.png)
+  ![ {w=70%}](assets/imagens/novo-projeto/new-project-1.png)
 1. Coloque o nome do projeto como **fj21-agenda**, verifique se o _Target runtime_ está apontando
-	para a versão do Tomcat que acabamos de configurar e se o _Dynamic web module version_ está
-	configurado para **3.0**. Depois clique **Next**. **ATENÇÃO: NÃO CLIQUE EM _Finish_ AINDA!!!**
-	![ {w=70%}](assets/imagens/novo-projeto/new-project-2.png)
+  para a versão do Tomcat que acabamos de configurar e se o _Dynamic web module version_ está
+  configurado para **3.0**. Depois clique **Next**. **ATENÇÃO: NÃO CLIQUE EM _Finish_ AINDA!!!**
+  ![ {w=70%}](assets/imagens/novo-projeto/new-project-2.png)
 1. Clique em **Next** na configuração das pastas:
-	![ {w=65%}](assets/imagens/novo-projeto/new-project-3.png)
+  ![ {w=65%}](assets/imagens/novo-projeto/new-project-3.png)
 1. Na configuração _Web module_ marque o box **Generate web.xml deployment descriptor** e clique
-	em **Finish**:
-	![ {w=70%}](assets/imagens/novo-projeto/new-project-4.png)
+  em **Finish**:
+  ![ {w=70%}](assets/imagens/novo-projeto/new-project-4.png)
 1. Se for perguntado sobre a mudança para a perspectiva Java EE, selecione **Não**.
-	![ {w=60%}](assets/imagens/novo-projeto/new-project-5.png)
+  ![ {w=60%}](assets/imagens/novo-projeto/new-project-5.png)
 1. O último passo é configurar o projeto para rodar no Tomcat que configuramos. Na aba **Servers**,
-	clique com o botão direito no Tomcat e vá em **Add and Remove...**:
-	![ {w=65%}](assets/imagens/novo-projeto/add-remove-projects.png)
+  clique com o botão direito no Tomcat e vá em **Add and Remove...**:
+  ![ {w=65%}](assets/imagens/novo-projeto/add-remove-projects.png)
 1. Basta selecionar o nosso projeto fj21-agenda e clicar em **Add**:
-	![ {w=55%}](assets/imagens/novo-projeto/add-agenda.png)
+  ![ {w=55%}](assets/imagens/novo-projeto/add-agenda.png)
 1. Dê uma olhada nas pastas que foram criadas e na estrutura do nosso projeto nesse instante.
-	Vamos analisá-la em detalhes.
+  Vamos analisá-la em detalhes.
 
 
 ## Análise do resultado final
@@ -103,25 +103,25 @@ arquivo em breve.
 Por enquanto, abra-o e veja sua estrutura, até então bem simples:
 
 ``` xml
-		<?xml version="1.0" encoding="UTF-8"?>
-		<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-				xmlns="http://java.sun.com/xml/ns/javaee" 
-				xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
-				xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-					http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
-				id="WebApp_ID" version="2.5">
+  <?xml version="1.0" encoding="UTF-8"?>
+  <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns="http://java.sun.com/xml/ns/javaee" 
+      xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+      id="WebApp_ID" version="2.5">
 
-			<display-name>fj21-agenda</display-name>
+    <display-name>fj21-agenda</display-name>
 
-			<welcome-file-list>
-		    	<welcome-file>index.html</welcome-file>
-		    	<welcome-file>index.htm</welcome-file>
-		    	<welcome-file>index.jsp</welcome-file>
-		    	<welcome-file>default.html</welcome-file>
-		    	<welcome-file>default.htm</welcome-file>
-		    	<welcome-file>default.jsp</welcome-file>
-			</welcome-file-list>
-		</web-app>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+  </web-app>
 ```
 
 É o básico gerado pelo próprio Eclipse. Tudo o que ele faz é definir o nome da aplicação e a lista de arquivos
@@ -200,45 +200,45 @@ código num arquivo .html ficará dentro de `<html>` e `</html>`. Além disso, p
 definir alguns dados de cabeçalhos para nossa página, como por exemplo, o título que será colocado
 na janela do navegador, através das tags `<head>` e `<title>`:
 
-``` xml
-	<html>
-		<head>
-			<title>Título que vai aparecer no navegador</title>
-		</head>
-	</html>
+``` html
+  <html>
+    <head>
+      <title>Título que vai aparecer no navegador</title>
+    </head>
+  </html>
 ```
 
 Para escrevermos algo que seja exibido dentro do navegador, no corpo da nossa página, basta colocarmos
 a tag `<body>` dentro de `<html>`, como a seguir:
 
-``` xml
-	<html>
-		<body>
-			Texto que vai aparecer no corpo da página
-		</body>
-	</html>
+``` html
+  <html>
+    <body>
+      Texto que vai aparecer no corpo da página
+    </body>
+  </html>
 ```
 
 ## Exercícios: primeira página
 Vamos testar nossas configurações criando um arquivo HTML de teste.
 1. Crie o arquivo **WebContent/index.html** com o seguinte conteúdo:
 
-	``` xml
-			<html>
-				<head>
-					<title>Projeto fj21-agenda</title>
-				</head>
-				<body>
-					<h1>Primeira página do projeto fj21-agenda</h1>
-				</body>
-			</html>
-	```
+``` html
+  <html>
+    <head>
+      <title>Projeto fj21-agenda</title>
+    </head>
+    <body>
+      <h1>Primeira página do projeto fj21-agenda</h1>
+    </body>
+  </html>
+```
 1. Inicie (ou reinicie) o Tomcat clicando no botão de _play_ na aba Servers.
 1. Acesse pelo navegador (nas máquinas da caelum existe um Firefox instalado):
-	http://localhost:8080/fj21-agenda/index.html
+  http://localhost:8080/fj21-agenda/index.html
 
-	Teste também a configuração do **welcome-file** no `web.xml`:
-	http://localhost:8080/fj21-agenda/
+  Teste também a configuração do **welcome-file** no `web.xml`:
+  http://localhost:8080/fj21-agenda/
 
 
 ## Para saber mais: configurando o Tomcat sem o plugin

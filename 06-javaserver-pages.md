@@ -26,11 +26,11 @@ Essa tecnologia é o **JavaServer Pages** (JSP). O primeiro arquivo JSP que vamo
 **bemvindo.jsp**. Esse arquivo poderia conter  simplesmente código HTML, como o código a seguir:
 
 ``` html
-	<html>
-		<body>
-			Bem vindo
-		</body>		
-	</html>
+  <html>
+    <body>
+      Bem vindo
+    </body>  
+  </html>
 ```
 
 
@@ -45,9 +45,9 @@ Portanto, vamos escrever um pouco de código Java na nossa primeira página. Vam
 variável do tipo `String` e inicializá-la com algum valor.
 
 ``` html
-	<%
-	String mensagem = "Bem vindo!";
-	%>
+  <%
+    String mensagem = "Bem vindo!";
+  %>
 ```
 
 
@@ -70,7 +70,7 @@ arquivo JSP já possui uma variável chamada `out` (do tipo `JspWriter`) que per
 para o `response` através do método `println`:
 
 ``` html
-	<% out.println(nome); %>
+  <% out.println(nome); %>
 ```
 
 A variável `out` é um objeto implícito na nossa página JSP e existem outras de acordo com a
@@ -81,7 +81,7 @@ Existem ainda outras possibilidades para imprimir o conteúdo da nossa variável
 atalho (muito parecido, ou igual, a outras linguagens de _script_ para a Web):
 
 ``` html
-	<%= nome %><br />
+  <%= nome %><br/>
 ```
 
 
@@ -92,7 +92,7 @@ Isso já é o suficiente para que possamos escrever o nosso primeiro JSP.
 >
 > Os comentários em uma página JSP devem ser feitos como o exemplo a seguir:
 > ``` html
-> 		<%-- comentário em jsp --%>
+>   <%-- comentário em jsp --%>
 > ```
 
 
@@ -101,42 +101,42 @@ Isso já é o suficiente para que possamos escrever o nosso primeiro JSP.
 ## Exercícios: Primeiro JSP
 1. Crie o arquivo **WebContent/bemvindo.jsp** com o seguinte conteúdo:
 
-	``` html
-			<html>
-				<body>
-					<%-- comentário em JSP aqui: nossa primeira página JSP --%>
+``` html
+  <html>
+    <body>
+      <%-- comentário em JSP aqui: nossa primeira página JSP --%>
 
-					<%
-						String mensagem = "Bem vindo ao sistema de agenda do FJ-21!";
-					%>
-					<% out.println(mensagem); %>
+      <%
+        String mensagem = "Bem vindo ao sistema de agenda do FJ-21!";
+      %>
+      <% out.println(mensagem); %>
 
-					<br />
+      <br/>
 
-					<%
-						String desenvolvido = "Desenvolvido por (SEU NOME AQUI)";
-					%>				
-					<%= desenvolvido %>
+      <%
+        String desenvolvido = "Desenvolvido por (SEU NOME AQUI)";
+      %>
+      <%= desenvolvido %>
 
-					<br />
+      <br/>
 
-					<%
-						System.out.println("Tudo foi executado!");
-					%>
-				</body>
-			</html>
-	```
+      <%
+        System.out.println("Tudo foi executado!");
+      %>
+    </body>
+  </html>
+```
 1. Acesse a URL http://localhost:8080/fj21-agenda/bemvindo.jsp no navegador
 
-	![ {w=60%}](assets/imagens/jsp/bemvindo.png)
+  ![ {w=60%}](assets/imagens/jsp/bemvindo.png)
 1. Onde apareceu a mensagem "Tudo foi executado!"?
 
-	É **muito importante** você se lembrar que o código Java é interpretado no servidor,
-	portanto apareceu no console do seu Tomcat.
+  É **muito importante** você se lembrar que o código Java é interpretado no servidor,
+  portanto apareceu no console do seu Tomcat.
 
-	Verifique o console do seu Tomcat.
+  Verifique o console do seu Tomcat.
 
-	![ {w=90}](assets/imagens/jsp/console-tomcat.png)
+  ![ {w=90}](assets/imagens/jsp/console-tomcat.png)
 
 
 
@@ -151,18 +151,18 @@ Basicamente, o código utilizará o `ContatoDao` que criamos anteriormente para 
 `Contato`:
 
 ``` html
-	<%
-	ContatoDao dao = new ContatoDao();
-	List<Contato> contatos = dao.getLista();
-	
-	for (Contato contato : contatos ) {
-	%>
-		<li><%=contato.getNome()%>, <%=contato.getEmail()%>:
-			<%=contato.getEndereco()%></li>
-	
-	<%
-	}
-	%>
+  <%
+  ContatoDao dao = new ContatoDao();
+  List<Contato> contatos = dao.getLista();
+  
+  for (Contato contato : contatos ) {
+  %>
+    <li><%=contato.getNome()%>, <%=contato.getEmail()%>:
+      <%=contato.getEndereco()%></li>
+  
+  <%
+  }
+  %>
 ```
 
 Nesse código ainda falta, assim como no Java puro, importar as classes dos pacotes corretos.
@@ -178,7 +178,7 @@ Para isso, utilizamos ` <%@ page %>`. Basta dizermos qual configuração queremo
 nessa página, que no nosso caso é importar uma classe para utilizá-la:
 
 ``` html
-	<%@ page import="br.com.caelum.agenda.dao.ContatoDao" %>
+  <%@ page import="br.com.caelum.agenda.dao.ContatoDao" %>
 ```
 
 O atributo `import` permite que seja especificado qual o pacote a ser importado. Para importar
@@ -187,45 +187,45 @@ diversos pacotes, podemos separá-los por vírgulas (vide o exercício).
 ## Exercícios opcionais: Lista de contatos com scriptlet
 1. Crie o arquivo **WebContent/lista-contatos-scriptlet.jsp** e siga:
 
-	* Importe os pacotes necessários. Use o Ctrl+Espaço do Eclipse para ajudar a escrever os pacotes.
+  * Importe os pacotes necessários. Use o Ctrl+Espaço do Eclipse para ajudar a escrever os pacotes.
 
-	``` html
-                <%@ page import="java.util.*,
-                        br.com.caelum.agenda.dao.*,
-                        br.com.caelum.agenda.modelo.*" %>
-	```
+``` html
+  <%@ page import="java.util.*,
+          br.com.caelum.agenda.dao.*,
+          br.com.caelum.agenda.modelo.*" %>
+```
 
-	* Coloque o código para fazer a listagem. Use bastante o Ctrl+Espaço do Eclipse.
+  * Coloque o código para fazer a listagem. Use bastante o Ctrl+Espaço do Eclipse.
 
-	``` html
-				<html>
-					<body>
-						<table>
-							<%
-							ContatoDao dao = new ContatoDao();
-							List<Contato> contatos = dao.getLista();
+  ``` html
+  <html>
+    <body>
+      <table>
+        <%
+          ContatoDao dao = new ContatoDao();
+          List<Contato> contatos = dao.getLista();
 
-							for (Contato contato : contatos ) {
-							%>
-								<tr>
-									<td><%=contato.getNome() %></td> 
-									<td><%=contato.getEmail() %></td>
-									<td><%=contato.getEndereco() %></td>
-									<td><%=contato.getDataNascimento().getTime() %></td>
-								</tr>
-							<%
-							}
-							%>
-						</table>
-					</body>
-				</html>
-	```
+          for (Contato contato : contatos ) {
+        %>
+          <tr>
+            <td><%=contato.getNome() %></td> 
+            <td><%=contato.getEmail() %></td>
+            <td><%=contato.getEndereco() %></td>
+            <td><%=contato.getDataNascimento().getTime() %></td>
+          </tr>
+        <%
+          }
+        %>
+      </table>
+    </body>
+  </html>
+  ```
 
-	* Teste a url http://localhost:8080/fj21-agenda/lista-contatos-scriptlet.jsp
+  * Teste a url http://localhost:8080/fj21-agenda/lista-contatos-scriptlet.jsp
 1. Repare que a data apareceu de uma forma complicada de ler. Tente mostrá-la
-	formatada utilizando a classe `SimpleDateFormat`.
+  formatada utilizando a classe `SimpleDateFormat`.
 1. Coloque cabeçalhos para as colunas da tabela, descrevendo o que cada
-	coluna significa.
+  coluna significa.
 1. Tente utilizar o quadro a seguir para definir a página padrão de seu site.
 
 
@@ -240,13 +240,14 @@ diversos pacotes, podemos separá-los por vírgulas (vide o exercício).
 > indicar mais de um arquivo para ser o seu welcome-file! Mude-o para:
 >
 > ``` xml
-> 		<welcome-file-list>
-> 			<welcome-file>bemvindo.jsp</welcome-file>
-> 		</welcome-file-list>
+>   <welcome-file-list>
+>     <welcome-file>bemvindo.jsp</welcome-file>
+>   </welcome-file-list>
 > ```
 >
 > Reinicie o tomcat e acesse a URL:
 > http://localhost:8080/fj21-agenda/
+> 
 
 
 
@@ -296,30 +297,30 @@ e será explorada novamente durante os capítulos posteriores.
 ## Exercícios: parâmetros com a Expression Language
 1. Crie uma página chamada **WebContent/digita-idade.jsp** com o conteúdo:
 
-	``` html
-			<html>
-				<body>
-					Digite sua idade e pressione o botão:<br />
+``` html
+  <html>
+    <body>
+      Digite sua idade e pressione o botão:<br />
 
-					<form action="mostra-idade.jsp">
-						Idade: <input type="text" name="idade"/> <input type="submit"/>
-					</form>
-				</body>
-			</html>
-	```
+      <form action="mostra-idade.jsp">
+        Idade: <input type="text" name="idade"/> <input type="submit"/>
+      </form>
+    </body>
+  </html>
+```
 1. Crie um arquivo chamado **WebContent/mostra-idade.jsp** e coloque o código de expression language que
-	mostra a idade que foi enviada como parâmetro para essa página:
+  mostra a idade que foi enviada como parâmetro para essa página:
 
-	``` html
-			<html>
-				<body>
-					Testando seus parâmetros:<br />
-					A idade é ${param.idade}.
-				</body>
-			</html>
-	```
+``` html
+  <html>
+    <body>
+      Testando seus parâmetros:<br />
+      A idade é ${param.idade}.
+    </body>
+  </html>
+  ```
 1. Teste o sistema acessando a página http://localhost:8080/fj21-agenda/digita-idade.jsp.
-	![ {w=80%}](assets/imagens/jsp/testando-parametros.png)
+  ![ {w=80%}](assets/imagens/jsp/testando-parametros.png)
 
 
 ## Para saber mais: Compilando os arquivos JSP
