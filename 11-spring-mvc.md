@@ -153,7 +153,7 @@ uma classe especial que recebe o nome da pasta dos JSPs e a extensão dos arquiv
 pasta `/WEB-INF/views/`:
 
 ``` xml
-  <bean 
+  <bean
       class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/views/"/>
       <property name="suffix" value=".jsp"/>
@@ -613,7 +613,7 @@ Vamos criar o formulário e nossa ação para fazer a gravação das tarefas.
 ```
 
 (Dica: todo código usado para crição da estrutura do banco de dados encontra-se no arquivo
- `criacao-tableas.sql` na pasta **21/projeto-tarefas/mysql**)
+ `criacao-tabelas.sql` na pasta **21/projeto-tarefas/mysql**)
 
 
 ## Incluindo validação no cadastro de tarefas
@@ -776,7 +776,7 @@ ou _messages.properties_.
 Na pasta _WEB-INF_ do projeto podemos então criar este arquivo com o seguinte conteúdo:
 
 ```
-tarefa.adicionada.com.sucesso=Tarefa adicionada com sucesso! 
+tarefa.adicionada.com.sucesso=Tarefa adicionada com sucesso!
 ...
 ```
 
@@ -888,8 +888,7 @@ dentro das anotações também pelo atributo `message`:
   <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 ```
 
-  Dentro do HTML adicione a tag **form:errors** acima do tag _form_. Adicione
-  apenas o tag _form:errors_:
+  Dentro do HTML adicione apenas tag **form:errors** acima do tag _form_:
 
 ``` html
   <form:errors path="tarefa.descricao"/>
@@ -1166,7 +1165,7 @@ Para fazer um redirecionamento no lado do cliente usamos o prefixo _redirect_:
 
         Descrição:<br />
         <textarea name="descricao" cols="100" rows="5">
-          <!-- {tarefa.descricao} -->
+          ${tarefa.descricao}
         </textarea>
         <br />
 
@@ -1212,10 +1211,11 @@ Para fazer um redirecionamento no lado do cliente usamos o prefixo _redirect_:
 
 
 ## Desafio - Calendário
+
+
+
 1. Adicione o campo com calendário que fizemos no capítulo de criação de Tags
   em nosso projeto e utilize-o no formulário de alteração.
-
-  
 
 
 
@@ -1603,7 +1603,7 @@ alteração na JSP se faz necessária.
   <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
 ```
 
-Uma alteração no nome do aquivo `dataFinalizada.jsp` seria mais do que recomendada,
+Uma alteração no nome do arquivo `dataFinalizada.jsp` seria mais do que recomendada,
 já que agora não possui apenas uma data e sim todas as alterações de uma `<tr>`.
 Vamos renomeá-lo para `finalizada.jsp`. Sem esquecer de modificar o retorno da action
 de _tarefa/dataFinalizada_ para _tarefa/finalizada_:
@@ -1704,8 +1704,8 @@ gostaria de encontrar.
   um identificador de cada linha, ou seja, elemento <tr> da tabela.
   De maneira análoga ao que foi feito no exercício anterior vamos concatenar
   com o `id` da tarefa um valor de `tarefa_`. Lembre-se de remover os ids
-  dos outros <td>'s já que eles não serão necessários e podem estar com o mesmo
-  nome do identificador da <tr>.
+  dos outros < td >'s já que eles não serão necessários e podem estar com o mesmo
+  nome do identificador da < tr >.
 
 ``` html
   ....
@@ -1752,4 +1752,3 @@ gostaria de encontrar.
 1. Reinicie o servidor e verifique que agora ao clicar no link `Finalizar` o usuário
   tem a alteração tanto de _Não Finalizada_ para _Finalizada_ quando uma mudança
   na data de finalização.
-

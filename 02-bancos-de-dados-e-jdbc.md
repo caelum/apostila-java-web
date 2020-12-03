@@ -131,7 +131,7 @@ Ao testar o código acima, recebemos uma exception. A conexão não pôde ser ab
 Recebemos a mensagem:
 
 ```
-java.sql.SQLException: No suitable driver found for 
+java.sql.SQLException: No suitable driver found for
     jdbc:mysql://localhost/fj21
 ```
 
@@ -290,7 +290,7 @@ construção (fabricação) de objetos complicados.
   * Aceite a mudança de perspectiva:
 
   ![ {w=70%}](assets/imagens/jdbc/newProject4.png)
-2. 
+2.
   Copie o driver do `MySQL` para o seu projeto.
 
   * no seu Desktop, clique no atalho **Atalho para arquivos do cursos**;
@@ -323,7 +323,7 @@ construção (fabricação) de objetos complicados.
       }
   }
 ```
-1. Crie uma classe chamada `TestaConexao` no pacote `br.com.caelum.jdbc.teste`.
+4. Crie uma classe chamada `TestaConexao` no pacote `br.com.caelum.jdbc.teste`.
   Todas as nossas classes de teste deverão ficar nesse pacote.
 
   * Crie um método `main` dentro da classe. Use o atalho do Eclipse para ajudar.
@@ -339,7 +339,7 @@ construção (fabricação) de objetos complicados.
 
   * Trate os erros com throws. ( Use: Ctrl + 1 e escolha "`add throws declaration`").
 
-1. Antes de testar a conexão com o banco de dados através da classe `TestaConexao`, verifique se o banco de dados `fj21` existe.
+5. Antes de testar a conexão com o banco de dados através da classe `TestaConexao`, verifique se o banco de dados `fj21` existe.
 
    * Abra o terminal e digite:
 
@@ -355,14 +355,14 @@ construção (fabricação) de objetos complicados.
 ``` sql
   show databases;
 ```
-  
+
   Se ele não existir, crie com o comando:
 
 ``` sql
   create database fj21;
 ```
 
-2. Rode a sua classe `TestaConexao` pelo Eclipse.
+6. Rode a sua classe `TestaConexao` pelo Eclipse.
 
   * Clique da direita na sua classe `TestaConexao`
 
@@ -432,8 +432,7 @@ uma das maiores confusões feitas aí fora é entre Javabeans e Enterprise Java 
 
 
 Javabeans são classes que possuem o construtor sem argumentos e métodos de acesso do tipo `get` e
-`set`! Mais nada! Simples, não? Já os EJBs costumam ser javabeans com características mais avançadas e são
-o assunto principal do curso FJ-31  da Caelum.
+`set`! Mais nada! Simples, não? Já os EJBs costumam ser javabeans com características mais avançadas.
 
 Podemos usar _beans_ em diversas situações, como em classes que representam nosso modelo de dados.
 
@@ -509,10 +508,6 @@ http://docs.oracle.com/javase/tutorial/javabeans/
 
 
 
-
-Se você quer saber mais sobre Enterprise Java Beans (EJB), a Caelum oferece o curso FJ-31. Não os
-confunda com Java Beans!
-
 ## Inserindo dados no banco
 
 
@@ -525,7 +520,7 @@ Primeiro o código SQL:
 ``` java
   String sql = "insert into contatos " +
           "(nome,email,endereco, dataNascimento)" +
-          " values ('" + nome + "', '" + email + "', '" + 
+          " values ('" + nome + "', '" + email + "', '" +
           endereco + "', '"+ dataNascimento +"')";
 ```
 
@@ -654,7 +649,7 @@ dados. O comum é fechar a conexão em um bloco `finally`:
           Connection con = null;
       try {
               con = new ConnectionFactory().getConnection();
-  
+
         // faz um monte de operações.
         // que podem lançar exceptions runtime e SQLException
       } catch(SQLException e) {
@@ -1138,18 +1133,18 @@ interessante, uma lista de `Contato`:
       System.out.println("Nome: " + contato.getNome());
       System.out.println("Email: " + contato.getEmail());
       System.out.println("Endereço: " + contato.getEndereco());
-      System.out.println("Data de Nascimento: " + 
+      System.out.println("Data de Nascimento: " +
                   contato.getDataNascimento().getTime() + "\n");
   }
 ```
 
-1. Rode o programa anterior clicando em **Run** > **Run as** > **Java Application** (aproveite para aprender a tecla de atalho para executar a aplicação).
+1. Rode o programa acima clicando em **Run** > **Run as** > **Java Application** (aproveite para aprender a tecla de atalho para executar a aplicação).
 
 
 ## Um pouco mais...
 
 
-* Assim como o MySQL existem outros bancos de dados gratuitos e __opensource__ na internet. O HSQLDB
+* Assim como o MySQL existem outros bancos de dados gratuitos e __opensource__ na internet. O H2
 é um banco desenvolvido em Java que pode ser acoplado a qualquer aplicação e libera o cliente da
 necessidade de baixar qualquer banco de dados antes da instalação de um produto Java!
 

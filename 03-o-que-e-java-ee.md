@@ -198,7 +198,7 @@ Para preparar o Tomcat na Caelum, siga os seguintes passos:
 1. Clique em **Extract**;
 1. Escolha o seu **Desktop** e clique em extract;
 	![ {w=65}](assets/imagens/servlet-container/extract-desktop.png)
-1. O resultado é uma pasta chamada **apache-tomcat-7.x**. Pronto, o tomcat já está instalado.
+1. O resultado é uma pasta chamada **apache-tomcat-9.x**. Pronto, o tomcat já está instalado.
 	![ {w=30}](assets/imagens/servlet-container/home-usuario.png)
 
 
@@ -226,7 +226,7 @@ Entre no diretório de instalação, de permissão de execução a todos os scri
 
 ```
 
-Para para parar o servidor utilize o script `shutdown.sh`:
+Para parar o servidor utilize o script `shutdown.sh`:
 
 ```
 	cd apache-tomcat<TAB>/bin
@@ -245,8 +245,8 @@ Tudo o que vamos desenvolver neste curso funciona em qualquer ambiente compatív
 Edition, seja o Linux, Windows ou Mac OS.
 
 ## Outra opção: Jetty
-O Jetty é uma outra implementação criada pela MortBay (http://jetty.mortbay.org) de Servlet Container e
-HTTP Server.
+O Jetty é uma outra implementação criada pela MortBay (https://www.eclipse.org/jetty/) de Servlet Container e
+HTTP Server. Em 2009 passou a ser hospedado na fundação Eclipse.
 
 
 
@@ -265,7 +265,7 @@ servlets do Java EE. Uma dessas implementações pioneiras foi do uso dos chamad
 que permitiram uma performance melhor para o uso de AJAX.
 
 O GUJ.com.br roda com o Jetty, em uma instalação customizada que pode ser lida aqui:
-http://blog.caelum.com.br/2008/06/27/melhorando-o-guj-jetty-nio-e-load-balancing/
+https://blog.caelum.com.br/melhorando-o-guj-jetty-nio-e-load-balancing/amp/
 
 ## Integrando o Tomcat no Eclipse
 

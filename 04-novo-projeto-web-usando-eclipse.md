@@ -23,7 +23,7 @@ maneira bem mais simples do que sem ele
   ![ {w=70%}](assets/imagens/novo-projeto/new-project-1.png)
 1. Coloque o nome do projeto como **fj21-agenda**, verifique se o _Target runtime_ está apontando
   para a versão do Tomcat que acabamos de configurar e se o _Dynamic web module version_ está
-  configurado para **3.0**. Depois clique **Next**. **ATENÇÃO: NÃO CLIQUE EM _Finish_ AINDA!!!**
+  configurado para **4.0**. Depois clique **Next**. **ATENÇÃO: NÃO CLIQUE EM _Finish_ AINDA!!!**
   ![ {w=70%}](assets/imagens/novo-projeto/new-project-2.png)
 1. Clique em **Next** na configuração das pastas:
   ![ {w=65%}](assets/imagens/novo-projeto/new-project-3.png)
@@ -104,11 +104,11 @@ Por enquanto, abra-o e veja sua estrutura, até então bem simples:
 
 ``` xml
   <?xml version="1.0" encoding="UTF-8"?>
-  <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-      xmlns="http://java.sun.com/xml/ns/javaee" 
-      xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
-      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+  <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
       id="WebApp_ID" version="2.5">
 
     <display-name>fj21-agenda</display-name>
@@ -223,22 +223,26 @@ a tag `<body>` dentro de `<html>`, como a seguir:
 Vamos testar nossas configurações criando um arquivo HTML de teste.
 1. Crie o arquivo **WebContent/index.html** com o seguinte conteúdo:
 
-``` html
-  <html>
-    <head>
-      <title>Projeto fj21-agenda</title>
-    </head>
-    <body>
-      <h1>Primeira página do projeto fj21-agenda</h1>
-    </body>
-  </html>
-```
+  ``` html
+    <html>
+      <head>
+        <title>Projeto fj21-agenda</title>
+      </head>
+      <body>
+        <h1>Primeira página do projeto fj21-agenda</h1>
+      </body>
+    </html>
+  ```
+
 1. Inicie (ou reinicie) o Tomcat clicando no botão de _play_ na aba Servers.
 1. Acesse pelo navegador (nas máquinas da caelum existe um Firefox instalado):
   http://localhost:8080/fj21-agenda/index.html
 
-  Teste também a configuração do **welcome-file** no `web.xml`:
-  http://localhost:8080/fj21-agenda/
+    Teste também a configuração do **welcome-file** no `web.xml`:
+    http://localhost:8080/fj21-agenda/
+
+
+
 
 
 ## Para saber mais: configurando o Tomcat sem o plugin

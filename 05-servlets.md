@@ -32,8 +32,7 @@ Perl, PHP, ASP e até C ou C++.
 Na plataforma Java, a primeira e principal tecnologia capaz de gerar páginas dinâmicas são as **Servlets**,
 que surgiram no ano de 1997. Hoje, a versão mais encontrada no mercado é baseada nas versões 2.x,
 mais especificamente a 2.4 (parte do J2EE 1.4) e a 2.5 (parte do Java EE 5). A última versão disponível
-é a versão 3.0 lançada em Dezembro de 2009 com o Java EE 6, e que vem sendo gradativamente adotada
-no mercado.
+é a versão 4.0.3 lançada em Agosto de 2019. Já o Java EE está na versão 8, lançada em Setembro de 2017.
 
 ## Servlets
 
@@ -344,7 +343,7 @@ cada um de nossas Servlets no **web.xml** e se quisermos acessar essa servlet de
 maneiras diferentes, temos que criar vários mapeamentos para a mesma servlet,
 o que pode com o tempo tornar-se um problema devido a difícil manutenção.
 
-Na nova especificação Servlets 3.0, que faz parte do Java EE 6, podemos configurar
+A partir da especificação Servlets 3.0, que faz parte do Java EE 6, podemos configurar
 a maneira como vamos acessar a nossa Servlet de maneira programática, utilizando
 anotações simples.
 
@@ -608,6 +607,8 @@ final, a nossa `Servlet` ficará da seguinte forma:
 
 ## Exercícios: Criando funcionalidade para gravar contatos
 
+
+
 1. Como vamos precisar gravar contatos, precisaremos das classes para trabalhar com
   banco de dados que criamos no capítulo de JDBC. Para isso, deixamos disponível um
   arquivo zip contendo as classes necessárias que criamos anteriormente.
@@ -619,6 +620,9 @@ final, a nossa `Servlet` ficará da seguinte forma:
   * No campo **From archive file** clique em **Browse**, selecione o arquivo
   **/21/projeto-agenda/dao-modelo.zip** e clique em **Finish**
 
+  * veja que, na pasta `WEB-INF/lib` encontram-se 2 drivers MySQL. Verifique qual a versão
+  que você está utilizando, e remova o driver que você não precisar.
+
   > **Em casa**
   >
   > Caso você esteja fazendo em casa, você pode usar exatamente as mesmas classes
@@ -627,7 +631,7 @@ final, a nossa `Servlet` ficará da seguinte forma:
   > Não esqueça de copiar também o Driver do MySQL.
 
   
-2. Temos que criar a página que permitirá aos usuários cadastrar os contatos
+1. Temos que criar a página que permitirá aos usuários cadastrar os contatos
 
   * Vá no menu **File -> New -> Other**.
 
@@ -642,29 +646,30 @@ final, a nossa `Servlet` ficará da seguinte forma:
   * Esse arquivo HTML deverá ter o seguinte conteúdo (**cuidado com o nome dos
   inputs**):
 
-``` html
-  <html>
-    <body>
-      <h1>Adiciona Contatos</h1>
-      <hr />
-      <form action="adicionaContato">
-        Nome: <input type="text" name="nome" /><br />
-        E-mail: <input type="text" name="email" /><br />
-        Endereço: <input type="text" name="endereco" /><br />
-        Data Nascimento:
-          <input type="text" name="dataNascimento" /><br />
+  ``` html
+    <html>
+      <body>
+        <h1>Adiciona Contatos</h1>
+        <hr />
+        <form action="adicionaContato">
+          Nome: <input type="text" name="nome" /><br />
+          E-mail: <input type="text" name="email" /><br />
+          Endereço: <input type="text" name="endereco" /><br />
+          Data Nascimento:
+            <input type="text" name="dataNascimento" /><br />
 
-        <input type="submit" value="Gravar" />
-      </form>
-    </body>
-  </html>
-```
+          <input type="submit" value="Gravar" />
+        </form>
+      </body>
+    </html>
+  ```
 
   * Acesse no navegador o endereço:
 
   http://localhost:8080/fj21-agenda/adiciona-contato.html
 
   ![ {w=80%}](assets/imagens/servlets/formulario-html.png)
+
 1. Precisamos criar a `Servlet` que gravará o contato no banco de dados:
 
   * Crie uma nova `Servlet` no pacote `br.com.caelum.agenda.servlet` chamado
@@ -675,55 +680,59 @@ final, a nossa `Servlet` ficará da seguinte forma:
   Use o `Ctrl+Shift+O` para ajudar nos imports. A classe `Date` deve ser de `java.util`
   e a classe `ParseException`, de `java.text`.
 
-``` java
-  @WebServlet("/adicionaContato")
-  public class AdicionaContatoServlet extends HttpServlet {
-      protected void service(HttpServletRequest request,
-              HttpServletResponse response)
-              throws IOException, ServletException {
-          // busca o writer
-          PrintWriter out = response.getWriter();
+  ``` java
+    @WebServlet("/adicionaContato")
+    public class AdicionaContatoServlet extends HttpServlet {
+        protected void service(HttpServletRequest request,
+                HttpServletResponse response)
+                throws IOException, ServletException {
+            // busca o writer
+            PrintWriter out = response.getWriter();
 
-          // buscando os parâmetros no request
-          String nome = request.getParameter("nome");
-          String endereco = request.getParameter("endereco");
-          String email = request.getParameter("email");
-          String dataEmTexto = request
-                  .getParameter("dataNascimento");
-          Calendar dataNascimento = null;
+            // buscando os parâmetros no request
+            String nome = request.getParameter("nome");
+            String endereco = request.getParameter("endereco");
+            String email = request.getParameter("email");
+            String dataEmTexto = request
+                    .getParameter("dataNascimento");
+            Calendar dataNascimento = null;
 
-          // fazendo a conversão da data
-          try {
-              Date date = new SimpleDateFormat("dd/MM/yyyy")
-                    .parse(dataEmTexto);
-              dataNascimento = Calendar.getInstance();
-              dataNascimento.setTime(date);
-          } catch (ParseException e) {
-              out.println("Erro de conversão da data");
-              return; //para a execução do método
-          }
+            // fazendo a conversão da data
+            try {
+                Date date = new SimpleDateFormat("dd/MM/yyyy")
+                      .parse(dataEmTexto);
+                dataNascimento = Calendar.getInstance();
+                dataNascimento.setTime(date);
+            } catch (ParseException e) {
+                out.println("Erro de conversão da data");
+                return; //para a execução do método
+            }
 
-          // monta um objeto contato
-          Contato contato = new Contato();
-          contato.setNome(nome);
-          contato.setEndereco(endereco);
-          contato.setEmail(email);
-          contato.setDataNascimento(dataNascimento);
+            // monta um objeto contato
+            Contato contato = new Contato();
+            contato.setNome(nome);
+            contato.setEndereco(endereco);
+            contato.setEmail(email);
+            contato.setDataNascimento(dataNascimento);
 
-          // salva o contato
-          ContatoDao dao = new ContatoDao();
-          dao.adiciona(contato);
+            // salva o contato
+            ContatoDao dao = new ContatoDao();
+            dao.adiciona(contato);
 
-          // imprime o nome do contato que foi adicionado
-          out.println("<html>");
-          out.println("<body>");
-          out.println("Contato " + contato.getNome() +
-                  " adicionado com sucesso");
-          out.println("</body>");
-          out.println("</html>");
-      }
-  }
-```
+            // imprime o nome do contato que foi adicionado
+            out.println("<html>");
+            out.println("<body>");
+            out.println("Contato " + contato.getNome() +
+                    " adicionado com sucesso");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+  ```
+
+
+
+
 
   > **Utilizando a Servlet v2.5**
   >

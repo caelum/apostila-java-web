@@ -35,7 +35,7 @@ Veja como é a inicialização do JPA sem a ajuda do Spring:
 
   //aqui usa o EntityManager
 
-  manager.getTransaction().commit();	
+  manager.getTransaction().commit();
   manager.close();
 ```
 
@@ -50,11 +50,11 @@ no arquivo XML. Ele representa a `EntityManagerFactory`, mas agora gerenciada pe
 toda inicialização da fábrica fica ao encargo do Spring:
 
 ``` xml
-  <bean id="entityManagerFactory" 
+  <bean id="entityManagerFactory"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="mysqlDataSource" />
     <property name="jpaVendorAdapter">
-      <bean 
+      <bean
         class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
     </property>
   </bean>
@@ -78,10 +78,10 @@ dados do driver, login e senha, o arquivo `persistence.xml` do JPA também fica 
     <class>br.com.caelum.tarefas.modelo.Tarefa</class>
 
     <properties>
-      
+
     <!-- SEM as propriedades URL, login, senha e driver -->
 
-    <property name="hibernate.dialect" 
+    <property name="hibernate.dialect"
         value="org.hibernate.dialect.MySQL5InnoDBDialect" />
     <property name="hibernate.show_sql" value="true" />
     <property name="hibernate.format_sql" value="true" />
@@ -112,7 +112,7 @@ o atributo para declarar a dependência:
 
       //sem construtor
 
-        //aqui vem os métodos 
+        //aqui vem os métodos
   }
 ```
 
@@ -170,11 +170,11 @@ o `JdbcTarefaDao` para trabalhar com o banco de dados:
   @Controller
   public class TarefasController {
 
-      private final JdbcTarefaDao dao; 
+      private final JdbcTarefaDao dao;
 
       @Autowired
       public TarefasController(JdbcTarefaDao dao) {
-         this.dao = dao; 
+         this.dao = dao;
       }
 
       @RequestMapping("mostraTarefa")
@@ -205,7 +205,7 @@ então vamos definir (_extrair_) uma nova interface `TarefaDao` :
 
 ``` java
   public interface TarefaDao {
-    
+
       Tarefa buscaPorId(Long id);
       List<Tarefa> lista();
       void adiciona(Tarefa t);
@@ -220,8 +220,8 @@ E a classe `JdbcTarefaDao` implementará essa interface:
 ``` java
   @Repository
   public class JdbcTarefaDao implements TarefaDao {
-    
-      //implementação do nosso dao usando jdbc	
+
+      //implementação do nosso dao usando jdbc
   }
 ```
 
@@ -236,7 +236,7 @@ classe `TarefasController`
 
       @Autowired
       public TarefasController(TarefaDao dao) {
-          this.dao = dao; 
+          this.dao = dao;
       }
 
       //métodos omitidos
@@ -250,7 +250,7 @@ Agora a vantagem dessa abordagem é que podemos usar uma outra implementação d
 ``` java
   @Repository
   public class JpaTarefaDao implements TarefaDao{
-        
+
       @PersistenceContext
       EntityManager manager;
 
@@ -279,7 +279,7 @@ a dependência:
       @Autowired
       @Qualifier("jpaTarefaDao")
       public TarefasController(TarefaDao dao) {
-          this.dao = dao; 
+          this.dao = dao;
       }
 
       //métodos omitidos
@@ -299,10 +299,10 @@ configurar o gerenciador exatamente para uma dessas tecnologias. No caso do JPA,
 dependência que o `JpaTransactionManager` precisa é uma `entityManagerFactory`:
 
 ``` xml
-  <bean id="transactionManager" 
+  <bean id="transactionManager"
         class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
-  </bean>	
+  </bean>
 ```
 
 `entityManagerFactory` é o nome do _Bean_ configurado anteriormente:
@@ -326,7 +326,7 @@ Por fim, podemos usar o gerenciamento da transação dentro das nossas classes. 
       if(result.hasFieldErrors("descricao")) {
          return "tarefa/formulario";
       }
-      
+
       dao.adiciona(tarefa);
       return "redirect:listaTarefas";
   }
@@ -424,12 +424,12 @@ fica como:
 
   Nele é preciso declarar o `entityManagerFactory` e o gerenciador de transações.
 
-  Você pode copiar essa parte do XML do arquivo `Caelum/21/jars-jpa/spring4/spring-jpa.xml.txt`. Copie o
+  Você pode copiar essa parte do XML do arquivo `Caelum/21/apendice/spring-context-confs.xml`. Copie o
   conteúdo do arquivo e cole dentro do `spring-context.xml`:
 
 ``` xml
   <!-- gerenciamento de jpa pelo spring -->
-  <bean id="entityManagerFactory" 
+  <bean id="entityManagerFactory"
       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="mysqlDataSource" />
     <property name="jpaVendorAdapter">
@@ -438,10 +438,10 @@ fica como:
   </bean>
 
   <!-- gerenciamento da transação pelo spring -->
-  <bean id="transactionManager" 
+  <bean id="transactionManager"
         class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
-  </bean>	
+  </bean>
 
   <tx:annotation-driven/>
 ```
@@ -456,15 +456,15 @@ fica como:
 
       <properties>
           <!--
-          <property name="javax.persistence.jdbc.driver" 
+          <property name="javax.persistence.jdbc.driver"
               value="com.mysql.jdbc.Driver" />
-          <property name="javax.persistence.jdbc.url" 
+          <property name="javax.persistence.jdbc.url"
               value="jdbc:mysql://localhost/fj21" />
           <property name="javax.persistence.jdbc.user" value="root" />
           <property name="javax.persistence.jdbc.password" value="" />
           -->
 
-          <property name="hibernate.dialect" 
+          <property name="hibernate.dialect"
               value="org.hibernate.dialect.MySQL8Dialect" />
           <property name="hibernate.show_sql" value="true" />
           <property name="hibernate.format_sql" value="true" />
@@ -541,8 +541,8 @@ fica como:
 ```java
   @Repository
   public class JdbcTarefaDao implements TarefaDao {
-  
-      //implementação do nosso dao usando jdbc	
+
+      //implementação do nosso dao usando jdbc
   }
 ```
 
@@ -573,7 +573,7 @@ fica como:
 
 1. Por fim, vamos habilitar o gerenciamento de transação para qualquer método da classe `TarefasController`.
 
-  Abra a classe e use a anotação `@Transactional` em cima da classe:
+  Abra a classe e use a anotação `@Transactional` (do pacote `org.springframework.transaction.annotation`) em cima da classe:
 ``` java
   @Transactional
   @Controller
@@ -591,16 +591,16 @@ fica como:
 
   @Entity
   public class Usuario {
-    
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // atributos e métodos omitidos
   }
 ```
 
-1. Agora vamos definir uma nova interface chamada `UserDao`:
+1. Agora vamos definir uma nova interface chamada `UsuarioDao`:
 
 ```java
   package br.com.caelum.tarefas.dao;
@@ -687,7 +687,7 @@ fica como:
 ```java
   @PersistenceContext
   EntityManager manager;
-  
+
   @Override
   public boolean existeUsuario(Usuario usuario) {
     List<Usuario> listaDeUsuarios = manager.createQuery("select u from Usuario u "
@@ -720,12 +720,12 @@ fica como:
   }
 ```
 
- * Caso não exista usuários cadastrados, cadastre algum utilizando o terminal
-  aberto antes da seguinte maneira:
+ * Caso a tabela `Usuario` não exista, descomente o código comentado em `persistence.xml` e adicione a
+ classe `Usuario`, de forma semelhante a adição da classe `Tarefa`
+ * Para cadastrar um novo usuário, no terminal aberto no mysql, use o comando abaixo:
 
 ``` sql
   insert into Usuario (login, senha) values('seu_usuario', 'sua_senha');
 ```
 
 1. Reinicie o Tomcat e tente se logar na aplicação em http://localhost:8080/fj21-tarefas/loginForm.
-

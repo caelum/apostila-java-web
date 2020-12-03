@@ -390,9 +390,9 @@ Como veremos no apêndice até mesmo o Spring precisa em alguns casos o construt
 
 ## Exercícios: Inversão de controle com o Spring Container
 1. Para configurar a `Datasource` é preciso copiar dois JARs.
-  * Primeiro, vá ao Desktop, e entre no diretório **21/projeto-tarefas/datasource**.
+  * Primeiro, vá ao Desktop, e entre no diretório **21/datasource**.
 
-  * Haverá dois JARs: 
+  * Haverá dois JARs:
     * `commons-dbcp2-2.7.x.jar`
     * `commons-pool2-2.8.x.jar`.
 
@@ -400,7 +400,7 @@ Como veremos no apêndice até mesmo o Spring precisa em alguns casos o construt
 
 2. No arquivo `spring-context.xml` adicione a configuração da `Datasource`:
 
-  (Dica: um exemplo dessa configuração encontra-se na pasta `21/jars-datasource`)
+  (Dica: um exemplo dessa configuração encontra-se em `21/datasource/spring-context-confs.xml`)
 ``` xml
   <bean id="mysqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -656,7 +656,7 @@ Ao colocarmos o `war` no Tomcat, podemos acessar nossa aplicação pelo navegado
   * Clique da direita no arquivo `tarefas.war` e escolha **Cut**(Recortar).
 
   * Vá para o diretório **apache-tomcat**, Certifique-se de que seu Tomcat esteja rodando, para isso acesse o diretório **bin/** do tomcat via terminal e execute o script `startup.sh`.
-  
+
   * Acesse o diretório **webapps**.
   ![ {w=65%}](assets/imagens/springmvc/webapps-dir.png)
 

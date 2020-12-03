@@ -165,7 +165,7 @@ No nosso exemplo com scriptlets, o que falta é a chamada do método `getLista` 
   <%
   // ...
   List<Contato> contatos = dao.getLista();
-  
+
   for (Contato contato : contatos ) {
   %>
     <%=contato.getNome()%>, <%=contato.getEmail()%>,
@@ -184,7 +184,7 @@ mostra o uso de _expression language_ de uma maneira muito mais elegante:
 ``` html
     <c:forEach var="contato" items="${dao.lista}">
         ${contato.nome}, ${contato.email},
-        ${contato.endereco}, ${contato.dataNascimento} 
+        ${contato.endereco}, ${contato.dataNascimento}
     </c:forEach>
 ```
 
@@ -416,9 +416,9 @@ colocássemos ambas as páginas, através da `c:import` como abaixo:
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <html>
   <body>
-  
+
   <c:import url="cabecalho.jsp" />
-  
+
   <jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao"/>
   <table>
     <!-- for -->
@@ -431,7 +431,7 @@ colocássemos ambas as páginas, através da `c:import` como abaixo:
       </tr>
     </c:forEach>
   </table>
-  
+
   <c:import url="rodape.jsp" />
 
   </body>
@@ -449,7 +449,7 @@ colocássemos ambas as páginas, através da `c:import` como abaixo:
   com o logotipo do sistema:
 
 ``` html
-  <img src="imagens/caelum.png" style="width: 40%;"/> 
+  <img src="imagens/caelum.png" style="width: 40%;"/>
     <h2>Agenda de Contatos do(a) (Seu nome aqui)</h2>
   <hr />
 ```
@@ -630,7 +630,7 @@ O HTML gerado pelo exemplo seria: `<img src="fj21-tarefas/imagens/caelum.png"/>`
   * Abra o arquivo `cabecalho.jsp` e **altere-o** adicionando a tag `<c:url>`:
 
 ``` html
-  <img src="<c:url value="/imagens/caelum.png"/>" /> 
+  <img src="<c:url value="/imagens/caelum.png"/>" style="width: 40%;"/> 
 ```
 
   Como vamos usar a JSTL também nesse novo arquivo de cabeçalho, não deixe de incluir

@@ -519,7 +519,7 @@ testar unitariamente, assunto que aprendemos e praticamos bastante no curso **FJ
       }
   }
 ```
-1. Crie um construtor no seu `ContatoDao` que receba `Connection` e armazene-a no atributo:
+1. Crie um construtor no seu `ContatoDao` (caso não exista) que receba `Connection` e armazene-a no atributo:
 ``` java
   public class ContatoDao {
       private Connection connection;
