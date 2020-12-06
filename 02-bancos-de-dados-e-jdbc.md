@@ -290,8 +290,7 @@ construção (fabricação) de objetos complicados.
   * Aceite a mudança de perspectiva:
 
   ![ {w=70%}](assets/imagens/jdbc/newProject4.png)
-2.
-  Copie o driver do `MySQL` para o seu projeto.
+1. Copie o driver do `MySQL` para o seu projeto.
 
   * no seu Desktop, clique no atalho **Atalho para arquivos do cursos**;
   * copie a pasta **21** para o seu Desktop;
@@ -299,7 +298,8 @@ construção (fabricação) de objetos complicados.
   * vá para sua pasta principal (`home`);
   * entre no diretório workspace, `fj21-jdbc`;
   * clique com o botão direito do mouse e cole o driver aqui: você acaba de colocar o arquivo ".jar" no seu projeto.
-3. Vamos criar a classe que fabrica conexões:
+
+1. Vamos criar a classe que fabrica conexões:
 
   * Clique em **File -> New -> Class**.
 
@@ -323,6 +323,7 @@ construção (fabricação) de objetos complicados.
       }
   }
 ```
+
 4. Crie uma classe chamada `TestaConexao` no pacote `br.com.caelum.jdbc.teste`.
   Todas as nossas classes de teste deverão ficar nesse pacote.
 
@@ -855,7 +856,7 @@ Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterio
 
   ![ {w=40%}](assets/imagens/jdbc/ggas.png)
   ![ {w=65%}](assets/imagens/jdbc/generate-getters-setters.png)
-1. Vamos desenvolver nossa classe de DAO. Crie a classe `ContatoDao` no pacote
+2. Vamos desenvolver nossa classe de DAO. Crie a classe `ContatoDao` no pacote
   `br.com.caelum.jdbc.dao`. Seu papel será gerenciar a conexão e inserir Contatos no
   banco de dados.
 
@@ -908,7 +909,7 @@ Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterio
 
   **ATENÇÃO: Lembre-se de importar as classes de SQL do pacote `java.sql`, inclusive a classe Date!**
 
-1. Antes de testar a inserção de um contato no banco de dados, verifique se a tabela `contatos` existe.
+3. Antes de testar a inserção de um contato no banco de dados, verifique se a tabela `contatos` existe.
 
    * Abra o terminal e digite:
 
@@ -941,7 +942,7 @@ Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterio
   (Dica: esse código encontra-se no arquivo `contatos.sql` na
   pasta `21/projeto-jdbc`)
 
-1. Para testar nosso DAO, desenvolva uma classe de testes com o método `main`. Por exemplo,
+4. Para testar nosso DAO, desenvolva uma classe de testes com o método `main`. Por exemplo,
   uma chamada `TestaInsere` no pacote `br.com.caelum.jdbc.teste`. Gere o `main` pelo
   Eclipse.
 
@@ -966,7 +967,7 @@ Encapsulamos a `SQLException` em uma `RuntimeException` mantendo a ideia anterio
 ```
 
   Execute seu programa e veja se tudo correu bem.
-1. Verifique se o contato foi adicionado. Abra o terminal e digite:
+5. Verifique se o contato foi adicionado. Abra o terminal e digite:
 
 ``` sql
     mysql -u root
@@ -1111,7 +1112,7 @@ interessante, uma lista de `Contato`:
   }
 ```
 
-1. Vamos usar o método `getLista` para listar todos os contatos do nosso banco de dados.
+2. Vamos usar o método `getLista` para listar todos os contatos do nosso banco de dados.
 
   Crie uma classe chamada `TestaLista` com um método `main`:
 
@@ -1138,7 +1139,7 @@ interessante, uma lista de `Contato`:
   }
 ```
 
-1. Rode o programa acima clicando em **Run** > **Run as** > **Java Application** (aproveite para aprender a tecla de atalho para executar a aplicação).
+3. Rode o programa acima clicando em **Run** > **Run as** > **Java Application** (aproveite para aprender a tecla de atalho para executar a aplicação).
 
 
 ## Um pouco mais...
@@ -1240,7 +1241,7 @@ public void remove(Contato contato) {
   }
 ```
 
-1. Adicione o método para remover contato no seu `ContatoDao`
+2. Adicione o método para remover contato no seu `ContatoDao`
 
 ``` java
   public void remove(Contato contato) {
@@ -1256,7 +1257,7 @@ public void remove(Contato contato) {
   }
 ```
 
-1. Use os métodos criados anteriormente para fazer testes com o seu banco de dados: atualize e
+3. Use os métodos criados anteriormente para fazer testes com o seu banco de dados: atualize e
   remova um contato.
 1. Crie uma classe chamada Funcionario com os campos id (Long), nome, usuario e senha (String).
 1. Crie uma tabela no banco de dados chamada funcionarios.

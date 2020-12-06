@@ -556,7 +556,7 @@ testar unitariamente, assunto que aprendemos e praticamos bastante no curso **FJ
 ```
 
   Ou você pode fazer essa mesma modificação na nossa antiga `AdicionaContatoServlet`.
-1. Remova um contato na sua aplicação e verifique que tudo continua funcionando
+4. Remova um contato na sua aplicação e verifique que tudo continua funcionando
   normalmente.
 
   

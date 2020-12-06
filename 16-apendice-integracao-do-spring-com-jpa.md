@@ -472,7 +472,7 @@ fica como:
       </properties>
   </persistence-unit>
 ```
-1. O próximo passo é criar a interface `TarefaDao`. Crie uma nova interface dentro do
+3. O próximo passo é criar a interface `TarefaDao`. Crie uma nova interface dentro do
   package `br.com.caelum.tarefas.dao`:
 
 ``` java
@@ -490,7 +490,7 @@ fica como:
       void finaliza(Long id);
   }
 ```
-1. Crie uma classe **`JpaTarefaDao`** que recebe o `EntityManager`.
+4. Crie uma classe **`JpaTarefaDao`** que recebe o `EntityManager`.
   Implemente a interface `TarefaDao` com todos os métodos.
 
 ``` java
@@ -536,7 +536,7 @@ fica como:
   }
 ```
 
-1. Agora faça com que a classe `JdbcTarefaDao` implemente a interface `TarefaDao`, adaptando os métodos existentes caso seja necessário:
+5. Agora faça com que a classe `JdbcTarefaDao` implemente a interface `TarefaDao`, adaptando os métodos existentes caso seja necessário:
 
 ```java
   @Repository
@@ -546,7 +546,7 @@ fica como:
   }
 ```
 
-1. Altere a classe `TarefasController`, use a interface `TarefaDao` apenas.
+6. Altere a classe `TarefasController`, use a interface `TarefaDao` apenas.
   Assim a classe `TarefasController` fica desacoplado da implementação. Não esquece de
   apagar o construtor:
 
@@ -563,7 +563,7 @@ fica como:
   }
 ```
 
-1. Como temos dois possíveis candidatos para  o processo de injeção  que implementam a interface `TarefaDao` o Spring não sabe qual escolher. Temos que adicionar um qualificador na injeção da dependência que dirá qual implementação queremos usar:
+7. Como temos dois possíveis candidatos para  o processo de injeção  que implementam a interface `TarefaDao` o Spring não sabe qual escolher. Temos que adicionar um qualificador na injeção da dependência que dirá qual implementação queremos usar:
 
 ``` java
   @Autowired
@@ -571,7 +571,7 @@ fica como:
   TarefaDao dao; //usa apenas a interface!
 ```
 
-1. Por fim, vamos habilitar o gerenciamento de transação para qualquer método da classe `TarefasController`.
+8. Por fim, vamos habilitar o gerenciamento de transação para qualquer método da classe `TarefasController`.
 
   Abra a classe e use a anotação `@Transactional` (do pacote `org.springframework.transaction.annotation`) em cima da classe:
 ``` java
@@ -600,7 +600,7 @@ fica como:
   }
 ```
 
-1. Agora vamos definir uma nova interface chamada `UsuarioDao`:
+2. Agora vamos definir uma nova interface chamada `UsuarioDao`:
 
 ```java
   package br.com.caelum.tarefas.dao;
@@ -612,7 +612,7 @@ fica como:
   }
 ```
 
-1. Diremos que a classe `JdbcUsuarioDao` implementa essa interface:
+3. Diremos que a classe `JdbcUsuarioDao` implementa essa interface:
 
 ```java
   // imports omitidos
@@ -623,7 +623,7 @@ fica como:
   }
 ```
 
-1. Agora criaremos a classe `JpaUsuarioDao` que implementará a interface que acabamos de criar:
+4. Agora criaremos a classe `JpaUsuarioDao` que implementará a interface que acabamos de criar:
 
 ```java
   package br.com.caelum.tarefas.dao;
@@ -703,7 +703,7 @@ fica como:
   }
 ```
 
-1. Agora temos que substuir no `LoginController` a classe pela interface, pedir para o Spring fazer a injeção da dependência e auxiliar ele na escolha de qual implementação da interface deverá ser usada, através da anotação `@Qualifier("jpaUsuarioDao")`:
+5. Agora temos que substuir no `LoginController` a classe pela interface, pedir para o Spring fazer a injeção da dependência e auxiliar ele na escolha de qual implementação da interface deverá ser usada, através da anotação `@Qualifier("jpaUsuarioDao")`:
 
 ```java
 
@@ -728,4 +728,4 @@ fica como:
   insert into Usuario (login, senha) values('seu_usuario', 'sua_senha');
 ```
 
-1. Reinicie o Tomcat e tente se logar na aplicação em http://localhost:8080/fj21-tarefas/loginForm.
+6. Reinicie o Tomcat e tente se logar na aplicação em http://localhost:8080/fj21-tarefas/loginForm.

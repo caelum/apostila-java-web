@@ -15,7 +15,7 @@ situações em que fazemos muita repetição de código. Por exemplo, sempre que
 uma caixa de texto, podemos associá-la com um `label`, através do seguinte código:
 
 ``` html
-    <label for="nomeContato">Nome</label> 
+    <label for="nomeContato">Nome</label>
     <input type="text" id="nomeContato" name="nome" />
 ```
 
@@ -196,6 +196,11 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 
 ## Exercícios: criando nossa própria tag para calendário
 
+
+
+
+
+
 1. Vamos criar nossa tag para o campo de calendário com **datepicker**. Para isso
   vamos utilizar a biblioteca javascript jQuery.
 
@@ -220,7 +225,7 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 
   ![](imagens/tagfiles/refactor-rename.png)
 1. Também vamos importar o cabeçalho e o rodapé nessa página, portanto,
-  vamos usar o taglib JSTL `core`. 
+  vamos usar o taglib JSTL `core`.
 
   * Adicione no topo da página:
 ``` html
@@ -257,7 +262,7 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 
   <!-- Restante da página aqui -->
 ```
-1. Vamos criar a nossa tag para o calendário.
+5. Vamos criar a nossa tag para o calendário.
 
   * Dentro de `WEB-INF` crie um diretório chamado **tags**.
 

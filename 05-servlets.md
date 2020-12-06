@@ -222,7 +222,8 @@ Caso o Tomcat 9 não faça parte do nosso Classpath podemos adicionar manualment
   ![ {w=85%}](assets/imagens/servlets/classpath-servlet2.png)
 
 
-2. Crie a servlet `OiMundo` no pacote `br.com.caelum.servlet`. Escolha o menu **File**,
+2.
+Crie a servlet `OiMundo` no pacote `br.com.caelum.servlet`. Escolha o menu **File**,
   **New**, **Class** (mais uma vez, aproveite para aprender teclas de atalho).
 
   ![ {w=85%}](assets/imagens/servlets/new-oimundo.png)
@@ -283,7 +284,9 @@ Caso o Tomcat 9 não faça parte do nosso Classpath podemos adicionar manualment
       out.println("</html>");
   }
 ```
-1. Abra o arquivo **web.xml** e clique na aba **Source** na parte inferior do editor de código. Dentro da tag `<web-app>`, mapeie a URL **/oi** para a servlet `OiMundo`.
+
+3.
+Abra o arquivo **web.xml** e clique na aba **Source** na parte inferior do editor de código. Dentro da tag `<web-app>`, mapeie a URL **/oi** para a servlet `OiMundo`.
   Aproveite o autocompletar do Eclipse e cuidado ao escrever o nome da classe e do pacote.
 
 ``` xml
@@ -300,9 +303,11 @@ Caso o Tomcat 9 não faça parte do nosso Classpath podemos adicionar manualment
   </servlet-mapping>
 ```
 
-1. Reinicie o Tomcat clicando no botão verde na aba Servers.
+4.
+Reinicie o Tomcat clicando no botão verde na aba Servers.
   ![ {w=80}](assets/imagens/servlets/restart-tomcat.png)
-1. Teste a url http://localhost:8080/fj21-agenda/oi
+5.
+Teste a url http://localhost:8080/fj21-agenda/oi
   ![ {w=60}](assets/imagens/servlets/oimundo-chrome.png)
 
 
@@ -903,7 +908,8 @@ isso basta fazermos a declaração no web.xml:
   ![ {w=60%}](assets/imagens/servlets/error-page-exception.png)
 
   **Altere novamente o usuário de acesso ao banco na classe ConnectionFactory para `root`**.
-1. Vamos criar uma página para ser exibida quando o usuário acessar algo inexistente:
+
+2. Vamos criar uma página para ser exibida quando o usuário acessar algo inexistente:
 
   * Crie um novo HTML chamado **404.html** com o seguinte conteúdo:
 ``` xml

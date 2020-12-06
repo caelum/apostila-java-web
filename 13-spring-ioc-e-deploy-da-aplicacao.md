@@ -411,7 +411,7 @@ Como veremos no apêndice até mesmo o Spring precisa em alguns casos o construt
 ```
 
   Repare que definimos as propriedades da conexão, igual a antiga classe `ConnectionFactory` e lembre-se que o usuário **root**  está configurado com a senha `""` (aspas vazias).
-1. Vamos configurar a classe `JdbcTarefaDao` como componente (_Bean_) do Spring. Para isso, adicione
+3. Vamos configurar a classe `JdbcTarefaDao` como componente (_Bean_) do Spring. Para isso, adicione
   a anotação `@Repository` em cima da classe:
 
 ``` java
@@ -422,7 +422,7 @@ Como veremos no apêndice até mesmo o Spring precisa em alguns casos o construt
 ```
 
   Use `Ctrl+Shift+O` para importar a anotação.
-1. Além disso, altere o construtor da classe `JdbcTarefaDao`. Use a anotação `@Autowired`
+4. Além disso, altere o construtor da classe `JdbcTarefaDao`. Use a anotação `@Autowired`
   em cima do construtor e coloque a `DataSource` no construtor. Através dela
   obteremos uma nova conexão. A classe `DataSource` vem do package `javax.sql`.
 
@@ -589,7 +589,7 @@ E dentro do arquivo `tarefas.css`:
 
   Cuidado: _Na página deve existir apenas um cabeçalho_ (`<head></head>`).
 
-1. Reinicie o Tomcat e chama a página de login:
+5. Reinicie o Tomcat e chama a página de login:
 
   http://localhost:8080/fj21-tarefas/loginForm
 

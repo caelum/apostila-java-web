@@ -350,7 +350,8 @@ como no exemplo a seguir:
   * Acesse a página no navegador pelo endereço
   http://localhost:8080/fj21-agenda/lista-contatos.jsp
   ![](imagens/jstl/lista-elegante-cif.png)
-1. Vamos colocar a mensagem "E-mail não informado" caso o e-mail não tenha sido
+
+2. Vamos colocar a mensagem "E-mail não informado" caso o e-mail não tenha sido
   informado
 
   * Abaixo do novo `if` que fizemos no item anterior, vamos colocar mais um if,
@@ -379,7 +380,8 @@ como no exemplo a seguir:
 
   * Acesse a lista-contatos.jsp pelo navegador e veja o resultado final.
   ![](imagens/jstl/lista-elegante-else.png)
-1. (Opcional) Ao invés de utilizar dois `ifs`, use a tag `c:choose`
+
+3. (Opcional) Ao invés de utilizar dois `ifs`, use a tag `c:choose`
 
 
 ## Importando páginas
@@ -630,7 +632,7 @@ O HTML gerado pelo exemplo seria: `<img src="fj21-tarefas/imagens/caelum.png"/>`
   * Abra o arquivo `cabecalho.jsp` e **altere-o** adicionando a tag `<c:url>`:
 
 ``` html
-  <img src="<c:url value="/imagens/caelum.png"/>" style="width: 40%;"/> 
+  <img src="<c:url value="/imagens/caelum.png"/>" style="width: 40%;"/>
 ```
 
   Como vamos usar a JSTL também nesse novo arquivo de cabeçalho, não deixe de incluir

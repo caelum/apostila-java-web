@@ -19,6 +19,9 @@ maneira bem mais simples do que sem ele
 ## Exercícios: Novo projeto web
 
 
+
+
+
 1. Vá em **New** > **Project** e selecione **Dynamic Web Project** e clique **Next**:
   ![ {w=70%}](assets/imagens/novo-projeto/new-project-1.png)
 1. Coloque o nome do projeto como **fj21-agenda**, verifique se o _Target runtime_ está apontando

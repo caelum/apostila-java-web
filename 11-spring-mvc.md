@@ -279,22 +279,22 @@ Você também pode optar por seguir o exercício a seguir no qual criaremos um n
 ## Exercícios: Configurando o Spring MVC e testando a configuração
 1. Vamos configurar o Spring MVC em um novo projeto.
 
-* Crie um novo projeto web: **File** -> **New** -> **Project...** -> **Dynamic Web Project**
+ * Crie um novo projeto web: **File** -> **New** -> **Project...** -> **Dynamic Web Project**
  chamado `fj21-tarefas`.
-* Na aba **Servers**, clique com o botão direito no Tomcat e vá em **Add and Remove...**:
+ * Na aba **Servers**, clique com o botão direito no Tomcat e vá em **Add and Remove...**:
 
-* Basta selecionar o nosso projeto `fj21-tarefas` e clicar em **Add**:
+ * Basta selecionar o nosso projeto `fj21-tarefas` e clicar em **Add**:
 
-* Vamos começar importando as classes que serão necessárias ao nosso projeto, como o
+ * Vamos começar importando as classes que serão necessárias ao nosso projeto, como o
  modelo de `Tarefas` e o `DAO`.
 
-* Clique com o botão direito no projeto `fj21-tarefas` e escolha a opção
+ * Clique com o botão direito no projeto `fj21-tarefas` e escolha a opção
  `Import`.
-* Selecione General -> Archive File
-* Escolha o arquivo `projeto-tarefas.zip` que está em
+ * Selecione General -> Archive File
+ * Escolha o arquivo `projeto-tarefas.zip` que está em
  `21/projeto-tarefas/` e confirme a importação.
 
-* Abra o arquivo `web.xml` para fazermos a declaração do servlet
+ * Abra o arquivo `web.xml` para fazermos a declaração do servlet
  do Spring MVC:
 
 ``` xml
@@ -315,7 +315,8 @@ Você também pode optar por seguir o exercício a seguir no qual criaremos um n
       <url-pattern>/</url-pattern>
   </servlet-mapping>
 ```
-1. Vamos fazer um simples Olá Mundo, para testarmos nossa configuração:
+
+2. Vamos fazer um simples Olá Mundo, para testarmos nossa configuração:
 
 * Crie uma nova classe chamada `OlaMundoController` no pacote `br.com.caelum.tarefas.controller`
 
@@ -534,7 +535,7 @@ Vamos criar o formulário e nossa ação para fazer a gravação das tarefas.
     </body>
   </html>
 ```
-1. Agora precisamos um método (action) dentro de um `@Controller` para acessar o JSP.
+2. Agora precisamos um método (action) dentro de um `@Controller` para acessar o JSP.
   Crie uma nova classe no pacote `br.com.caelum.tarefas.controller` chamada `TarefasController`.
 
   Nossa classe precisa ter um método para acessar o JSP. Vamos chamar o método **form()** e
@@ -579,7 +580,7 @@ Vamos criar o formulário e nossa ação para fazer a gravação das tarefas.
     </body>
   </html>
 ```
-1. Reinicie o Tomcat.
+5. Reinicie o Tomcat.
 
   Acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
   e adicione uma nova tarefa.
@@ -863,7 +864,7 @@ dentro das anotações também pelo atributo `message`:
       @Size(min=5)
       private String descricao;
 ```
-1. Abra a classe `TarefasController` e procure o método **`adiciona`**. Coloque a anotação **`@Valid`**
+3. Abra a classe `TarefasController` e procure o método **`adiciona`**. Coloque a anotação **`@Valid`**
   na frente do parâmetro `Tarefa tarefa` e adicione o parâmetro `BindingResult` na assinatura do método.
 
   Além disso, no mesmo método, adicione a verificação se há erros de validação. O método completo fica:
@@ -881,7 +882,7 @@ dentro das anotações também pelo atributo `message`:
       return "tarefa/adicionada";
   }
 ```
-1. Abra o JSP **`formulario.jsp`** (da pasta `WEB-INF/views/tarefa`).
+4. Abra o JSP **`formulario.jsp`** (da pasta `WEB-INF/views/tarefa`).
   Adicione no início da página a declaração da taglib do Spring MVC:
 
 ``` html
@@ -894,7 +895,7 @@ dentro das anotações também pelo atributo `message`:
   <form:errors path="tarefa.descricao"/>
   <form action="adicionaTarefa" method="post">
 ```
-1. Reinicie o Tomcat e acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
+5. Reinicie o Tomcat e acesse no seu navegador o endereço `http://localhost:8080/fj21-tarefas/novaTarefa`
   Envie uma requisição SEM preencher a descrição da tarefa, a mensagem de validação deve aparecer.
 
   ![ {w=60%}](assets/imagens/springmvc/validacao.png)
@@ -1685,7 +1686,7 @@ gostaria de encontrar.
       return "tarefa/finalizada";
   }
 ```
-1. Agora falta criarmos o arquivo `finalizada.jsp` dentro do diretório:
+2. Agora falta criarmos o arquivo `finalizada.jsp` dentro do diretório:
   `/WEB-INF/views/tarefa/`. Que deverá ter o seguinte conteúdo da <tr>
   relacionada a tarefa finalizada.
 
@@ -1700,7 +1701,7 @@ gostaria de encontrar.
   <td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
   <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
 ```
-1. Por último devemos modificar o arquivo `tarefa/lista.jsp` para que ele tenha
+3. Por último devemos modificar o arquivo `tarefa/lista.jsp` para que ele tenha
   um identificador de cada linha, ou seja, elemento <tr> da tabela.
   De maneira análoga ao que foi feito no exercício anterior vamos concatenar
   com o `id` da tarefa um valor de `tarefa_`. Lembre-se de remover os ids
@@ -1735,7 +1736,7 @@ gostaria de encontrar.
   </tr>
   .....
 ```
-1. E agora para fazer uso do conteúdo renderizado pela JSP, é necessário
+4. E agora para fazer uso do conteúdo renderizado pela JSP, é necessário
   que a função de callback do AJAX receba como parâmetro esse conteúdo.
   Vamos alterar a função do `finalizaAgora` no mesmo arquivo `lista.jsp`,
   para o que segue:
@@ -1749,6 +1750,6 @@ gostaria de encontrar.
     }
 </script>
 ```
-1. Reinicie o servidor e verifique que agora ao clicar no link `Finalizar` o usuário
+5. Reinicie o servidor e verifique que agora ao clicar no link `Finalizar` o usuário
   tem a alteração tanto de _Não Finalizada_ para _Finalizada_ quando uma mudança
   na data de finalização.

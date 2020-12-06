@@ -126,10 +126,11 @@ Isso já é o suficiente para que possamos escrever o nosso primeiro JSP.
     </body>
   </html>
 ```
-1. Acesse a URL http://localhost:8080/fj21-agenda/bemvindo.jsp no navegador
+
+2. Acesse a URL http://localhost:8080/fj21-agenda/bemvindo.jsp no navegador
 
   ![ {w=60%}](assets/imagens/jsp/bemvindo.png)
-1. Onde apareceu a mensagem "Tudo foi executado!"?
+3. Onde apareceu a mensagem "Tudo foi executado!"?
 
   É **muito importante** você se lembrar que o código Java é interpretado no servidor,
   portanto apareceu no console do seu Tomcat.
@@ -154,12 +155,12 @@ Basicamente, o código utilizará o `ContatoDao` que criamos anteriormente para 
   <%
   ContatoDao dao = new ContatoDao();
   List<Contato> contatos = dao.getLista();
-  
+
   for (Contato contato : contatos ) {
   %>
     <li><%=contato.getNome()%>, <%=contato.getEmail()%>:
       <%=contato.getEndereco()%></li>
-  
+
   <%
   }
   %>
@@ -208,7 +209,7 @@ diversos pacotes, podemos separá-los por vírgulas (vide o exercício).
           for (Contato contato : contatos ) {
         %>
           <tr>
-            <td><%=contato.getNome() %></td> 
+            <td><%=contato.getNome() %></td>
             <td><%=contato.getEmail() %></td>
             <td><%=contato.getEndereco() %></td>
             <td><%=contato.getDataNascimento().getTime() %></td>
@@ -247,7 +248,7 @@ diversos pacotes, podemos separá-los por vírgulas (vide o exercício).
 >
 > Reinicie o tomcat e acesse a URL:
 > http://localhost:8080/fj21-agenda/
-> 
+>
 
 
 
@@ -308,7 +309,8 @@ e será explorada novamente durante os capítulos posteriores.
     </body>
   </html>
 ```
-1. Crie um arquivo chamado **WebContent/mostra-idade.jsp** e coloque o código de expression language que
+
+2. Crie um arquivo chamado **WebContent/mostra-idade.jsp** e coloque o código de expression language que
   mostra a idade que foi enviada como parâmetro para essa página:
 
 ``` html
@@ -319,7 +321,8 @@ e será explorada novamente durante os capítulos posteriores.
     </body>
   </html>
   ```
-1. Teste o sistema acessando a página http://localhost:8080/fj21-agenda/digita-idade.jsp.
+
+3. Teste o sistema acessando a página http://localhost:8080/fj21-agenda/digita-idade.jsp.
   ![ {w=80%}](assets/imagens/jsp/testando-parametros.png)
 
 

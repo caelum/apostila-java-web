@@ -144,7 +144,7 @@ Vamos evoluir nossa adição de contatos antes puramente usando Servlets para us
           .getRequestDispatcher("/contato-adicionado.jsp");
   rd.forward(request,response);
 ```
-1. Teste a URL: http://localhost:8080/fj21-agenda/adiciona-contato.jsp
+3. Teste a URL: http://localhost:8080/fj21-agenda/adiciona-contato.jsp
 
   ![ {w=80%}](assets/imagens/servlets/testa-adiciona.png)
   ![ {w=80%}](assets/imagens/servlets/testa-adiciona-2.png)
@@ -189,18 +189,18 @@ public class SistemaTodoServlet extends HttpServlet {
 
   protected void service(HttpServletRequest request,
           HttpServletResponse response) {
-      
+
       String acao = request.getParameter("logica");
       ContatoDao dao = new ContatoDao();
-      
+
       if (acao.equals("AdicionaContato")) {
           Contato contato = new Contato();
           contato.setNome(request.getParameter("nome"));
           contato.setEndereco(request.getParameter("endereco"));
           contato.setEmail(request.getParameter("email"));
           dao.adiciona(contato);
-          
-          RequestDispatcher rd = 
+
+          RequestDispatcher rd =
               request.getRequestDispatcher("/contato-adicionado.jsp");
           rd.forward(request, response);
       } else if (acao.equals("ListaContatos")) {
@@ -208,7 +208,7 @@ public class SistemaTodoServlet extends HttpServlet {
           // despacha para um jsp
       } else if (acao.equals("RemoveContato")) {
           // faz a remoção e redireciona para a lista
-      } 
+      }
   }
 }
 ```
@@ -287,7 +287,7 @@ Dessa forma, não podemos chamar o método `executa`. Uma primeira alternativa s
 novamente `if/else` para sabermos qual é a lógica que está sendo invocada, como abaixo:
 
 ``` java
-  String nomeDaClasse = "br.com.caelum.mvc." + 
+  String nomeDaClasse = "br.com.caelum.mvc." +
           request.getParameter("logica");
   Class classe = Class.forName(nomeDaClasse);
 
@@ -312,7 +312,7 @@ o contrato de `Logica` implementando uma interface de mesmo nome que declare o m
 
 ``` java
   public interface Logica {
-      void executa(HttpServletRequest req, 
+      void executa(HttpServletRequest req,
               HttpServletResponse res)
               throws Exception;
 }
@@ -356,7 +356,7 @@ era `void` e agora retornará `String`:
 
 ``` java
   public interface Logica {
-    String executa(HttpServletRequest req, HttpServletResponse res) 
+    String executa(HttpServletRequest req, HttpServletResponse res)
         throws Exception;
 
   }
@@ -384,7 +384,7 @@ Por fim, a servlet controladora deve receber esse `String` e implementar o códi
   public class ControllerServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request,
-        HttpServletResponse response) 
+        HttpServletResponse response)
           throws ServletException, IOException {
 
       String parametro = request.getParameter("logica");
@@ -433,7 +433,7 @@ através de algum recurso diferente do construtor é uma **factory**.
               HttpServletResponse res) throws Exception;
   }
 ```
-1. Crie uma implementação da interface `Logica`, nossa classe `PrimeiraLogica`, também
+2. Crie uma implementação da interface `Logica`, nossa classe `PrimeiraLogica`, também
   no pacote `br.com.caelum.mvc.logica`:
 
 ``` java
@@ -449,7 +449,7 @@ return "primeira-logica.jsp";
       }
   }
 ```
-1. Faça um arquivo JSP chamado `primeira-logica.jsp` dentro do diretório `WebContent`:
+3. Faça um arquivo JSP chamado `primeira-logica.jsp` dentro do diretório `WebContent`:
 ``` html
   <html>
     <body>
@@ -465,7 +465,7 @@ return "primeira-logica.jsp";
   @WebServlet("/mvc")
   public class ControllerServlet extends HttpServlet {
       protected void service(HttpServletRequest request,
-              HttpServletResponse response) 
+              HttpServletResponse response)
               throws ServletException, IOException {
 
           String parametro = request.getParameter("logica");
@@ -486,7 +486,7 @@ return "primeira-logica.jsp";
       }
   }
 ```
-1. Teste a url http://localhost:8080/fj21-agenda/mvc?logica=PrimeiraLogica
+5. Teste a url http://localhost:8080/fj21-agenda/mvc?logica=PrimeiraLogica
 
   ![ {w=70%}](assets/imagens/mvc/primeiralogica.png)
 
@@ -518,7 +518,7 @@ return "primeira-logica.jsp";
 
   }
 ```
-1. Na página `lista-contatos.jsp`, vamos acrescentar uma coluna na tabela
+2. Na página `lista-contatos.jsp`, vamos acrescentar uma coluna na tabela
   que lista os contatos com um link chamando a lógica de remoção e passando o `id`
   do contato:
 
@@ -538,7 +538,7 @@ return "primeira-logica.jsp";
 
   <!-- código omitido -->
 ```
-1. Teste a logica de remoção acessando
+3. Teste a lógica de remoção acessando
   http://localhost:8080/fj21-agenda/lista-contatos.jsp e clicando
   em algum link **Remover**.
 
@@ -624,7 +624,7 @@ fazer com que o `<c:forEach>` use a lista de contatos que foi colocada no _reque
     }
 ```
 
-1. Agora, vamos modificar a página `lista-contatos.jsp` para não instanciar
+2. Agora, vamos modificar a página `lista-contatos.jsp` para não instanciar
   mais `ContatoDao` na _View_, removendo a linha
   `<jsp:useBean id="dao" class="br.com.caelum.agenda.dao.ContatoDao" />`, e alterar
   o `<c:forEach>` para usar a lista de contatos que foi colocada pela lógica no
@@ -634,7 +634,7 @@ fazer com que o `<c:forEach>` use a lista de contatos que foi colocada no _reque
   <c:forEach var="contato" items="${contatos}">
 ```
 
-1. Agora podemos testar chamando:
+3. Agora podemos testar chamando:
   `http://localhost:8080/fj21-agenda/mvc?logica=ListaContatosLogica`
 1. Depois dessas alterações, será necessário alterar o retorno da classe
   `RemoveContatoLogica` pois agora a chamada direta do

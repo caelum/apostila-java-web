@@ -150,7 +150,7 @@ o atributo `dataFinalizacao` numa coluna chamada `data_finalizado` faríamos:
 Para usar uma tabela com o nome `tarefas`:
 
 ``` java
-  @Entity 
+  @Entity
   @Table(name="tarefas")
   public class Tarefa {
 ```
@@ -198,17 +198,17 @@ entidades e properties:
 
       <properties>
         <!-- dados da conexao -->
-        <property name="javax.persistence.jdbc.driver" 
+        <property name="javax.persistence.jdbc.driver"
             value="com.mysql.jdbc.Driver" />
-        <property name="javax.persistence.jdbc.url" 
+        <property name="javax.persistence.jdbc.url"
             value="jdbc:mysql://localhost/fj21" />
-        <property name="javax.persistence.jdbc.user" 
+        <property name="javax.persistence.jdbc.user"
             value="root" />
-        <property name="javax.persistence.jdbc.password" 
+        <property name="javax.persistence.jdbc.password"
             value="<SENHA DO BANCO AQUI>" />
 
         <!--  propriedades do hibernate -->
-        <property name="hibernate.dialect" 
+        <property name="hibernate.dialect"
             value="org.hibernate.dialect.MySQL8Dialect" />
         <property name="hibernate.show_sql" value="true" />
         <property name="hibernate.format_sql" value="true" />
@@ -315,14 +315,14 @@ Para essa aplicação usaremos as seguintes versões:
     <class>br.com.caelum.tarefas.modelo.Tarefa</class>
 
     <properties>
-      <property name="javax.persistence.jdbc.driver" 
+      <property name="javax.persistence.jdbc.driver"
         value="com.mysql.jdbc.Driver" />
-      <property name="javax.persistence.jdbc.url" 
+      <property name="javax.persistence.jdbc.url"
         value="jdbc:mysql://localhost/fj21" />
       <property name="javax.persistence.jdbc.user" value="root" />
       <property name="javax.persistence.jdbc.password" value="" />
 
-      <property name="hibernate.dialect" 
+      <property name="hibernate.dialect"
         value="org.hibernate.dialect.MySQL8Dialect" />
       <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.format_sql" value="true" />
@@ -350,7 +350,7 @@ Para essa aplicação usaremos as seguintes versões:
       }
   }
 ```
-1. Crie sua tabela executando a classe `GeraTabelas`. Para isso, clique da direita no código e vá
+3. Crie sua tabela executando a classe `GeraTabelas`. Para isso, clique da direita no código e vá
   em _Run As -> Java Application_.
 
   **Não é preciso rodar o Tomcat para esse exercício**.
@@ -383,7 +383,7 @@ Adquirimos uma `EntityManager` através da fábrica já conhecida: `EntityManage
   EntityManagerFactory factory = Persistence.createEntityManagerFactory("tarefas");
 
   EntityManager manager = factory.createEntityManager();
-  
+
   manager.close();
   factory.close();
 ```
@@ -404,7 +404,7 @@ Para isto, basta utilizar o método `persist` dentro de uma transação:
 
   manager.getTransaction().begin();		
   manager.persist(tarefa);
-  manager.getTransaction().commit();	
+  manager.getTransaction().commit();
 
   System.out.println("ID da tarefa: " + tarefa.getId());
 
@@ -447,7 +447,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
   ela vai criar um objeto e adicioná-lo ao banco:
 
 ``` java
-  package br.com.caelum.tarefas.jpa; 
+  package br.com.caelum.tarefas.jpa;
 
   // imports omitidos
 
@@ -466,7 +466,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
 
           manager.getTransaction().begin();		
           manager.persist(tarefa);
-          manager.getTransaction().commit();	
+          manager.getTransaction().commit();
 
           System.out.println("ID da tarefa: " + tarefa.getId());
 
@@ -474,7 +474,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
       }
   }
 ```
-1. Rode a classe `AdicionaTarefa` e adicione algumas tarefas no banco. Saída possível:
+2. Rode a classe `AdicionaTarefa` e adicione algumas tarefas no banco. Saída possível:
 
   ![ {w=70%}](assets/imagens/jpa/console-saida-ids.png)
 1. Verifique os registros no banco, se conecte com o cliente do mysql:
@@ -485,7 +485,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
   select * from Tarefa;
 ```
 
-  Se houver senha no banco, troque o primeiro comando por 
+  Se houver senha no banco, troque o primeiro comando por
   `mysql -u root -p`, usando a senha correta pro banco.
   Rode novamente a classe `AdicionaTarefa` e verifique o banco.
 1. Vamos carregar tarefas pela chave primária.
@@ -493,7 +493,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
   Crie uma classe chamada `CarregaTarefa` no pacote `br.com.caelum.tarefas.jpa`:
 
 ``` java
-  package br.com.caelum.tarefas.jpa; 
+  package br.com.caelum.tarefas.jpa;
 
   // imports omitidos
 
@@ -512,7 +512,7 @@ utilizamos o método `find`, conforme o exemplo a seguir:
       }
   }
 ```
-1. Rode a classe `CarregaTarefa` e verifique a saída.
+2. Rode a classe `CarregaTarefa` e verifique a saída.
 
   Caso recebeu uma exception, verifique o id da tarefa. Ele deve existir no banco.
 
@@ -562,7 +562,7 @@ não finalizadas:
   List<Tarefa> lista = manager
     .createQuery("select t from Tarefa as t where t.finalizado = false")
     .getResultList();
-  
+
   for (Tarefa tarefa : lista) {
       System.out.println(tarefa.getDescricao());
   }
@@ -578,7 +578,7 @@ representa a pesquisa (`javax.persistence.Query`):
       .createQuery("select t from Tarefa as t "+
           "where t.finalizado = :paramFinalizado");
   query.setParameter("paramFinalizado", false);
-  
+
   List<Tarefa> lista = query.getResultList();
 ```
 
@@ -600,7 +600,7 @@ trabalha com banco de dados.
   Cuidado, a classe `Query` vem do pacote `javax.persistence`:
 
 ``` java
-  package br.com.caelum.tarefas.jpa; 
+  package br.com.caelum.tarefas.jpa;
 
   import javax.persistence.Query;
   // outros imports omitidos
@@ -629,6 +629,6 @@ trabalha com banco de dados.
       }
   }
 ```
-1. Rode a classe `BuscaTarefas` e verifique a saída.
+2. Rode a classe `BuscaTarefas` e verifique a saída.
 
   ![ {w=70%}](assets/imagens/jpa/console-saida-query.png)
