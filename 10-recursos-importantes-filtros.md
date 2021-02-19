@@ -190,7 +190,7 @@ na anotação `@WebFilter` como foi feito no exemplo acima -`@WebFilter("/oi")`.
 quisermos definir que mais de uma URL será filtrada, podemos usar o atributo `urlPatterns`:
 
 ``` java
-  @WebFilter(filterName = "MeuFiltro", ulrPatterns = {"/oi", "/ola"})
+  @WebFilter(filterName = "MeuFiltro", urlPatterns = {"/oi", "/ola"})
   public class MeuFiltro implements Filter {
     public void doFilter(ServletRequest req,
         ServletResponse res, FilterChain chain) {

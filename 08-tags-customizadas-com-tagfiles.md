@@ -194,12 +194,8 @@ ou seja, `campoData.tag` será utilizando como `<caelum:campoData>`.
 
 
 
+
 ## Exercícios: criando nossa própria tag para calendário
-
-
-
-
-
 
 1. Vamos criar nossa tag para o campo de calendário com **datepicker**. Para isso
   vamos utilizar a biblioteca javascript jQuery.
